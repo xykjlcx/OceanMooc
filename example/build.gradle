@@ -19,11 +19,7 @@ android {
 }
 
 dependencies {
-    // fix 解决依赖包冲突问题
-    androidTestCompile('com.android.support:support-annotations:26.1.0') {
-        force = true
-    }
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation project(':ocean-mooc')
+    compile project(':ocean-mooc')
     annotationProcessor project(':ocean-compiler')
 }
