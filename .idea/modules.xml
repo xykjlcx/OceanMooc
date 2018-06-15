@@ -4,6 +4,12 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/OceanMooc.iml" filepath="$PROJECT_DIR$/OceanMooc.iml" />
       <module fileurl="file://$PROJECT_DIR$/example/app.iml" filepath="$PROJECT_DIR$/example/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/example/example.iml" filepath="$PROJECT_DIR$/example/example.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ocean-annotations/ocean-annotations.iml" filepath="$PROJECT_DIR$/ocean-annotations/ocean-annotations.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ocean-compiler/ocean-compiler.iml" filepath="$PROJECT_DIR$/ocean-compiler/ocean-compiler.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ocean-core/ocean-core.iml" filepath="$PROJECT_DIR$/ocean-core/ocean-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ocean-mooc/ocean-mooc.iml" filepath="$PROJECT_DIR$/ocean-mooc/ocean-mooc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ocean-annotations/rabbit-annotations.iml" filepath="$PROJECT_DIR$/ocean-annotations/rabbit-annotations.iml" />
     </modules>
   </component>
 </project>
