@@ -19,7 +19,7 @@ android {
 }
 
 dependencies {
-    // 解决依赖包冲突问题
+    // fix 解决依赖包冲突问题
     androidTestCompile('com.android.support:support-annotations:26.1.0') {
         force = true
     }
