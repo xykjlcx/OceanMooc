@@ -1,17 +1,20 @@
 # OceanMooc
 
+
 > 最好的植树时间是十年前，其次是现在
 
+
 #### 项目介绍
-Ocean Mooc For Android项目为作者毕设项目集的Android客户端。
+Ocean Mooc For Android项目为作者毕设项目集的Android客户端。  
+
 项目刚刚启动，计划于6月底完成基础库、及部分业务逻辑编写。
 
 #### 软件架构
 - `软件架构说明`
     - ocean-annotations 元注解库
     - ocean-compiler    编译时注解处理
-    - ocean-core        公共核心库
-    - ocean-mooc        mooc业务module  
+    - ocean-core        公共核心/类库
+    - ocean-mooc        业务Module(慕课)
 
 
 - `code实例`  
