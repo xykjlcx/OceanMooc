@@ -17,6 +17,49 @@ Ocean Mooc For Android项目为作者毕设项目集的Android客户端。
     - ocean-mooc        业务Module(慕课)
 
 
+- `开发环境`
+    - JDK Version       (10.0.1)
+    - Androi Studio Version (3.1.3)
+    - Gradle Version    (4.4)
+    - Gradle Plugin     (3.1.3)   
+    - 我的About Android Studio
+        - ```Android Studio 3.1.3
+             Build #AI-173.4819257, built on June 5, 2018
+             JRE: 1.8.0_152-release-1024-b01 x86_64
+             JVM: OpenJDK 64-Bit Server VM by JetBrains s.r.o
+             Mac OS X 10.13.5
+          ```
+    - app的build.gradle
+        ```
+        apply plugin: 'com.android.application'
+        
+        android {
+            compileSdkVersion 26
+            defaultConfig {
+                applicationId "com.oceanli.oceanmooc.example"
+                minSdkVersion 21
+                targetSdkVersion 26
+                versionCode 1
+                versionName "1.0"
+                testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+            }
+            buildTypes {
+                release {
+                    minifyEnabled false
+                    proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+                }
+            }
+        }
+        
+        dependencies {
+            implementation fileTree(include: ['*.jar'], dir: 'libs')
+            api project(':ocean-mooc')
+            annotationProcessor project(':ocean-compiler')
+        }
+
+        ```
+    
+    
 - `code实例`  
 
     OceanUtil为公共类库module的类

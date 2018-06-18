@@ -20,6 +20,6 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    compile project(':ocean-mooc')
+    api project(':ocean-mooc')
     annotationProcessor project(':ocean-compiler')
 }
