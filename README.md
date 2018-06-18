@@ -60,7 +60,7 @@ Ocean Mooc For Android项目为作者毕设项目集的Android客户端。
         ```
     
     
-- `code实例`  
+- `Code实例`  
 
     OceanUtil为公共类库module的类
     
