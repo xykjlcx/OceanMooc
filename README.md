@@ -81,7 +81,7 @@ Ocean Mooc For Android项目为作者毕设项目集的Android客户端。
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main);
             Log.e("ocean", "onCreate: " + "项目初始化完成" + "打印:***" + OceanUtils.AUTHOR + "***");
-            Toast.makeText(this, "hello world for first module application!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "hello ocean mooc", Toast.LENGTH_SHORT).show();
         }
     }
 
