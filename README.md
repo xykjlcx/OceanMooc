@@ -62,7 +62,7 @@ Ocean Mooc For Android项目为作者毕设项目集的Android客户端。
     
 - `Code实例`  
 
-    Ocean为Project全局配置
+    框架全局入口: ocean-core Module--|Ocean
     
     ```
     package com.oceanli.ocean.core.app;
