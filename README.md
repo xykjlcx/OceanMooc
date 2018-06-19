@@ -62,28 +62,42 @@ Ocean Mooc For Android项目为作者毕设项目集的Android客户端。
     
 - `Code实例`  
 
-    OceanUtil为公共类库module的类
+    Ocean为Project全局配置
     
     ```
-    package com.oceanli.oceanmooc.example;
+    package com.oceanli.ocean.core.app;
     
-    import android.os.Bundle;
-    import android.support.v7.app.AppCompatActivity;
-    import android.util.Log;
-    import android.widget.Toast;
+    import android.content.Context;
     
-    import com.oceanli.ocean.core.OceanUtils;
+    import java.util.HashMap;
+    import java.util.WeakHashMap;
     
-    public class MainActivity extends AppCompatActivity {
+    /**
+     * Created by ocean on 2018/6/19
+     * Author :  ocean
+     * Email  :  348686686@qq.com
+     */
+    public final class Ocean {
     
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_main);
-            Log.e("ocean", "onCreate: " + "项目初始化完成" + "打印:***" + OceanUtils.AUTHOR + "***");
-            Toast.makeText(this, "hello ocean mooc", Toast.LENGTH_SHORT).show();
+        public static Configurator init(Context context) {
+            getConfiguratorsMap().put(ConfigType.APPLICATION_CONTEXT.name(),context);
+            return Configurator.getInstance();
         }
+    
+        private static Configurator getConfigurator() {
+            return Configurator.getInstance();
+        }
+    
+        private static HashMap<String,Object> getConfiguratorsMap() {
+            return getConfigurator().getOceanConfigs();
+        }
+    
+        public static Context getApplicationContext() {
+            return (Context) getConfiguratorsMap().get(ConfigType.APPLICATION_CONTEXT.name());
+        }
+    
     }
+
 
     ```
 #### 安装教程

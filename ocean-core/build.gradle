@@ -37,4 +37,13 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     api project(':ocean-annotations')
+
+    /**
+     * 下面是应用依赖
+      */
+
+    // 图标 (https://github.com/JoanZapata/android-iconify)
+    api 'com.joanzapata.iconify:android-iconify-fontawesome:2.2.2' // (v4.5)
+    api 'com.joanzapata.iconify:android-iconify-ionicons:2.2.2' // (v2.0.1)
+
 }
