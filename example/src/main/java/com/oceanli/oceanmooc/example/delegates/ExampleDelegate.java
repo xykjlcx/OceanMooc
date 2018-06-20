@@ -32,17 +32,15 @@ public class ExampleDelegate extends OceanDelegate {
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
         test_Btn = rootView.findViewById(R.id.test_Btn);
-        Toast.makeText(Ocean.getApplicationContext(), Ocean.getConfiguration(ConfigType.API_HOST.name()) + "", Toast.LENGTH_SHORT).show();
         test_Btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Toast.makeText(getActivity(), "卧槽", Toast.LENGTH_SHORT).show();
                 RestClient.builder()
                         .url("")
                         .success(new ISuccess() {
                             @Override
                             public void onSuccess(String response) {
-                                Toast.makeText(getContext(), "成功了", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "net success" + response, Toast.LENGTH_SHORT).show();
                                 Log.e("ocean", "onSuccess: " + response);
                             }
                         })
