@@ -98,8 +98,28 @@ Ocean Mooc For Android项目为作者毕设项目集的Android客户端。
     
     }
 
-
     ```
+    
+- `网络请求`
+    - ```
+        test_Btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        RestClient.builder()
+                                .url("")
+                                .success(new ISuccess() {
+                                    @Override
+                                    public void onSuccess(String response) {
+                                        Toast.makeText(getContext(), "net success" + response, Toast.LENGTH_SHORT).show();
+                                        Log.e("ocean", "onSuccess: " + response);
+                                    }
+                                })
+                                .build()
+                                .get();
+                    }
+                });
+
+      ```
 #### 安装教程
 
 1. 项目完成后编写
