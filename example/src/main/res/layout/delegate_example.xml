@@ -4,6 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/test_Btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="访问百度(测试网络)"/>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

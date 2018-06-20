@@ -8,8 +8,6 @@
       <module fileurl="file://$PROJECT_DIR$/ocean-compiler/ocean-compiler.iml" filepath="$PROJECT_DIR$/ocean-compiler/ocean-compiler.iml" />
       <module fileurl="file://$PROJECT_DIR$/ocean-core/ocean-core.iml" filepath="$PROJECT_DIR$/ocean-core/ocean-core.iml" />
       <module fileurl="file://$PROJECT_DIR$/ocean-mooc/ocean-mooc.iml" filepath="$PROJECT_DIR$/ocean-mooc/ocean-mooc.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ocean-mooc/ocean-mooc.iml" filepath="$PROJECT_DIR$/ocean-mooc/ocean-mooc.iml" />
-      <module fileurl="file://$PROJECT_DIR$/oceanmooc/oceanmooc.iml" filepath="$PROJECT_DIR$/oceanmooc/oceanmooc.iml" />
     </modules>
   </component>
 </project>

@@ -5,6 +5,11 @@ import android.app.Application;
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
 import com.oceanli.ocean.core.app.Ocean;
 
+import java.io.IOException;
+
+import okhttp3.Interceptor;
+import okhttp3.Response;
+
 /**
  * Created by ocean on 2018/6/19
  * Author :  ocean
@@ -16,7 +21,7 @@ public class OceanApplication extends Application {
     public void onCreate() {
         super.onCreate();
         Ocean.init(this)
-                .withApiHost("http://localhost:8080/")
+                .withApiHost("http://www.baidu.com/")
                 .withIcon(new FontAwesomeModule())
                 .configure();
     }

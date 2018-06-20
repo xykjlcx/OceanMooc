@@ -1,11 +1,15 @@
 package com.oceanli.ocean.core.app;
 
+import android.util.Log;
+
 import com.joanzapata.iconify.IconFontDescriptor;
 import com.joanzapata.iconify.Iconify;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.WeakHashMap;
+
+import okhttp3.Interceptor;
 
 /**
  * Created by ocean on 2018/6/19
@@ -16,9 +20,11 @@ public class Configurator {
 
     private static final HashMap<String,Object> OCEAN_CONFIGS = new HashMap<>();
     private static final ArrayList <IconFontDescriptor> ICONS = new ArrayList();
+    private static final ArrayList<Interceptor> INTERCEPTORS = new ArrayList<>();
 
     private Configurator() {
         OCEAN_CONFIGS.put(ConfigType.CONFIG_READY.name(),false);
+        OCEAN_CONFIGS.put(ConfigType.INTERCEPTOR.name(),INTERCEPTORS);
     }
 
     /**
@@ -28,7 +34,7 @@ public class Configurator {
         private static final Configurator INSTANCE = new Configurator();
     }
 
-    public static Configurator getInstance() {
+    static Configurator getInstance() {
         return Holder.INSTANCE;
     }
 
@@ -43,6 +49,12 @@ public class Configurator {
 
     public final Configurator withApiHost(String host) {
         OCEAN_CONFIGS.put(ConfigType.API_HOST.name(),host);
+        return this;
+    }
+
+    public final Configurator withIntercepter(Interceptor intercepter) {
+        INTERCEPTORS.add(intercepter);
+        OCEAN_CONFIGS.put(ConfigType.INTERCEPTOR.name(),INTERCEPTORS);
         return this;
     }
 
@@ -67,8 +79,13 @@ public class Configurator {
         }
     }
 
-    final <T> T getConfiguration(Enum<ConfigType> key) {
+    @SuppressWarnings("unchecked")
+    final <T> T getConfiguration(Object key) {
         checkConfiguration();
+        final Object value = OCEAN_CONFIGS.get(key);
+        if (value == null) {
+            throw new NullPointerException(key.toString() + " IS NULL");
+        }
         return (T) OCEAN_CONFIGS.get(key);
     }
 

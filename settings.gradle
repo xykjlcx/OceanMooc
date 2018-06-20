@@ -1,1 +1,1 @@
-include ':example', ':ocean-annotations', ':ocean-compiler', ':ocean-core', ':ocean-mooc', ':oceanmooc'
+include ':example', ':ocean-annotations', ':ocean-compiler', ':ocean-core', ':ocean-mooc'

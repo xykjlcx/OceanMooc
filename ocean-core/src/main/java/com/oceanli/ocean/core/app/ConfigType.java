@@ -9,5 +9,6 @@ public enum ConfigType {
     API_HOST,                           // 全局url前缀
     APPLICATION_CONTEXT,                // 全局context
     CONFIG_READY,                       // 是否配置完成
-    ICON                                // icon
+    ICON,                               // icon
+    INTERCEPTOR                         // 拦截器
 }
