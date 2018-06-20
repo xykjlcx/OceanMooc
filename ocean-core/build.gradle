@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.jakewharton.butterknife'
 
 android {
     compileSdkVersion 26
@@ -45,5 +46,12 @@ dependencies {
     // 图标 (https://github.com/JoanZapata/android-iconify)
     api 'com.joanzapata.iconify:android-iconify-fontawesome:2.2.2' // (v4.5)
     api 'com.joanzapata.iconify:android-iconify-ionicons:2.2.2' // (v2.0.1)
+    // Fragmentation (https://github.com/YoKeyword/Fragmentation/blob/master/README_CN.md)
+    api 'me.yokeyword:fragmentation:1.3.5'
+    api 'me.yokeyword:fragmentation-swipeback:1.3.5'
+    // butterknife 依赖
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+
 
 }
