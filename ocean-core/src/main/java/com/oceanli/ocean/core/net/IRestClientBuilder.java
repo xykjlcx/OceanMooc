@@ -3,7 +3,9 @@ package com.oceanli.ocean.core.net;
 import android.content.Context;
 
 import com.oceanli.ocean.core.net.callback.IFailure;
+import com.oceanli.ocean.core.net.callback.IRequest;
 import com.oceanli.ocean.core.net.callback.ISuccess;
+import com.oceanli.ocean.core.ui.LoaderStyle;
 
 import java.util.Map;
 import java.util.WeakHashMap;
@@ -27,7 +29,9 @@ public interface IRestClientBuilder<T> {
 
     T success(ISuccess iSuccess);
 
-    T loader(Context context);
+    T request(IRequest iRequest);
+
+    T loader(Context context,LoaderStyle style);
 
     RestClient build();
 

@@ -40,10 +40,11 @@ public class ExampleDelegate extends OceanDelegate {
                         .success(new ISuccess() {
                             @Override
                             public void onSuccess(String response) {
-                                Toast.makeText(getContext(), "net success" + response, Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(getContext(), "net success" + response, Toast.LENGTH_SHORT).show();
                                 Log.e("ocean", "onSuccess: " + response);
                             }
                         })
+                        .loader(getActivity())
                         .build()
                         .get();
             }

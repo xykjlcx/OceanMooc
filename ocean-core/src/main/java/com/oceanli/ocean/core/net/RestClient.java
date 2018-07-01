@@ -1,10 +1,14 @@
 package com.oceanli.ocean.core.net;
 
 import android.content.Context;
+import android.os.Handler;
 import android.util.Log;
 
 import com.oceanli.ocean.core.net.callback.IFailure;
+import com.oceanli.ocean.core.net.callback.IRequest;
 import com.oceanli.ocean.core.net.callback.ISuccess;
+import com.oceanli.ocean.core.ui.LoaderStyle;
+import com.oceanli.ocean.core.ui.OceanLoader;
 
 import java.util.Map;
 import java.util.WeakHashMap;
@@ -28,18 +32,23 @@ public final class RestClient {
     private final RequestBody BODY;
     private final IFailure FAILURE;
     private final ISuccess SUCCESS;
+    private final IRequest IREQUEST;
+    private final LoaderStyle LOAD_STYLE;
     private final Context CONTEXT;
-
     RestClient(String url,
                       Map<String, Object> params,
                       RequestBody requestBody,
                       IFailure failure,
                       ISuccess success,
+                      IRequest iRequest,
+                      LoaderStyle loaderStyle,
                       Context context) {
         this.URL = url;
         this.BODY = requestBody;
         this.FAILURE = failure;
         this.SUCCESS = success;
+        this.IREQUEST = iRequest;
+        LOAD_STYLE = loaderStyle;
         this.CONTEXT = context;
     }
 
@@ -51,6 +60,11 @@ public final class RestClient {
     private final void request(HttpMethod method){
         ApiService apiService = RestCreator.getApiServices();
         Call<String> call = null;
+
+        if (LOAD_STYLE != null) {
+            OceanLoader.showLoading(CONTEXT);
+        }
+
         switch (method){
             case GET:
                 call = apiService.get(URL,PARAMS);
@@ -70,11 +84,18 @@ public final class RestClient {
                 public void onResponse(Call<String> call, Response<String> response) {
                     String result = response.body().toString();
                     SUCCESS.onSuccess(result);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            OceanLoader.stopLoading();
+                        }
+                    },2000);
                 }
 
                 @Override
                 public void onFailure(Call<String> call, Throwable t) {
                     FAILURE.onFailure();
+                    OceanLoader.stopLoading();
                 }
             });
         }

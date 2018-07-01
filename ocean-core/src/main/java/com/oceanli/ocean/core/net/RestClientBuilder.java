@@ -2,8 +2,12 @@ package com.oceanli.ocean.core.net;
 
 import android.content.Context;
 
+import com.oceanli.ocean.core.app.Ocean;
 import com.oceanli.ocean.core.net.callback.IFailure;
+import com.oceanli.ocean.core.net.callback.IRequest;
 import com.oceanli.ocean.core.net.callback.ISuccess;
+import com.oceanli.ocean.core.ui.LoaderStyle;
+import com.oceanli.ocean.core.ui.OceanLoader;
 
 import java.util.WeakHashMap;
 
@@ -22,6 +26,8 @@ public class RestClientBuilder implements IRestClientBuilder<RestClientBuilder> 
     private RequestBody mBody;
     private IFailure mIFailure = null;
     private ISuccess mISuccess = null;
+    private IRequest mIRequest = null;
+    private LoaderStyle mLoadStyle = null;
     private Context mContext = null;
 
 
@@ -61,11 +67,22 @@ public class RestClientBuilder implements IRestClientBuilder<RestClientBuilder> 
         return this;
     }
 
+    @Override
+    public RestClientBuilder request(IRequest iRequest) {
+        this.mIRequest = iRequest;
+        return this;
+    }
 
     @Override
+    public RestClientBuilder loader(Context context, LoaderStyle style) {
+        this.mContext = context;
+        this.mLoadStyle = style;
+        return this;
+    }
+
     public RestClientBuilder loader(Context context) {
         this.mContext = context;
-        // todo 等待loader类编写
+        this.mLoadStyle = OceanLoader.DEFAULT_LOADING_STYLE;
         return this;
     }
 
@@ -76,6 +93,8 @@ public class RestClientBuilder implements IRestClientBuilder<RestClientBuilder> 
                 mBody,
                 mIFailure,
                 mISuccess,
+                mIRequest,
+                mLoadStyle,
                 mContext);
     }
 }
