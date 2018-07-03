@@ -22,7 +22,7 @@ public class OceanLoader {
     private static final int LOADING_SIZE_SCALE = 8;
     private static final ArrayList<AppCompatDialog> LOADINGS = new ArrayList<>();
     // 默认loading样式
-    public static LoaderStyle DEFAULT_LOADING_STYLE = LoaderStyle.BallGridPulseIndicator;
+    public static LoaderStyle DEFAULT_LOADING_STYLE = LoaderStyle.BallPulseIndicator;
 
     public static void showLoading(Context context,String type) {
         final AppCompatDialog dialog = new AppCompatDialog(context, R.style.loadingDialog);

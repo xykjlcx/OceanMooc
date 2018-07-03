@@ -7,12 +7,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.oceanli.ocean.core.app.ConfigType;
-import com.oceanli.ocean.core.app.Ocean;
 import com.oceanli.ocean.core.delegates.OceanDelegate;
+import com.oceanli.ocean.core.ui.launch.ISkipListener;
+import com.oceanli.ocean.core.ui.launch.OceanLaunchView;
 import com.oceanli.ocean.core.net.RestClient;
 import com.oceanli.ocean.core.net.callback.ISuccess;
 import com.oceanli.oceanmooc.example.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by ocean on 2018/6/20
@@ -22,6 +25,7 @@ import com.oceanli.oceanmooc.example.R;
 public class ExampleDelegate extends OceanDelegate {
 
     private AppCompatButton test_Btn;
+    private OceanLaunchView oceanLaunchView;
 
 
     @Override
@@ -49,6 +53,18 @@ public class ExampleDelegate extends OceanDelegate {
                         .get();
             }
         });
+        oceanLaunchView = rootView.findViewById(R.id.test_launch);
+        List<Integer> ids = new ArrayList<>();
+        ids.add(R.drawable.fragmentation_help);
+        ids.add(R.drawable.fragmentation_ic_right);
+        oceanLaunchView.setImgResource(ids);
+        oceanLaunchView.setSkipListener(new ISkipListener() {
+            @Override
+            public void onClick() {
+                Toast.makeText(getActivity(), "被点击跳过", Toast.LENGTH_SHORT).show();
+            }
+        });
+        oceanLaunchView.launch();
     }
 
 
