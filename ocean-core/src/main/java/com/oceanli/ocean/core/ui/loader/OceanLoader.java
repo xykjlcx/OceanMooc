@@ -1,4 +1,4 @@
-package com.oceanli.ocean.core.ui;
+package com.oceanli.ocean.core.ui.loader;
 
 import android.content.Context;
 import android.support.v7.app.AppCompatDialog;
@@ -7,6 +7,8 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.oceanli.ocean.core.R;
+import com.oceanli.ocean.core.ui.loader.LoaderCreator;
+import com.oceanli.ocean.core.ui.loader.LoaderStyle;
 import com.oceanli.ocean.core.util.DimenUtil;
 import com.wang.avi.AVLoadingIndicatorView;
 

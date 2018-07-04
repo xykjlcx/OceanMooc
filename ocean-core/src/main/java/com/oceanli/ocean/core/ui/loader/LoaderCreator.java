@@ -1,4 +1,4 @@
-package com.oceanli.ocean.core.ui;
+package com.oceanli.ocean.core.ui.loader;
 
 import android.content.Context;
 

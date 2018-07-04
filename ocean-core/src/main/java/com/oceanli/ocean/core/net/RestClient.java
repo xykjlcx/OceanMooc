@@ -7,8 +7,8 @@ import android.util.Log;
 import com.oceanli.ocean.core.net.callback.IFailure;
 import com.oceanli.ocean.core.net.callback.IRequest;
 import com.oceanli.ocean.core.net.callback.ISuccess;
-import com.oceanli.ocean.core.ui.LoaderStyle;
-import com.oceanli.ocean.core.ui.OceanLoader;
+import com.oceanli.ocean.core.ui.loader.LoaderStyle;
+import com.oceanli.ocean.core.ui.loader.OceanLoader;
 
 import java.util.Map;
 import java.util.WeakHashMap;

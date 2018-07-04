@@ -1,4 +1,4 @@
-package com.oceanli.ocean.core.ui;
+package com.oceanli.ocean.core.ui.loader;
 
 /**
  * Created by ocean on 2018/7/1

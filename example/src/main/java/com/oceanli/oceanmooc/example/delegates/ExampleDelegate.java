@@ -54,10 +54,8 @@ public class ExampleDelegate extends OceanDelegate {
             }
         });
         oceanLaunchView = rootView.findViewById(R.id.test_launch);
-        List<Integer> ids = new ArrayList<>();
-        ids.add(R.drawable.fragmentation_help);
-        ids.add(R.drawable.fragmentation_ic_right);
-        oceanLaunchView.setImgResource(ids);
+        int[] resources = {R.drawable.shadow_bottom,R.drawable.shadow_right};
+        oceanLaunchView.setImgResource(resources);
         oceanLaunchView.setSkipListener(new ISkipListener() {
             @Override
             public void onClick() {

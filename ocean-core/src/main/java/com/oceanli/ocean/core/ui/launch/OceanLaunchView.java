@@ -1,22 +1,23 @@
 package com.oceanli.ocean.core.ui.launch;
 
 import android.content.Context;
-import android.support.v4.view.PagerAdapter;
+import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatImageView;
-import android.support.v7.widget.AppCompatRadioButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.RadioGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.oceanli.ocean.core.R;
+import com.oceanli.ocean.core.app.Ocean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,7 @@ import java.util.List;
  * Author :  ocean
  * Email  :  348686686@qq.com
  */
-public class OceanLaunchView extends RelativeLayout implements ViewPager.OnPageChangeListener,View.OnClickListener {
+public class OceanLaunchView extends RelativeLayout{
     private AppCompatButton mSkipBtn;
     private ViewPager mLaunchVpg;
     private OceanLaunchPageAdapter mAdapter;
@@ -74,12 +75,20 @@ public class OceanLaunchView extends RelativeLayout implements ViewPager.OnPageC
 
     private void initView(Context context){
         mContext = context;
-        mAdapter = new OceanLaunchPageAdapter();
         LayoutInflater.from(context).inflate(R.layout.view_launch,this,true);
         mSkipBtn = findViewById(R.id.btn_launch);
         mLayoutCompat = findViewById(R.id.layout_launch);
         mLaunchVpg = findViewById(R.id.vpg_launch);
-        mSkipBtn.setOnClickListener(this);
+        //TODO 7.5日参考https://www.jianshu.com/p/adb21180862a完善引导页封装，并参考视频封装SharedPreferences,收尾网络模块
+        mAdapter = new OceanLaunchPageAdapter(mImageViews);
+        mSkipBtn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mISkipListener != null){
+                    mISkipListener.onClick();
+                }
+            }
+        });
     }
 
     public void setSkipListener(ISkipListener mISkipListener) {
@@ -94,6 +103,14 @@ public class OceanLaunchView extends RelativeLayout implements ViewPager.OnPageC
         addIndicator();
     }
 
+    public void setImgResource(int[] imgs) {
+        List<Integer> list = new ArrayList<>();
+        for (int i = 0; i < imgs.length; i++) {
+            list.add(imgs[i]);
+        }
+        setImgResource(list);
+    }
+
     /**
      * 匹配图片资源
      */
@@ -102,6 +119,7 @@ public class OceanLaunchView extends RelativeLayout implements ViewPager.OnPageC
         for (int i = 0; i < mImgResource.size(); i++) {
             AppCompatImageView imageView = new AppCompatImageView(mContext);
             imageView.setImageResource(mImgResource.get(i));
+            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
             mImageViews.add(imageView);
         }
     }
@@ -122,7 +140,7 @@ public class OceanLaunchView extends RelativeLayout implements ViewPager.OnPageC
         }
     }
 
-    public void setMargin(View view,int left,int top,int right,int bottom) {
+    private void setMargin(View view,int left,int top,int right,int bottom) {
         ViewGroup.LayoutParams params = view.getLayoutParams();
         ViewGroup.MarginLayoutParams marginParams = null;
         //获取view的margin设置参数
@@ -146,63 +164,25 @@ public class OceanLaunchView extends RelativeLayout implements ViewPager.OnPageC
 
     public void launch() {
         if (isReady == false){
-            throw new RuntimeException("尚未准备完成！");
+            throw new RuntimeException("OceanLaunchView Configuration Not Complete !!! ");
         }
         mLaunchVpg.setAdapter(mAdapter);
-        mLaunchVpg.setOnPageChangeListener(this);
-    }
-
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-        setTab(position);
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-
-    }
-
-    @Override
-    public void onClick(View v) {
-        int i = v.getId();
-        if (i == R.id.btn_launch) {
-            if (mISkipListener != null){
-                mISkipListener.onClick();
+        mLaunchVpg.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                Log.e("ocean", "onPageScrolled: "  + "A:" + position + "B:" + positionOffset + "C:" + positionOffsetPixels);
             }
-        }
-    }
 
-    /**
-     * 静态内部类 —— 适配器
-     */
-    private class OceanLaunchPageAdapter extends PagerAdapter{
+            @Override
+            public void onPageSelected(int position) {
+                setTab(position);
+            }
 
-        @Override
-        public int getCount() {
-            return mImgResource.size();
-        }
-
-        @Override
-        public boolean isViewFromObject(View view, Object object) {
-            return view == object;
-        }
-
-        @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-            AppCompatImageView imageView = mImageViews.get(position);
-            container.addView(imageView);
-            return imageView;
-        }
-
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            container.removeView((View) object);
-        }
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                Log.e("ocean", "onPageScrollStateChanged: " + state);
+            }
+        });
     }
 
 }
