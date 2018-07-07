@@ -7,9 +7,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.oceanli.ocean.core.R;
-import com.oceanli.ocean.core.ui.loader.LoaderCreator;
-import com.oceanli.ocean.core.ui.loader.LoaderStyle;
-import com.oceanli.ocean.core.util.DimenUtil;
+import com.oceanli.ocean.core.util.dimen.DimenUtil;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;

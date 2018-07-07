@@ -21,6 +21,7 @@ import com.oceanli.ocean.core.app.Ocean;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
 
 /**
  * Created by ocean on 2018/7/3
@@ -34,6 +35,7 @@ public class OceanLaunchView extends RelativeLayout{
     private LinearLayoutCompat mLayoutCompat;
     private List<AppCompatTextView> mTextViews = new ArrayList<>();
     private Context mContext;
+
 
     /**
      * 跳过按钮被单击 - 监听器

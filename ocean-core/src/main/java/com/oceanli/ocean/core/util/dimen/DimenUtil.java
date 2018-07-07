@@ -1,6 +1,8 @@
-package com.oceanli.ocean.core.util;
+package com.oceanli.ocean.core.util.dimen;
 
+import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 
 import com.oceanli.ocean.core.app.Ocean;
