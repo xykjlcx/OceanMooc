@@ -3,6 +3,7 @@ package com.oceanli.oceanmooc.example.activity;
 import com.oceanli.ocean.core.activites.ProxyActivity;
 import com.oceanli.ocean.core.delegates.OceanDelegate;
 import com.oceanli.oceanmooc.example.delegates.ExampleDelegate;
+import com.oceanli.oceanmooc.example.delegates.VideoDelegate;
 
 /**
  * Created by ocean on 2018/7/4
@@ -12,6 +13,6 @@ import com.oceanli.oceanmooc.example.delegates.ExampleDelegate;
 public class TestActivity extends ProxyActivity {
     @Override
     public OceanDelegate setRootDelegate() {
-        return new ExampleDelegate();
+        return new VideoDelegate();
     }
 }

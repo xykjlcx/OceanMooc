@@ -10,6 +10,7 @@ import com.oceanli.ocean.core.net.callback.ISuccess;
 import com.oceanli.ocean.core.ui.loader.LoaderStyle;
 import com.oceanli.ocean.core.ui.loader.OceanLoader;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.WeakHashMap;
 
@@ -27,7 +28,7 @@ public final class RestClient {
 
     String TAG = "ocean";
 
-    private final static WeakHashMap<String,Object> PARAMS = RestCreator.getParams();
+    private final static HashMap<String,Object> PARAMS = RestCreator.getParams();
     private final String URL;
     private final RequestBody BODY;
     private final IFailure FAILURE;
@@ -70,6 +71,7 @@ public final class RestClient {
                 call = apiService.get(URL,PARAMS);
                 break;
             case POST:
+                call = apiService.post(URL,PARAMS);
                 break;
             case POSTJSON:
                 break;
@@ -78,6 +80,7 @@ public final class RestClient {
             case UPLOAD:
                 break;
         }
+        Log.e(TAG, "request: url:" + URL + "111111111111111111111 -> " + PARAMS );
         if (call != null){
             call.enqueue(new Callback<String>() {
                 @Override
@@ -109,7 +112,7 @@ public final class RestClient {
     }
 
     public final void post(){
-        Log.e(TAG, "post: ");
+        request(HttpMethod.POST);
     }
 
     public final void postJson(){

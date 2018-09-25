@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.oceanli.ocean.core.delegates.OceanDelegate;
+import com.oceanli.ocean.core.net.callback.IFailure;
 import com.oceanli.ocean.core.ui.launch.ISkipListener;
 import com.oceanli.ocean.core.ui.launch.OceanLaunchView;
 import com.oceanli.ocean.core.net.RestClient;
@@ -46,6 +47,12 @@ public class ExampleDelegate extends OceanDelegate {
                             public void onSuccess(String response) {
 //                                Toast.makeText(getContext(), "net success" + response, Toast.LENGTH_SHORT).show();
                                 Log.e("ocean", "onSuccess: " + response);
+                            }
+                        })
+                        .failure(new IFailure() {
+                            @Override
+                            public void onFailure() {
+
                             }
                         })
                         .loader(getActivity())

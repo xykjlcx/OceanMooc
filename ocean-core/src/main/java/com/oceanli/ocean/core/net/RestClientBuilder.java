@@ -8,6 +8,7 @@ import com.oceanli.ocean.core.net.callback.ISuccess;
 import com.oceanli.ocean.core.ui.loader.LoaderStyle;
 import com.oceanli.ocean.core.ui.loader.OceanLoader;
 
+import java.util.HashMap;
 import java.util.WeakHashMap;
 
 import okhttp3.MediaType;
@@ -20,7 +21,7 @@ import okhttp3.RequestBody;
  */
 public class RestClientBuilder implements IRestClientBuilder<RestClientBuilder> {
 
-    private static final WeakHashMap<String,Object> PARAMS = RestCreator.getParams();
+    private static final HashMap<String,Object> PARAMS = RestCreator.getParams();
     private String mUrl = null;
     private RequestBody mBody;
     private IFailure mIFailure = null;
@@ -37,7 +38,7 @@ public class RestClientBuilder implements IRestClientBuilder<RestClientBuilder> 
     }
 
     @Override
-    public RestClientBuilder params(WeakHashMap<String, Object> params) {
+    public RestClientBuilder params(HashMap<String, Object> params) {
         PARAMS.putAll(params);
         return this;
     }

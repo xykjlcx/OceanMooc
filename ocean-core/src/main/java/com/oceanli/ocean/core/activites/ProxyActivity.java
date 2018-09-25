@@ -1,10 +1,12 @@
 package com.oceanli.ocean.core.activites;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.ContentFrameLayout;
 
+import com.gyf.barlibrary.ImmersionBar;
 import com.oceanli.ocean.core.R;
 import com.oceanli.ocean.core.delegates.OceanDelegate;
 
@@ -19,6 +21,7 @@ public abstract class ProxyActivity extends SupportActivity {
 
     public abstract OceanDelegate setRootDelegate();
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +29,7 @@ public abstract class ProxyActivity extends SupportActivity {
     }
 
     private void initContainer(@Nullable Bundle savedInstanceState) {
-        final ContentFrameLayout contentFrameLayout = new ContentFrameLayout(this);
+        @SuppressLint("RestrictedApi") final ContentFrameLayout contentFrameLayout = new ContentFrameLayout(this);
         contentFrameLayout.setId(R.id.delegate_container);
         setContentView(contentFrameLayout);
         if (savedInstanceState == null){

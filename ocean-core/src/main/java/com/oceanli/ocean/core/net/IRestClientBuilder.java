@@ -7,6 +7,7 @@ import com.oceanli.ocean.core.net.callback.IRequest;
 import com.oceanli.ocean.core.net.callback.ISuccess;
 import com.oceanli.ocean.core.ui.loader.LoaderStyle;
 
+import java.util.HashMap;
 import java.util.WeakHashMap;
 
 /**
@@ -18,7 +19,7 @@ public interface IRestClientBuilder<T> {
 
     T url(String url);
 
-    T params(WeakHashMap<String,Object> params);
+    T params(HashMap<String,Object> params);
 
     T params(String key,Object value);
 

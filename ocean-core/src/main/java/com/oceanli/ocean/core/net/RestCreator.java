@@ -6,6 +6,7 @@ import com.oceanli.ocean.core.app.ConfigType;
 import com.oceanli.ocean.core.app.Ocean;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.WeakHashMap;
 import java.util.concurrent.TimeUnit;
 
@@ -25,11 +26,11 @@ public final class RestCreator {
      * 参数容器
      */
     private static final class ParamsHolder {
-        private static final WeakHashMap<String,Object> PARAMS = new WeakHashMap<>();
+        private static final HashMap<String,Object> PARAMS = new HashMap<>();
     }
 
     // 单例
-    public static WeakHashMap<String,Object> getParams() {
+    public static HashMap<String,Object> getParams() {
         return ParamsHolder.PARAMS;
     }
 

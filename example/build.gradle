@@ -22,4 +22,19 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     api project(':ocean-mooc')
     annotationProcessor project(':ocean-compiler')
+
+//    configurations {
+//        all*.exclude group: 'com.android.support', module: 'support-v13'
+//    }
+
+    implementation 'com.android.support:design:27.1.0'
+
+
+    // 视频框架DKPlayer
+    implementation 'com.shuyu:GSYVideoPlayer:6.0.0-beta'
+
+    // bottomBar
+    api 'com.roughike:bottom-bar:2.3.1'
+
+
 }

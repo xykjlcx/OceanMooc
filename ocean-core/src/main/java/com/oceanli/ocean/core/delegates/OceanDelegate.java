@@ -7,6 +7,4 @@ package com.oceanli.ocean.core.delegates;
  */
 public abstract class OceanDelegate extends PermissionCheckerDelegate {
 
-
-
 }

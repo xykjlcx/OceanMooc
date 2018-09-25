@@ -1,5 +1,6 @@
 package com.oceanli.ocean.core.net;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.WeakHashMap;
 
@@ -7,6 +8,7 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.FieldMap;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
@@ -24,10 +26,11 @@ import retrofit2.http.Url;
 public interface ApiService {
 
     @GET
-    Call<String> get(@Url String url, @QueryMap WeakHashMap<String,Object> params);
+    Call<String> get(@Url String url, @QueryMap HashMap<String,Object> params);
 
     @POST
-    Call<String> post(@Url String url, @FieldMap WeakHashMap<String,Object> params);
+    @FormUrlEncoded
+    Call<String> post(@Url String url, @FieldMap HashMap<String,Object> params);
 
     @POST
     Call<String> postJson(@Url String url, @Body RequestBody requestBody);

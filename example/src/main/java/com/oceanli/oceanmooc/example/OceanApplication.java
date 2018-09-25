@@ -2,6 +2,7 @@ package com.oceanli.oceanmooc.example;
 
 import android.app.Application;
 
+import com.gyf.barlibrary.ImmersionBar;
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
 import com.oceanli.ocean.core.app.Ocean;
 

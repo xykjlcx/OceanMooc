@@ -9,6 +9,7 @@ import com.oceanli.ocean.core.delegates.OceanDelegate;
 import com.oceanli.ocean.core.ui.launch.ISkipListener;
 import com.oceanli.ocean.core.ui.launch.OceanLaunchView;
 import com.oceanli.oceanmooc.example.R;
+import com.oceanli.oceanmooc.example.activity.MainActivity;
 import com.oceanli.oceanmooc.example.activity.TestActivity;
 
 /**
@@ -36,7 +37,7 @@ public class TestLaunchDelegate extends OceanDelegate {
             @Override
             public void onClick() {
                 getActivity().finish();
-                startActivity(new Intent(getActivity(), TestActivity.class));
+                startActivity(new Intent(getActivity(), MainActivity.class));
             }
         });
         launchView.launch();
