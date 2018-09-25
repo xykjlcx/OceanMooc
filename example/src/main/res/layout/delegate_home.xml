@@ -4,12 +4,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <View
+        android:id="@+id/cheng"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:text="首页"
-        android:textSize="30dp"/>
+        android:layout_height="wrap_content"/>
+
+    <net.lucode.hackware.magicindicator.MagicIndicator
+        android:id="@+id/magic_indicator"
+        android:layout_width="match_parent"
+        android:layout_marginTop="5dp"
+        android:paddingLeft="10dp"
+        android:layout_height="50dp" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/dlgt_home_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </android.support.v4.view.ViewPager>
 
 </LinearLayout>

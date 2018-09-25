@@ -3,14 +3,18 @@
     <tab
         id="@+id/tab_home"
         icon="@drawable/ic_home"
-        title="首页" />
+        title="首页"/>
     <tab
         id="@+id/tab_course"
         icon="@drawable/ic_course"
-        title="课程" />
+        title="课程"/>
     <tab
         id="@+id/tab_user"
         icon="@drawable/ic_user"
-        title="个人中心" />
+        title="个人中心"/>
+
+    <!--barColorWhenSelected="#4C88FF"-->
+    <!--inActiveColor="#363636"-->
+    <!--activeColor="#000000"-->
 
 </tabs>

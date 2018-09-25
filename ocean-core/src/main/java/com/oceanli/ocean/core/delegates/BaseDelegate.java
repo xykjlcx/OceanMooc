@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.gyf.barlibrary.ImmersionBar;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import me.yokeyword.fragmentation_swipeback.SwipeBackFragment;
@@ -18,6 +20,8 @@ import me.yokeyword.fragmentation_swipeback.SwipeBackFragment;
 public abstract class BaseDelegate extends SwipeBackFragment {
 
     private Unbinder mUnbinder = null;
+
+    protected ImmersionBar mImmersionBar;
 
     public abstract Object setLayout();
 
@@ -44,5 +48,24 @@ public abstract class BaseDelegate extends SwipeBackFragment {
         super.onDestroyView();
         if (mUnbinder != null)
             mUnbinder.unbind();
+        if (mImmersionBar != null)
+            mImmersionBar.destroy();
     }
+
+    @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        //如果要在Fragment单独使用沉浸式，请在onSupportVisible实现沉浸式
+        if (isImmersionBarEnabled()) {
+            View view = new View(_mActivity);
+            mImmersionBar = ImmersionBar.with(this).statusBarDarkFont(true, 0.2f).statusBarView(view);
+            mImmersionBar.navigationBarWithKitkatEnable(false).init();
+        }
+    }
+
+    private boolean isImmersionBarEnabled() {
+        return false;
+    }
+
+
 }
