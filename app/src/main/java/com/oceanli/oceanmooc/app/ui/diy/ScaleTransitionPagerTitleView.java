@@ -1,4 +1,4 @@
-package com.oceanli.oceanmooc.app.other;
+package com.oceanli.oceanmooc.app.ui.diy;
 
 /**
  * Created by ocean on 2018/9/25

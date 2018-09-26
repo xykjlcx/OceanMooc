@@ -1,4 +1,4 @@
-package com.oceanli.oceanmooc.app.delegates;
+package com.oceanli.oceanmooc.app.ui.delegates;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.gongwen.marqueen.MarqueeFactory;
 import com.oceanli.oceanmooc.app.R;
+import com.oceanli.oceanmooc.app.models.OceanMarqueeItemModel;
 
 /**
  * Created by ocean on 2018/9/26

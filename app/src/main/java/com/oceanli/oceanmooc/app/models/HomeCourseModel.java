@@ -5,16 +5,16 @@ package com.oceanli.oceanmooc.app.models;
  * Author :  ocean
  * Email  :  348686686@qq.com
  */
-public class Model {
+public class HomeCourseModel {
 
     private String title;
     private String content;
     private String imgUrl;
 
-    public Model() {
+    public HomeCourseModel() {
     }
 
-    public Model(String title, String content, String imgUrl) {
+    public HomeCourseModel(String title, String content, String imgUrl) {
         this.title = title;
         this.content = content;
         this.imgUrl = imgUrl;

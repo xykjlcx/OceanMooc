@@ -1,11 +1,8 @@
-package com.oceanli.oceanmooc.app.activity;
-
-import android.util.Log;
+package com.oceanli.oceanmooc.app.ui.activity;
 
 import com.oceanli.ocean.core.activites.ProxyActivity;
 import com.oceanli.ocean.core.delegates.OceanDelegate;
-import com.oceanli.oceanmooc.app.delegates.ExampleDelegate;
-import com.oceanli.oceanmooc.app.delegates.TestLaunchDelegate;
+import com.oceanli.oceanmooc.app.ui.delegates.TestLaunchDelegate;
 
 public class LaunchActivity extends ProxyActivity {
     @Override

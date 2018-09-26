@@ -16,7 +16,7 @@ import okhttp3.Response;
  * Author :  ocean
  * Email  :  348686686@qq.com
  */
-public class OceanApplication extends Application {
+public class OmApplication extends Application {
 
     @Override
     public void onCreate() {

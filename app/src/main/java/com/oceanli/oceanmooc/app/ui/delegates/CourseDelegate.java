@@ -1,19 +1,11 @@
-package com.oceanli.oceanmooc.app.delegates;
+package com.oceanli.oceanmooc.app.ui.delegates;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
-import com.bumptech.glide.Glide;
 import com.oceanli.ocean.core.delegates.OceanDelegate;
 import com.oceanli.oceanmooc.app.R;
-import com.oceanli.oceanmooc.app.other.GlideImageLoader;
-import com.youth.banner.Banner;
-
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.SimplePagerTitleView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by ocean on 2018/9/25

@@ -1,15 +1,13 @@
-package com.oceanli.oceanmooc.app.delegates;
+package com.oceanli.oceanmooc.app.ui.delegates;
 
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.view.View;
-import android.widget.Toast;
 
 import com.oceanli.ocean.core.delegates.OceanDelegate;
 import com.oceanli.oceanmooc.app.R;
 import com.roughike.bottombar.BottomBar;
-import com.roughike.bottombar.BottomBarTab;
 import com.roughike.bottombar.OnTabSelectListener;
 
 import me.yokeyword.fragmentation.SupportFragment;

@@ -1,4 +1,4 @@
-package com.oceanli.oceanmooc.app.delegates;
+package com.oceanli.oceanmooc.app.ui.delegates;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,9 +14,6 @@ import com.oceanli.ocean.core.ui.launch.OceanLaunchView;
 import com.oceanli.ocean.core.net.RestClient;
 import com.oceanli.ocean.core.net.callback.ISuccess;
 import com.oceanli.oceanmooc.app.R;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by ocean on 2018/6/20

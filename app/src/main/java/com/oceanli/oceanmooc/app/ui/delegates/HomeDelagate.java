@@ -1,4 +1,4 @@
-package com.oceanli.oceanmooc.app.delegates;
+package com.oceanli.oceanmooc.app.ui.delegates;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -10,7 +10,7 @@ import android.view.View;
 import com.oceanli.ocean.core.delegates.OceanDelegate;
 import com.oceanli.oceanmooc.app.R;
 import com.oceanli.oceanmooc.app.adapter.HomeDelegateViewPageAdapter;
-import com.oceanli.oceanmooc.app.other.ScaleTransitionPagerTitleView;
+import com.oceanli.oceanmooc.app.ui.diy.ScaleTransitionPagerTitleView;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -19,8 +19,6 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNav
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.BezierPagerIndicator;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.SimplePagerTitleView;
 
 import java.util.ArrayList;

@@ -4,8 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.oceanli.oceanmooc.app.delegates.HomeMyCourseDelagate;
-import com.oceanli.oceanmooc.app.delegates.HomeRecommendDelegate;
+import com.oceanli.oceanmooc.app.ui.delegates.HomeMyCourseDelagate;
+import com.oceanli.oceanmooc.app.ui.delegates.HomeRecommendDelegate;
 
 /**
  * Created by ocean on 2018/9/25

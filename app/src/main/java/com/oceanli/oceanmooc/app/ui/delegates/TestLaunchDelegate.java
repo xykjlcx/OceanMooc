@@ -1,4 +1,4 @@
-package com.oceanli.oceanmooc.app.delegates;
+package com.oceanli.oceanmooc.app.ui.delegates;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,8 +9,7 @@ import com.oceanli.ocean.core.delegates.OceanDelegate;
 import com.oceanli.ocean.core.ui.launch.ISkipListener;
 import com.oceanli.ocean.core.ui.launch.OceanLaunchView;
 import com.oceanli.oceanmooc.app.R;
-import com.oceanli.oceanmooc.app.activity.MainActivity;
-import com.oceanli.oceanmooc.app.activity.TestActivity;
+import com.oceanli.oceanmooc.app.ui.activity.MainActivity;
 
 /**
  * Created by ocean on 2018/7/4

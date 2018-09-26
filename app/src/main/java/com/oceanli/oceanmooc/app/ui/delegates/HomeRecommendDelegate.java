@@ -1,4 +1,4 @@
-package com.oceanli.oceanmooc.app.delegates;
+package com.oceanli.oceanmooc.app.ui.delegates;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -18,9 +18,9 @@ import com.oceanli.oceanmooc.app.R;
 import com.oceanli.oceanmooc.app.adapter.GridRecyclerViewAdapter;
 import com.oceanli.oceanmooc.app.adapter.RecommendRecyclerViewAdapter;
 import com.oceanli.oceanmooc.app.models.GridCourseModel;
-import com.oceanli.oceanmooc.app.models.Model;
+import com.oceanli.oceanmooc.app.models.HomeCourseModel;
 import com.oceanli.oceanmooc.app.other.GlideImageLoader;
-import com.oceanli.oceanmooc.app.other.OceanMarqueeItemModel;
+import com.oceanli.oceanmooc.app.models.OceanMarqueeItemModel;
 import com.oceanli.oceanmooc.app.other.OceanMarqueeViewMF;
 import com.scwang.smartrefresh.header.PhoenixHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -52,7 +52,7 @@ public class HomeRecommendDelegate extends OceanDelegate {
 
     private RecyclerView recyclerView;
     private RecommendRecyclerViewAdapter recommendRecyclerViewAdapter;
-    private List<Model> data;
+    private List<HomeCourseModel> data;
 
     private MarqueeView<RelativeLayout,OceanMarqueeItemModel> modelMarqueeView;
 
@@ -88,9 +88,9 @@ public class HomeRecommendDelegate extends OceanDelegate {
         banner = rootView.findViewById(R.id.banner_recommed);
         banner.setImageLoader(new GlideImageLoader());
         List<String> list = new ArrayList<>();
-        list.add("https://www.skuimg.com/u/20180926/0940537.jpg");
-        list.add("https://www.skuimg.com/u/20180926/09405332.jpg");
-        list.add("https://www.skuimg.com/u/20180926/09405335.jpg");
+        list.add("http://pevcw8o7e.bkt.clouddn.com/sr.jpg");
+        list.add("http://pevcw8o7e.bkt.clouddn.com/jass.jpg");
+        list.add("http://pevcw8o7e.bkt.clouddn.com/sc.jpg");
         banner.setImages(list);
         banner.setBannerTitles(Arrays.asList(mtitles));
         banner.setBannerAnimation(Transformer.FlipHorizontal);
@@ -130,10 +130,10 @@ public class HomeRecommendDelegate extends OceanDelegate {
     public void initRecycler(View rootView){
         data = new ArrayList<>();
         for (int i = 0; i < 30; i++) {
-            Model model = new Model();
-            model.setTitle("这是标题" + i);
-            model.setContent("这是内容" + i);
-            data.add(model);
+            HomeCourseModel homeCourseModel = new HomeCourseModel();
+            homeCourseModel.setTitle("这是标题" + i);
+            homeCourseModel.setContent("这是内容" + i);
+            data.add(homeCourseModel);
         }
         recyclerView = rootView.findViewById(R.id.recycler_recommend);
         recommendRecyclerViewAdapter = new RecommendRecyclerViewAdapter(R.layout.item_recycler_recommend,data);
@@ -180,16 +180,16 @@ public class HomeRecommendDelegate extends OceanDelegate {
     public void initRefresh(View rootView){
         smartRefreshLayout = rootView.findViewById(R.id.recommend_refresh);
         smartRefreshLayout.setRefreshHeader(new PhoenixHeader(_mActivity));
-        smartRefreshLayout.setEnableLoadMore(false);
+//        smartRefreshLayout.setEnableLoadMore(false);
         smartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshLayout) {
                 data.clear();
                 for (int i = 0; i < 3; i++) {
-                    Model model = new Model();
-                    model.setTitle("这是重新刷新的标题：" + i);
-                    model.setContent("这是重新刷新的内容:" + i);
-                    data.add(model);
+                    HomeCourseModel homeCourseModel = new HomeCourseModel();
+                    homeCourseModel.setTitle("这是重新刷新的标题：" + i);
+                    homeCourseModel.setContent("这是重新刷新的内容:" + i);
+                    data.add(homeCourseModel);
                 }
                 refreshLayout.finishRefresh();
                 recommendRecyclerViewAdapter.notifyDataSetChanged();
@@ -199,10 +199,10 @@ public class HomeRecommendDelegate extends OceanDelegate {
             @Override
             public void onLoadMore(RefreshLayout refreshLayout) {
                 for (int i = 0; i < 3; i++) {
-                    Model model = new Model();
-                    model.setTitle("这是上拉加载的标题：" + i);
-                    model.setContent("这是上拉加载的内容：" + i);
-                    data.add(model);
+                    HomeCourseModel homeCourseModel = new HomeCourseModel();
+                    homeCourseModel.setTitle("这是上拉加载的标题：" + i);
+                    homeCourseModel.setContent("这是上拉加载的内容：" + i);
+                    data.add(homeCourseModel);
                 }
                 recommendRecyclerViewAdapter.notifyDataSetChanged();
                 refreshLayout.finishLoadMore();

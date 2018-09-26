@@ -1,9 +1,8 @@
-package com.oceanli.oceanmooc.app.activity;
+package com.oceanli.oceanmooc.app.ui.activity;
 
 import com.oceanli.ocean.core.activites.ProxyActivity;
 import com.oceanli.ocean.core.delegates.OceanDelegate;
-import com.oceanli.oceanmooc.app.delegates.ExampleDelegate;
-import com.oceanli.oceanmooc.app.delegates.VideoDelegate;
+import com.oceanli.oceanmooc.app.ui.delegates.VideoDelegate;
 
 /**
  * Created by ocean on 2018/7/4
