@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 全局默认左内边距 -->
+    <dimen name="global_default_left_padding_size">10dp</dimen>
+    <!-- 全局默认外边距 -->
+    <dimen name="global_default_margin_size">5dp</dimen>
+
+    <dimen name="main_delegate_bottom_bar_height">56dp</dimen>
+    <!-- 沉浸式布局解决方案：填充view 的 高度 -->
+    <dimen name="view_fill_height">0dp</dimen>
+    <!-- 首页轮播banner高度 -->
+    <dimen name="home_banner_height">170dp</dimen>
+    <!-- tab 指示器父布局高度 -->
+    <dimen name="magicindicator_height">50dp</dimen>
+
+
+</resources>

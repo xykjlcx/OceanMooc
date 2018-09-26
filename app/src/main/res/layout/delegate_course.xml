@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <View
+        android:id="@+id/view_course_fill"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_fill_height"/>
+
+    <com.youth.banner.Banner
+        android:id="@+id/banner_course"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/home_banner_height" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="@string/bottombar_item_two"
+        android:textSize="30dp"/>
+
+</LinearLayout>

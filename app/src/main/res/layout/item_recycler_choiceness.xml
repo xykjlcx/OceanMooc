@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="110dp"
+    app:cardUseCompatPadding="true"
+    app:cardCornerRadius="5dp"
+    app:cardPreventCornerOverlap="true"
+    app:layout_scrollFlags="scroll">
+
+
+    <RelativeLayout
+        android:id="@+id/layout_choiceness_item"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFF886"
+        android:alpha="0.4">
+
+        <TextView
+            android:id="@+id/tv_choiceness_item_course_name"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:padding="5dp"
+            android:text="这是课程名"/>
+
+        <TextView
+            android:id="@+id/tv_choiceness_item_course_desc"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:padding="5dp"
+            android:layout_below="@id/tv_choiceness_item_course_name"
+            android:text="这是课程描述"/>
+
+        <TextView
+            android:id="@+id/tv_choiceness_item_course_price"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:padding="5dp"
+            android:layout_below="@id/tv_choiceness_item_course_desc"
+            android:text="这是课程价格"/>
+
+
+    </RelativeLayout>
+
+
+</android.support.v7.widget.CardView>

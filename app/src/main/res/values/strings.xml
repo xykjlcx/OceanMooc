@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">OceanMooc</string>
+
+    <!-- 底部导航 1 -->
+    <string name="bottombar_item_one">首页</string>
+    <!-- 底部导航 2 -->
+    <string name="bottombar_item_two">课程</string>
+    <!-- 底部导航 3 -->
+    <string name="bottombar_item_three">个人中心</string>
+
+    <!-- 首页tab标签文字 1 -->
+    <string name="home_tab_one">推荐</string>
+    <!-- 首页tab标签文字 2 -->
+    <string name="home_tab_two">我的</string>
+
+    <!-- 首页recycler分组名称 1 -->
+    <string name="home_recycler_group_one">精选课程</string>
+    <!-- 首页recycler分组名称 1 -->
+    <string name="home_recycler_group_two">猜你喜欢</string>
+
+</resources>
