@@ -2,8 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.oceanli.oceanmooc.example">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- if you want to load images from the internet -->
+    <uses-permission android:name="android.permission.INTERNET" />
 
+    <!-- if you want to load images from a file OR from the internet -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:resizeableActivity="true"
@@ -20,6 +23,11 @@
         <meta-data
             android:name="android.max_aspect"
             android:value="2.2" />
+
+        <!-- glide https -->
+        <meta-data
+            android:name="com.oceanli.oceanmooc.example.other.glide_https.UnsafeOkHttpGlideModule"
+            android:value="GlideModule" />
 
         <activity android:name=".activity.LaunchActivity"
             android:theme="@style/AppTheme">
