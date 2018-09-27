@@ -5,22 +5,22 @@
         icon="@drawable/ic_home"
         title="@string/bottombar_item_one"
         inActiveColor="#7c7e7e"
-        activeColor="#0396FF"
-        barColorWhenSelected="#fdfdfd"/>
+        activeColor="#0396FF"/>
+        <!--barColorWhenSelected="#fdfdfd"/>-->
     <tab
         id="@+id/tab_course"
         icon="@drawable/ic_course"
         title="@string/bottombar_item_two"
         inActiveColor="#7c7e7e"
-        activeColor="#0396FF"
-        barColorWhenSelected="#91f484"/>
+        activeColor="#0396FF"/>
+        <!--barColorWhenSelected="#7D8089"/>-->
     <tab
         id="@+id/tab_user"
         icon="@drawable/ic_user"
         title="@string/bottombar_item_three"
         inActiveColor="#7c7e7e"
-        activeColor="#0396FF"
-        barColorWhenSelected="#ead496"/>
+        activeColor="#0396FF"/>
+        <!--barColorWhenSelected="#5C89CE"/>-->
 
     <!--barColorWhenSelected="#4C88FF"-->
     <!--inActiveColor="#363636"-->

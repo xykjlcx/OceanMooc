@@ -1,35 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="5dp">
+    app:cardUseCompatPadding="true"
+    app:cardCornerRadius="10dp"
+    app:cardPreventCornerOverlap="true"
+    app:layout_scrollFlags="scroll"
+    app:cardElevation="5dp">
+
+
+<RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="5dp">
 
     <ImageView
-        android:id="@+id/img_recommend"
-        android:layout_width="150dp"
-        android:scaleType="centerCrop"
-        android:layout_height="80dp" />
+            android:id="@+id/img_recommend"
+            android:layout_width="150dp"
+            android:scaleType="centerCrop"
+            android:layout_height="80dp" />
 
-    <TextView
-        android:id="@+id/tv_recommend_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_toRightOf="@+id/img_recommend"
-        android:text="我是标题"
-        android:textColor="#f00"
-        android:textSize="20sp" />
+        <TextView
+            android:id="@+id/tv_recommend_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/img_recommend"
+            android:text="我是标题"
+            android:textColor="#f00"
+            android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/tv_recommend_content"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_recommend_title"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_toRightOf="@id/img_recommend"
-        android:text="我是描述" />
-</RelativeLayout>
+        <TextView
+            android:id="@+id/tv_recommend_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_recommend_title"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/img_recommend"
+            android:text="我是描述" />
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>
 

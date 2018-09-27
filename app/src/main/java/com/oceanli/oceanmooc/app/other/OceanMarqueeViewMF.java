@@ -31,13 +31,8 @@ public class OceanMarqueeViewMF extends MarqueeFactory<RelativeLayout, OceanMarq
         RelativeLayout mView = (RelativeLayout) inflater.inflate(R.layout.item_marquee,null);
         TextView titleOne = mView.findViewById(R.id.tv_marquee_title_one);
         TextView titleTwo = mView.findViewById(R.id.tv_marquee_title_two);
-        ImageView imageView = mView.findViewById(R.id.img_marquee_item);
         titleOne.setText(data.getTitleOne());
         titleTwo.setText(data.getTitleTwo());
-        Glide.with(context)
-                .load("http://pevcw8o7e.bkt.clouddn.com//img/default_head.png")
-                .centerCrop()
-                .into(imageView);
         return mView;
     }
 }

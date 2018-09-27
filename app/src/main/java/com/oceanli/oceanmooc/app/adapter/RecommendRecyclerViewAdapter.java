@@ -1,7 +1,9 @@
 package com.oceanli.oceanmooc.app.adapter;
 
 import android.support.annotation.Nullable;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.oceanli.oceanmooc.app.R;
@@ -23,7 +25,11 @@ public class RecommendRecyclerViewAdapter extends BaseQuickAdapter<HomeCourseMod
     @Override
     protected void convert(BaseViewHolder helper, HomeCourseModel item) {
         helper.setText(R.id.tv_recommend_title,item.getTitle())
-                .setText(R.id.tv_recommend_content,item.getContent())
-                .setImageResource(R.id.img_recommend,R.drawable.a2);
+                .setText(R.id.tv_recommend_content,item.getContent());
+        Glide.with(mContext)
+                .load(R.drawable.a1)
+                .centerCrop()
+                .dontAnimate()
+                .into((ImageView) helper.getView(R.id.img_recommend));
     }
 }

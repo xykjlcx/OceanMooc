@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gongwen.marqueen.MarqueeView;
 import com.oceanli.ocean.core.delegates.OceanDelegate;
+import com.oceanli.oceanmooc.app.OmConfig;
 import com.oceanli.oceanmooc.app.R;
 import com.oceanli.oceanmooc.app.adapter.GridRecyclerViewAdapter;
 import com.oceanli.oceanmooc.app.adapter.RecommendRecyclerViewAdapter;
@@ -22,9 +23,12 @@ import com.oceanli.oceanmooc.app.models.HomeCourseModel;
 import com.oceanli.oceanmooc.app.other.GlideImageLoader;
 import com.oceanli.oceanmooc.app.models.OceanMarqueeItemModel;
 import com.oceanli.oceanmooc.app.other.OceanMarqueeViewMF;
+import com.scwang.smartrefresh.header.FlyRefreshHeader;
 import com.scwang.smartrefresh.header.PhoenixHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.youth.banner.Banner;
@@ -88,9 +92,9 @@ public class HomeRecommendDelegate extends OceanDelegate {
         banner = rootView.findViewById(R.id.banner_recommed);
         banner.setImageLoader(new GlideImageLoader());
         List<String> list = new ArrayList<>();
-        list.add("http://pevcw8o7e.bkt.clouddn.com/sr.jpg");
-        list.add("http://pevcw8o7e.bkt.clouddn.com/jass.jpg");
-        list.add("http://pevcw8o7e.bkt.clouddn.com/sc.jpg");
+        list.add("http://img.ui.cn/data/file/2/7/2/1815272.jpg" + OmConfig.IMG_COMPRESS_URL);
+        list.add("http://pevcw8o7e.bkt.clouddn.com/134032655.jpg" + OmConfig.IMG_COMPRESS_URL);
+        list.add("http://pevcw8o7e.bkt.clouddn.com/318887695.jpg" + OmConfig.IMG_COMPRESS_URL);
         banner.setImages(list);
         banner.setBannerTitles(Arrays.asList(mtitles));
         banner.setBannerAnimation(Transformer.FlipHorizontal);
@@ -108,7 +112,9 @@ public class HomeRecommendDelegate extends OceanDelegate {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
                 if (smartRefreshLayout == null) return;
-                smartRefreshLayout.setEnableRefresh(verticalOffset >= 0||isSlideToBottom(recyclerView) ? true : false);
+                Log.e("appbar", "onOffsetChanged: " + verticalOffset);
+                // ||isSlideToBottom(recyclerView)
+                smartRefreshLayout.setEnabled(verticalOffset >= 0||isSlideToBottom(recyclerView) ?  true : false);
             }
         });
 
@@ -142,8 +148,8 @@ public class HomeRecommendDelegate extends OceanDelegate {
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(recommendRecyclerViewAdapter);
-        recommendRecyclerViewAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
-//        recommendRecyclerViewAdapter.isFirstOnly(false);
+        recommendRecyclerViewAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
+        recommendRecyclerViewAdapter.isFirstOnly(false);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
@@ -153,9 +159,9 @@ public class HomeRecommendDelegate extends OceanDelegate {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                Log.e("ocean", "onScrolled: " + "------->isSlideToBottom:" + isSlideToBottom(recyclerView));
+                Log.e("appbar", "onScrolled: " + "------->isSlideToBottom:" + isSlideToBottom(recyclerView));
                 if (isSlideToBottom(recyclerView)){
-                    smartRefreshLayout.setEnableRefresh(true);
+                    smartRefreshLayout.setEnabled(true);
                 }
             }
         });
@@ -167,8 +173,8 @@ public class HomeRecommendDelegate extends OceanDelegate {
         List<OceanMarqueeItemModel> marqueeItemModelList = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
             OceanMarqueeItemModel itemModel = new OceanMarqueeItemModel();
-            itemModel.setTitleOne("这是跑马灯标题1->" + i);
-            itemModel.setTitleTwo("这是跑马灯标题2->" + i);
+            itemModel.setTitleOne("关于常州信息职业技术学院");
+            itemModel.setTitleTwo("12栋121荣获五星级宿舍");
             marqueeItemModelList.add(itemModel);
         }
         viewMF.setData(marqueeItemModelList);
@@ -179,13 +185,18 @@ public class HomeRecommendDelegate extends OceanDelegate {
 
     public void initRefresh(View rootView){
         smartRefreshLayout = rootView.findViewById(R.id.recommend_refresh);
-        smartRefreshLayout.setRefreshHeader(new PhoenixHeader(_mActivity));
-//        smartRefreshLayout.setEnableLoadMore(false);
+        smartRefreshLayout.setRefreshHeader(new ClassicsHeader(_mActivity));
+        smartRefreshLayout.setRefreshFooter(new ClassicsFooter(_mActivity));
+        // 尽量优化 下拉触发导致的滑动冲突
+//        smartRefreshLayout.setHeaderHeight(150);
+//        smartRefreshLayout.setEnableAutoLoadMore(true);
+//        smartRefreshLayout.setEnableOverScrollBounce(false);
+//        smartRefreshLayout.setEnableLoadMoreWhenContentNotFull(false);
         smartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshLayout) {
                 data.clear();
-                for (int i = 0; i < 3; i++) {
+                for (int i = 0; i < 8; i++) {
                     HomeCourseModel homeCourseModel = new HomeCourseModel();
                     homeCourseModel.setTitle("这是重新刷新的标题：" + i);
                     homeCourseModel.setContent("这是重新刷新的内容:" + i);
@@ -198,7 +209,7 @@ public class HomeRecommendDelegate extends OceanDelegate {
         smartRefreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(RefreshLayout refreshLayout) {
-                for (int i = 0; i < 3; i++) {
+                for (int i = 0; i < 5; i++) {
                     HomeCourseModel homeCourseModel = new HomeCourseModel();
                     homeCourseModel.setTitle("这是上拉加载的标题：" + i);
                     homeCourseModel.setContent("这是上拉加载的内容：" + i);
@@ -214,6 +225,7 @@ public class HomeRecommendDelegate extends OceanDelegate {
         gridRecyclerView = rootView.findViewById(R.id.recycler_recommend_choiceness_grid);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(_mActivity,2);
         gridLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+
         gridRecyclerView.setLayoutManager(gridLayoutManager);
         gridCourseModelList = new ArrayList<>();
         for (int i = 0; i < 4; i++) {

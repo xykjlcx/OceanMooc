@@ -13,9 +13,16 @@
     <!-- 首页tab标签文字 2 -->
     <string name="home_tab_two">我的</string>
 
-    <!-- 首页recycler分组名称 1 -->
-    <string name="home_recycler_group_one">精选课程</string>
-    <!-- 首页recycler分组名称 1 -->
-    <string name="home_recycler_group_two">猜你喜欢</string>
+    <!-- 首页推荐recycler分组名称 1 -->
+    <string name="home_recommend_recycler_group_one">精选课程</string>
+    <!-- 首页推荐recycler分组名称 1 -->
+    <string name="home_recommend_recycler_group_two">猜你喜欢</string>
+
+    <!-- 首页推荐recycler分组名称 1 -->
+    <string name="home_my_recycler_group_one">最近学习</string>
+    <!-- 首页推荐recycler分组名称 1 -->
+    <string name="home_my_recycler_group_two">更早</string>
+
+
 
 </resources>

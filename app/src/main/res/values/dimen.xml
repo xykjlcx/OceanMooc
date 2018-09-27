@@ -10,7 +10,7 @@
     <!-- 沉浸式布局解决方案：填充view 的 高度 -->
     <dimen name="view_fill_height">0dp</dimen>
     <!-- 首页轮播banner高度 -->
-    <dimen name="home_banner_height">170dp</dimen>
+    <dimen name="home_banner_height">200dp</dimen>
     <!-- tab 指示器父布局高度 -->
     <dimen name="magicindicator_height">50dp</dimen>
 
