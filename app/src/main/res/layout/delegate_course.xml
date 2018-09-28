@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <View
@@ -8,17 +10,68 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/view_fill_height"/>
 
-    <com.youth.banner.Banner
-        android:id="@+id/banner_course"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/home_banner_height" />
+    <!--<net.lucode.hackware.magicindicator.MagicIndicator-->
+        <!--android:id="@+id/magicindicator_course"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_marginTop="@dimen/global_default_margin_size"-->
+        <!--android:paddingLeft="@dimen/global_default_left_padding_size"-->
+        <!--android:layout_height="@dimen/magicindicator_height"/>-->
 
-    <TextView
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_margin="@dimen/global_default_margin_size"
+       android:orientation="horizontal">
+
+       <ImageView
+           android:id="@+id/iv_course_select"
+           android:layout_width="50dp"
+           android:layout_margin="@dimen/global_default_margin_size"
+           android:src="@drawable/filtericon"
+           android:layout_gravity="center_vertical"
+           android:layout_height="40dp" />
+
+       <android.support.v7.widget.CardView
+           android:layout_width="match_parent"
+           android:layout_gravity="center_vertical"
+           android:layout_margin="@dimen/global_default_margin_size"
+           android:layout_height="55dp"
+           app:cardUseCompatPadding="true"
+           app:cardCornerRadius="8dp"
+           app:cardPreventCornerOverlap="true"
+           app:cardElevation="1.5dp">
+           <RelativeLayout
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:paddingRight="10dp">
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_centerVertical="true"
+                   android:text="Search ..."
+                   android:textColor="#d0d1d0"
+                   android:textSize="20dp"
+                   android:paddingLeft="20dp"
+                   android:textStyle="bold"/>
+               <ImageView
+                   android:layout_width="35dp"
+                   android:layout_margin="@dimen/global_default_margin_size"
+                   android:src="@drawable/searchicon"
+                   android:layout_alignParentRight="true"
+                   android:layout_centerVertical="true"
+                   android:layout_height="35dp" />
+           </RelativeLayout>
+       </android.support.v7.widget.CardView>
+
+   </LinearLayout>
+
+    <include layout="@layout/include_interval"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_course_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:text="@string/bottombar_item_two"
-        android:textSize="30dp"/>
+        android:layout_height="match_parent">
+    </android.support.v7.widget.RecyclerView>
+
 
 </LinearLayout>

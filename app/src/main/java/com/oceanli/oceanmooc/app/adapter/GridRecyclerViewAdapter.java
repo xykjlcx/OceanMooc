@@ -42,7 +42,7 @@ public class GridRecyclerViewAdapter extends BaseQuickAdapter<GridCourseModel,Ba
 //        helper.setBackgroundColor(R.id.layout_choiceness_item, Color.parseColor(colors[item.getId()]));
 //        helper.setBackgroundRes(R.id.layout_choiceness_item,imgs[item.getId()]);
         Glide.with(mContext)
-                .load(imgUrls[item.getId()] + OmConfig.IMG_COMPRESS_URL)
+                .load(imgUrls[item.getId() % 4] + OmConfig.IMG_COMPRESS_URL)
                 .dontAnimate()
                 .centerCrop()
                 .into((ImageView) helper.getView(R.id.iv_choiceness_img));

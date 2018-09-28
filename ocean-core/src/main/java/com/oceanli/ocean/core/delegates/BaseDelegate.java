@@ -40,7 +40,15 @@ public abstract class BaseDelegate extends SwipeBackFragment {
             mUnbinder = ButterKnife.bind(this,rootView);
             onBindView(savedInstanceState,rootView);
         }
-        return rootView;
+        if (isSwip()){
+            return attachToSwipeBack(rootView);
+        }else {
+            return rootView;
+        }
+    }
+
+    public boolean isSwip(){
+        return false;
     }
 
     @Override
