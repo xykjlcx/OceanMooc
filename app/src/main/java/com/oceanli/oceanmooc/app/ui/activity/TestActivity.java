@@ -14,4 +14,7 @@ public class TestActivity extends ProxyActivity {
     public OceanDelegate setRootDelegate() {
         return new VideoDelegate();
     }
+
+
+
 }

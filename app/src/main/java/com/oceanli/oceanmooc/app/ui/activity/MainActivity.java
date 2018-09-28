@@ -1,5 +1,9 @@
 package com.oceanli.oceanmooc.app.ui.activity;
 
+import android.content.pm.ActivityInfo;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+
 import com.oceanli.ocean.core.activites.ProxyActivity;
 import com.oceanli.ocean.core.delegates.OceanDelegate;
 import com.oceanli.oceanmooc.app.ui.delegates.MainDelegate;
@@ -22,5 +26,11 @@ public class MainActivity extends ProxyActivity {
     @Override
     public FragmentAnimator onCreateFragmentAnimator() {
         return new DefaultHorizontalAnimator();
+    }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 }

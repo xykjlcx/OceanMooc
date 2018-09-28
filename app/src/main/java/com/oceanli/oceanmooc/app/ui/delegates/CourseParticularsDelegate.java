@@ -5,15 +5,22 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.oceanli.ocean.core.delegates.OceanDelegate;
+import com.oceanli.ocean.core.net.RestClient;
+import com.oceanli.ocean.core.net.callback.IFailure;
+import com.oceanli.ocean.core.net.callback.ISuccess;
 import com.oceanli.oceanmooc.app.R;
 import com.oceanli.oceanmooc.app.adapter.CourseParticularsDelegateViewPagerAdapter;
 import com.oceanli.oceanmooc.app.ui.diy.ScaleTransitionPagerTitleView;
+import com.shuyu.gsyvideoplayer.GSYVideoManager;
+import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -26,6 +33,10 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTit
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.BezierPagerIndicator;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.SimplePagerTitleView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,12 +63,14 @@ public class CourseParticularsDelegate extends OceanDelegate {
     };
 
     private StandardGSYVideoPlayer standardGSYVideoPlayer;
+    private OrientationUtils orientationUtils;
 
 
     public static CourseParticularsDelegate newInstance(){
         CourseParticularsDelegate courseParticularsDelegate = new CourseParticularsDelegate();
         return courseParticularsDelegate;
     }
+
 
     @Override
     public Object setLayout() {
@@ -71,6 +84,11 @@ public class CourseParticularsDelegate extends OceanDelegate {
     }
 
     @Override
+    public void onEnterAnimationEnd(Bundle savedInstanceState) {
+        initNetData();
+    }
+
+    @Override
     public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
         initView(rootView);
         backImg = rootView.findViewById(R.id.iv_course_particulars_back);
@@ -80,13 +98,45 @@ public class CourseParticularsDelegate extends OceanDelegate {
                 pop();
             }
         });
-        standardGSYVideoPlayer = rootView.findViewById(R.id.gsy_course_particulars_video);
-        standardGSYVideoPlayer.getBackButton().setVisibility(View.GONE);
+//        initNetData();
     }
 
 
+    public void initNetData(){
+        //
+        RestClient.builder()
+                .url("http://192.168.43.214:8088/home/getGuessLikeCourse")
+                .params("page",0)
+                .params("size",3)
+                .success(new ISuccess() {
+                    @Override
+                    public void onSuccess(String response) {
+                        try {
+                            Log.e("jass", "onSuccess: " + response);
+                            JSONObject jsonObject = new JSONObject(response);
+                            JSONArray jsonArray = jsonObject.getJSONArray("data");
+                            JSONObject realData = jsonArray.getJSONObject(0);
+                            String videoUrl = realData.getString("videoUrl");
+                            String imgUrl = realData.getString("imgUrl");
+                            initVideo(videoUrl,imgUrl);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                })
+                .failure(new IFailure() {
+                    @Override
+                    public void onFailure() {
+                        Log.e("jass", "onFailure: " + "失败?");
+                    }
+                })
+                .build()
+                .post();
+    }
 
-    public void initView(View rootView){
+    public void initView(final View rootView){
+        standardGSYVideoPlayer = rootView.findViewById(R.id.gsy_course_particulars_video);
+        standardGSYVideoPlayer.getBackButton().setVisibility(View.GONE);
         mImmersionBar.setStatusBarView(_mActivity,rootView.findViewById(R.id.view_course_particulars_fill));
         magicIndicator = rootView.findViewById(R.id.magic_indicator_course_particulars);
         mViewPager = rootView.findViewById(R.id.vp_course_particulars);
@@ -94,7 +144,6 @@ public class CourseParticularsDelegate extends OceanDelegate {
         initMagicIndicator();
         mViewPager.setAdapter(mAdapter);
         ViewPagerHelper.bind(magicIndicator,mViewPager);
-        mViewPager.setOffscreenPageLimit(2);
     }
 
     private void initMagicIndicator() {
@@ -111,7 +160,7 @@ public class CourseParticularsDelegate extends OceanDelegate {
             public IPagerTitleView getTitleView(Context context, final int index) {
                 SimplePagerTitleView simplePagerTitleView = new ScaleTransitionPagerTitleView(context);
                 simplePagerTitleView.setText(mDataList[index]);
-                simplePagerTitleView.setTextSize(18);
+                simplePagerTitleView.setTextSize(16);
                 simplePagerTitleView.setNormalColor(Color.parseColor("#616161"));
                 simplePagerTitleView.setSelectedColor(Color.parseColor("#5C89CE"));
                 simplePagerTitleView.setOnClickListener(new View.OnClickListener() {
@@ -149,4 +198,65 @@ public class CourseParticularsDelegate extends OceanDelegate {
         magicIndicator.setNavigator(commonNavigator);
     }
 
+
+    private void initVideo(String videoUrl,String imgUrl) {
+        String source1 = videoUrl;
+        standardGSYVideoPlayer.setUp(source1, true, "测试视频");
+
+        //增加封面
+        ImageView imageView = new ImageView(getActivity());
+        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        imageView.setImageResource(R.drawable.a1);
+        standardGSYVideoPlayer.setThumbImageView(imageView);
+        //增加title
+        standardGSYVideoPlayer.getTitleTextView().setVisibility(View.VISIBLE);
+        //设置返回键
+        standardGSYVideoPlayer.getBackButton().setVisibility(View.GONE);
+        //设置旋转
+//        orientationUtils = new OrientationUtils(_mActivity,standardGSYVideoPlayer);
+        //设置全屏按键功能,这是使用的是选择屏幕，而不是全屏
+        standardGSYVideoPlayer.getFullscreenButton().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                orientationUtils.resolveByClick();
+                standardGSYVideoPlayer.startWindowFullscreen(_mActivity,false,true);
+            }
+        });
+        //是否可以滑动调整
+        standardGSYVideoPlayer.setIsTouchWiget(true);
+//        standardGSYVideoPlayer.startPlayLogic();
+        standardGSYVideoPlayer.setThumbPlay(true);
+        standardGSYVideoPlayer.setShowFullAnimation(true);
+    }
+
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        standardGSYVideoPlayer.onVideoPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        standardGSYVideoPlayer.onVideoResume();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        GSYVideoManager.releaseAllVideos();
+        if (orientationUtils != null)
+            orientationUtils.releaseListener();
+    }
+
+    @Override
+    public boolean onBackPressedSupport() {
+        // 通过获取返回事件的发出场景，判断是否继续向上传递事件
+        // backFromWindowFull()方法若当前处于全屏播放，推出全屏 并返回ture
+        // 若不处于全屏，返回false
+        // onBackPressedSupport()返回true则不会将back事件继续向上传递(同理，从全屏触发的back，并不会向上传递back事件)
+        boolean isFull = GSYVideoManager.backFromWindowFull(_mActivity);
+        return isFull;
+    }
 }

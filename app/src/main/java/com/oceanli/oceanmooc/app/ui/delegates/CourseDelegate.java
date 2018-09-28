@@ -18,6 +18,8 @@ import com.oceanli.ocean.core.delegates.OceanDelegate;
 import com.oceanli.oceanmooc.app.R;
 import com.oceanli.oceanmooc.app.adapter.GridRecyclerViewAdapter;
 import com.oceanli.oceanmooc.app.models.GridCourseModel;
+import com.scwang.smartrefresh.header.PhoenixHeader;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,6 +36,8 @@ public class CourseDelegate extends OceanDelegate{
     private RecyclerView mRecyclerView;
     private GridRecyclerViewAdapter mAdapter;
     private List<GridCourseModel> mData;
+
+    private SmartRefreshLayout mSmartRefreshLayout;
 
     public static CourseDelegate newInstance(){
         Bundle bundle = new Bundle();
@@ -89,6 +93,7 @@ public class CourseDelegate extends OceanDelegate{
 
     public void initView(View rootView){
         mImmersionBar.setStatusBarView(_mActivity,rootView.findViewById(R.id.view_course_fill));
+        mSmartRefreshLayout = rootView.findViewById(R.id.smart_refresh_course);
         selectIv = rootView.findViewById(R.id.iv_course_select);
         final OptionsPickerView optionsPickerView = new OptionsPickerBuilder(_mActivity, new OnOptionsSelectListener() {
             @Override
@@ -115,13 +120,14 @@ public class CourseDelegate extends OceanDelegate{
             }
         });
         initRecycler(rootView);
+        initRefresh();
     }
 
 
     public void initRecycler(View rootView){
         mRecyclerView = rootView.findViewById(R.id.recycler_course_list);
         mData = new ArrayList<>();
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 30; i++) {
             GridCourseModel model = new GridCourseModel();
             model.setId(i);
             model.setCourseName("课程" + i);
@@ -141,6 +147,10 @@ public class CourseDelegate extends OceanDelegate{
                 ((MainDelegate)getParentFragment()).startBrotherFragment(CourseParticularsDelegate.newInstance());
             }
         });
+    }
+
+    public void initRefresh(){
+        mSmartRefreshLayout.setRefreshHeader(new PhoenixHeader(_mActivity));
     }
 
 }

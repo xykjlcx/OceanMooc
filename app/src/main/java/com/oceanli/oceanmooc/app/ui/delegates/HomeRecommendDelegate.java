@@ -103,7 +103,7 @@ public class HomeRecommendDelegate extends OceanDelegate {
         banner.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
-                Toast.makeText(_mActivity, "点击了：" + position, Toast.LENGTH_SHORT).show();
+                ((MainDelegate)getParentFragment().getParentFragment()).startBrotherFragment(CourseParticularsDelegate.newInstance());
             }
         });
 

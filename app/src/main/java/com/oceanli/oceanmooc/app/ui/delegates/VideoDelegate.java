@@ -83,23 +83,16 @@ public class VideoDelegate extends OceanDelegate {
         //设置返回键
         videoPlayer.getBackButton().setVisibility(View.VISIBLE);
         //设置旋转
-        orientationUtils = new OrientationUtils(getActivity(), videoPlayer);
+//        orientationUtils = new OrientationUtils(getActivity(), videoPlayer);
         //设置全屏按键功能,这是使用的是选择屏幕，而不是全屏
         videoPlayer.getFullscreenButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                orientationUtils.resolveByClick();
+                videoPlayer.startWindowFullscreen(_mActivity,false,true);
             }
         });
         //是否可以滑动调整
         videoPlayer.setIsTouchWiget(true);
-        //设置返回按键功能
-        videoPlayer.getBackButton().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                onBackPressed();
-            }
-        });
         videoPlayer.startPlayLogic();
     }
 

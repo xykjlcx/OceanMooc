@@ -10,6 +10,7 @@ import com.oceanli.oceanmooc.app.R;
 import com.oceanli.oceanmooc.app.models.HomeCourseModel;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by ocean on 2018/9/26
@@ -22,12 +23,21 @@ public class RecommendRecyclerViewAdapter extends BaseQuickAdapter<HomeCourseMod
         super(layoutResId, data);
     }
 
+    private String[] imgUrls = {
+            "http://pevcw8o7e.bkt.clouddn.com/om1fuben.jpg",
+            "http://pevcw8o7e.bkt.clouddn.com/om2.jpg",
+            "http://pevcw8o7e.bkt.clouddn.com/om3.jpg",
+            "http://pevcw8o7e.bkt.clouddn.com/om4.jpg"
+    };
+
+    private Random random = new Random();
+
     @Override
     protected void convert(BaseViewHolder helper, HomeCourseModel item) {
         helper.setText(R.id.tv_recommend_title,item.getTitle())
                 .setText(R.id.tv_recommend_content,item.getContent());
         Glide.with(mContext)
-                .load(R.drawable.a1)
+                .load(imgUrls[random.nextInt(100) % 4])
                 .centerCrop()
                 .dontAnimate()
                 .into((ImageView) helper.getView(R.id.img_recommend));

@@ -8,10 +8,8 @@
     <!-- if you want to load images from a file OR from the internet -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+    <!--android:resizeableActivity="true"-->
     <application
-        android:resizeableActivity="true"
-        android:configChanges="orientation|keyboardHidden|screenSize"
-        android:screenOrientation="portrait"
         android:name=".OmApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -37,8 +35,12 @@
                 <!--<category android:name="android.intent.category.LAUNCHER" />-->
             <!--</intent-filter>-->
         </activity>
-        <activity android:name=".ui.activity.TestActivity" />
-        <activity android:name=".ui.activity.MainActivity">
+        <activity android:name=".ui.activity.TestActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.MainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

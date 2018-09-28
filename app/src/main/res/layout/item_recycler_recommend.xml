@@ -4,10 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardUseCompatPadding="true"
-    app:cardCornerRadius="10dp"
+    app:cardCornerRadius="5dp"
     app:cardPreventCornerOverlap="true"
     app:layout_scrollFlags="scroll"
-    app:cardElevation="5dp">
+    app:cardElevation="3dp">
 
 
 <RelativeLayout
@@ -17,7 +17,7 @@
 
     <ImageView
             android:id="@+id/img_recommend"
-            android:layout_width="150dp"
+            android:layout_width="160dp"
             android:scaleType="centerCrop"
             android:layout_height="80dp" />
 

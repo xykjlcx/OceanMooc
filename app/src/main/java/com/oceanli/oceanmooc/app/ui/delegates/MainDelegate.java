@@ -1,5 +1,6 @@
 package com.oceanli.oceanmooc.app.ui.delegates;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
@@ -8,6 +9,8 @@ import android.widget.Toast;
 
 import com.oceanli.ocean.core.delegates.OceanDelegate;
 import com.oceanli.oceanmooc.app.R;
+import com.oceanli.oceanmooc.app.ui.activity.MainActivity;
+import com.oceanli.oceanmooc.app.ui.activity.TestActivity;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
 
@@ -111,6 +114,7 @@ public class MainDelegate extends OceanDelegate {
      */
     public void startBrotherFragment(SupportFragment targetFragment) {
         start(targetFragment);
+//        startActivity(new Intent(_mActivity,TestActivity.class));
     }
 
     // 再点一次退出程序时间设置

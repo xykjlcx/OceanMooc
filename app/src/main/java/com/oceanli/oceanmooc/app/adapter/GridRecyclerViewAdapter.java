@@ -15,6 +15,7 @@ import com.oceanli.oceanmooc.app.R;
 import com.oceanli.oceanmooc.app.models.GridCourseModel;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by ocean on 2018/9/26
@@ -34,6 +35,8 @@ public class GridRecyclerViewAdapter extends BaseQuickAdapter<GridCourseModel,Ba
             "http://pevcw8o7e.bkt.clouddn.com/om4.jpg"
     };
 
+    private Random random = new Random();
+
     @Override
     protected void convert(BaseViewHolder helper, GridCourseModel item) {
         helper.setText(R.id.tv_choiceness_item_course_name,item.getCourseName())
@@ -42,7 +45,7 @@ public class GridRecyclerViewAdapter extends BaseQuickAdapter<GridCourseModel,Ba
 //        helper.setBackgroundColor(R.id.layout_choiceness_item, Color.parseColor(colors[item.getId()]));
 //        helper.setBackgroundRes(R.id.layout_choiceness_item,imgs[item.getId()]);
         Glide.with(mContext)
-                .load(imgUrls[item.getId() % 4] + OmConfig.IMG_COMPRESS_URL)
+                .load(imgUrls[random.nextInt(100) % 4] + OmConfig.IMG_COMPRESS_URL)
                 .dontAnimate()
                 .centerCrop()
                 .into((ImageView) helper.getView(R.id.iv_choiceness_img));
