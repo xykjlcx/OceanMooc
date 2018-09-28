@@ -22,20 +22,39 @@
 
         <!--</android.support.v7.widget.CardView>-->
 
+        <ImageView
+            android:id="@+id/gonggao_icon1"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:padding="8dp"
+            android:layout_marginLeft="3dp"
+            android:src="@mipmap/gonggao"/>
+
         <TextView
             android:id="@+id/tv_marquee_title_one"
             android:layout_width="match_parent"
             android:layout_height="35dp"
-            android:paddingLeft="20dp"
+            android:paddingLeft="5dp"
+            android:layout_toRightOf="@id/gonggao_icon1"
             android:gravity="center_vertical"
             android:textColor="@android:color/black"/>
 
+
+        <ImageView
+            android:id="@+id/gonggao_icon2"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:padding="8dp"
+            android:layout_below="@id/gonggao_icon1"
+            android:layout_marginLeft="3dp"
+            android:src="@mipmap/gonggao"/>
 
         <TextView
             android:id="@+id/tv_marquee_title_two"
             android:layout_width="match_parent"
             android:layout_height="35dp"
-            android:paddingLeft="20dp"
+            android:paddingLeft="5dp"
+            android:layout_toRightOf="@id/gonggao_icon2"
             android:gravity="center_vertical"
             android:textColor="@android:color/black"
             android:layout_below="@+id/tv_marquee_title_one"/>

@@ -52,7 +52,8 @@
                 android:layout_height="70dp"
                 android:scaleType="centerCrop"
                 android:layout_margin="5dp"
-                android:src="@drawable/head"/>
+                android:padding="5dp"
+                android:src="@mipmap/mooctt"/>
 
             <com.gongwen.marqueen.MarqueeView
                 android:id="@+id/marquee_recommed_ocean"
