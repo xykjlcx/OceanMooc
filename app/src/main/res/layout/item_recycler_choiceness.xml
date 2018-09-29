@@ -43,7 +43,7 @@
             android:id="@+id/tv_choiceness_item_course_price"
             android:layout_width="100dp"
             android:layout_height="30dp"
-            android:textColor="@android:color/white"
+            android:textColor="#f11b7b"
             android:padding="5dp"
             android:layout_below="@id/tv_choiceness_item_course_desc"
             android:text="这是课程价格"/>

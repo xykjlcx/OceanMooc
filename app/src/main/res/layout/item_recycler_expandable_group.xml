@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="40dp"
     android:layout_margin="3dp"
-    android:background="#f7f7f7">
+    android:background="#fafafa">
 
     <TextView
         android:id="@+id/tv_course_section_item_group"

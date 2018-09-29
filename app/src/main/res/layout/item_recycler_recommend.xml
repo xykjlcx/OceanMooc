@@ -1,25 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:cardUseCompatPadding="true"
-    app:cardCornerRadius="5dp"
-    app:cardPreventCornerOverlap="true"
-    app:layout_scrollFlags="scroll"
-    app:cardElevation="3dp">
+    android:layout_height="wrap_content">
 
 
-<RelativeLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="5dp">
+        android:layout_height="180dp"
+        android:padding="10dp">
 
-    <ImageView
-            android:id="@+id/img_recommend"
-            android:layout_width="160dp"
-            android:scaleType="centerCrop"
-            android:layout_height="80dp" />
+        <android.support.v7.widget.CardView
+            android:id="@+id/layout_recomment_card"
+            android:layout_width="150dp"
+            android:layout_height="180dp"
+            app:cardUseCompatPadding="true"
+            app:cardCornerRadius="5dp"
+            app:cardPreventCornerOverlap="true"
+            app:layout_scrollFlags="scroll"
+            app:cardElevation="3dp">
+
+            <ImageView
+                android:id="@+id/img_recommend"
+                android:layout_width="match_parent"
+                android:scaleType="centerCrop"
+                android:layout_height="match_parent" />
+
+
+        </android.support.v7.widget.CardView>
+
 
         <TextView
             android:id="@+id/tv_recommend_title"
@@ -28,9 +38,9 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
-            android:layout_toRightOf="@+id/img_recommend"
-            android:text="我是标题"
-            android:textColor="#f00"
+            android:layout_toRightOf="@+id/layout_recomment_card"
+            android:text="乔布斯的魅力演讲"
+            android:textColor="#313131"
             android:textSize="20sp" />
 
         <TextView
@@ -40,10 +50,34 @@
             android:layout_below="@+id/tv_recommend_title"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
-            android:layout_toRightOf="@id/img_recommend"
-            android:text="我是描述" />
+            android:textColor="#9fa19f"
+            android:layout_toRightOf="@id/layout_recomment_card"
+            android:text="讲述演讲所用的技巧，让你妙趣横生；口才得到长足进步" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/layout_recomment_card"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="10dp"
+            android:text="￥99"
+            android:textColor="#f11b7b"
+            android:textSize="20sp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="168人学过"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="30dp"
+            android:paddingBottom="3dp"
+            />
 
     </RelativeLayout>
 
-</android.support.v7.widget.CardView>
+</android.support.v7.widget.LinearLayoutCompat>
 

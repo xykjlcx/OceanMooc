@@ -18,6 +18,7 @@ import com.oceanli.ocean.core.delegates.OceanDelegate;
 import com.oceanli.oceanmooc.app.R;
 import com.oceanli.oceanmooc.app.adapter.GridRecyclerViewAdapter;
 import com.oceanli.oceanmooc.app.models.GridCourseModel;
+import com.oceanli.oceanmooc.app.models.HomeCourseModel;
 import com.scwang.smartrefresh.header.PhoenixHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
@@ -125,18 +126,29 @@ public class CourseDelegate extends OceanDelegate{
         initRefresh();
     }
 
+    public List<GridCourseModel> getCourseData(){
+        List<GridCourseModel> list = new ArrayList<>();
+        final String[] courseNames = {
+                "乔布斯的设计艺术",
+                "Spring Boot开发入门",
+                "Spark大数据处理",
+                "Python机器学习"
+        };
+        final String desc = "本课程是年度最佳课程，采用模块化讲解，循序渐进的输出知识，为了让学生更好的接收";
+        for (int i = 0; i < 30; i++) {
+            GridCourseModel gridCourseModel = new GridCourseModel();
+            gridCourseModel.setCourseName(courseNames[i % 4]);
+            gridCourseModel.setCourseDesc(desc);
+            gridCourseModel.setPrice("￥99");
+            list.add(gridCourseModel);
+        }
+        return list;
+    }
+
 
     public void initRecycler(View rootView){
         mRecyclerView = rootView.findViewById(R.id.recycler_course_list);
-        mData = new ArrayList<>();
-        for (int i = 0; i < 30; i++) {
-            GridCourseModel model = new GridCourseModel();
-            model.setId(i);
-            model.setCourseName("课程" + i);
-            model.setCourseDesc("描述" + i);
-            model.setPrice("价格" + i);
-            mData.add(model);
-        }
+        mData = getCourseData();
         mAdapter = new GridRecyclerViewAdapter(R.layout.item_recycler_choiceness,mData);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(_mActivity,2);
         gridLayoutManager.setOrientation(LinearLayout.VERTICAL);

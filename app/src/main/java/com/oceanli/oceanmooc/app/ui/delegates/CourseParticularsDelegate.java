@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.oceanli.ocean.core.delegates.OceanDelegate;
 import com.oceanli.ocean.core.net.RestClient;
 import com.oceanli.ocean.core.net.callback.IFailure;
@@ -21,6 +22,7 @@ import com.oceanli.oceanmooc.app.ui.diy.ScaleTransitionPagerTitleView;
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
+import com.wx.goodview.GoodView;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -59,6 +61,8 @@ public class CourseParticularsDelegate extends OceanDelegate {
     private StandardGSYVideoPlayer standardGSYVideoPlayer;
     private OrientationUtils orientationUtils;
 
+    private ImageView collectImg;
+
 
     public static CourseParticularsDelegate newInstance(){
         CourseParticularsDelegate courseParticularsDelegate = new CourseParticularsDelegate();
@@ -82,7 +86,7 @@ public class CourseParticularsDelegate extends OceanDelegate {
 //        initNetData();
         initVideo(
                 "http://pevcw8o7e.bkt.clouddn.com/caifang.mp4",
-                ""
+                "http://pevcw8o7e.bkt.clouddn.com/om2.jpg"
         );
     }
 
@@ -132,6 +136,20 @@ public class CourseParticularsDelegate extends OceanDelegate {
     }
 
     public void initView(final View rootView){
+
+        final GoodView goodView = new GoodView(_mActivity);
+
+        collectImg = rootView.findViewById(R.id.iv_course_particulars_collect);
+        collectImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goodView.setImage(R.mipmap.shoucanged);
+                goodView.show(v);
+                collectImg.setImageResource(R.mipmap.shoucanged);
+            }
+        });
+
+
         standardGSYVideoPlayer = rootView.findViewById(R.id.gsy_course_particulars_video);
         standardGSYVideoPlayer.getBackButton().setVisibility(View.GONE);
         mImmersionBar.setStatusBarView(_mActivity,rootView.findViewById(R.id.view_course_particulars_fill));
@@ -157,7 +175,7 @@ public class CourseParticularsDelegate extends OceanDelegate {
             public IPagerTitleView getTitleView(Context context, final int index) {
                 SimplePagerTitleView simplePagerTitleView = new ScaleTransitionPagerTitleView(context);
                 simplePagerTitleView.setText(mDataList[index]);
-                simplePagerTitleView.setTextSize(16);
+                simplePagerTitleView.setTextSize(18);
                 simplePagerTitleView.setNormalColor(Color.parseColor("#616161"));
                 simplePagerTitleView.setSelectedColor(Color.parseColor("#5C89CE"));
                 simplePagerTitleView.setOnClickListener(new View.OnClickListener() {
@@ -203,7 +221,10 @@ public class CourseParticularsDelegate extends OceanDelegate {
         //增加封面
         ImageView imageView = new ImageView(getActivity());
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        imageView.setImageResource(R.drawable.a1);
+        Glide.with(_mActivity)
+                .load(imgUrl)
+                .centerCrop()
+                .into(imageView);
         standardGSYVideoPlayer.setThumbImageView(imageView);
         //增加title
         standardGSYVideoPlayer.getTitleTextView().setVisibility(View.VISIBLE);

@@ -23,6 +23,7 @@ import com.oceanli.oceanmooc.app.models.HomeCourseModel;
 import com.oceanli.oceanmooc.app.other.GlideImageLoader;
 import com.oceanli.oceanmooc.app.models.OceanMarqueeItemModel;
 import com.oceanli.oceanmooc.app.other.OceanMarqueeViewMF;
+import com.oceanli.oceanmooc.app.other.OmUtil;
 import com.scwang.smartrefresh.header.FlyRefreshHeader;
 import com.scwang.smartrefresh.header.PhoenixHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -103,7 +104,9 @@ public class HomeRecommendDelegate extends OceanDelegate {
         banner.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
-                ((MainDelegate)getParentFragment().getParentFragment()).startBrotherFragment(CourseParticularsDelegate.newInstance());
+                ((MainDelegate)getParentFragment().getParentFragment()).startBrotherFragment(
+                        OmUtil.isLoginSkip(CourseParticularsDelegate.newInstance())
+                );
             }
         });
 
@@ -132,15 +135,27 @@ public class HomeRecommendDelegate extends OceanDelegate {
     }
 
 
-
-    public void initRecycler(View rootView){
-        data = new ArrayList<>();
+    public List<HomeCourseModel> getRecommentData(){
+        List<HomeCourseModel> list = new ArrayList<>();
+        final String[] courseNames = {
+                "乔布斯的设计艺术",
+                "Spring Boot开发入门",
+                "Spark大数据处理",
+                "Python机器学习"
+        };
+        final String desc = "本课程是年度最佳课程，采用模块化讲解，循序渐进的输出知识，为了让学生更好的接收";
         for (int i = 0; i < 30; i++) {
             HomeCourseModel homeCourseModel = new HomeCourseModel();
-            homeCourseModel.setTitle("这是标题" + i);
-            homeCourseModel.setContent("这是内容" + i);
-            data.add(homeCourseModel);
+            homeCourseModel.setTitle(courseNames[i % 4]);
+            homeCourseModel.setContent(desc);
+            list.add(homeCourseModel);
         }
+        return list;
+    }
+
+
+    public void initRecycler(View rootView){
+        data = getRecommentData();
         recyclerView = rootView.findViewById(R.id.recycler_recommend);
         recommendRecyclerViewAdapter = new RecommendRecyclerViewAdapter(R.layout.item_recycler_recommend,data);
         //创建布局管理
@@ -163,6 +178,15 @@ public class HomeRecommendDelegate extends OceanDelegate {
                 if (isSlideToBottom(recyclerView)){
                     smartRefreshLayout.setEnabled(true);
                 }
+            }
+        });
+        recommendRecyclerViewAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                // 猜你喜欢课程item点击
+                ((MainDelegate)getParentFragment().getParentFragment()).startBrotherFragment(
+                        OmUtil.isLoginSkip(CourseParticularsDelegate.newInstance())
+                );
             }
         });
     }
@@ -240,6 +264,15 @@ public class HomeRecommendDelegate extends OceanDelegate {
         gridRecyclerView.setAdapter(gridRecyclerViewAdapter);
         gridRecyclerViewAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
         gridRecyclerViewAdapter.isFirstOnly(false);
+        gridRecyclerViewAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                // 精选课程item点击
+                ((MainDelegate)getParentFragment().getParentFragment()).startBrotherFragment(
+                        OmUtil.isLoginSkip(CourseParticularsDelegate.newInstance())
+                );
+            }
+        });
     }
 
 

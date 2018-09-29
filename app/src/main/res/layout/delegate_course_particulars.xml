@@ -19,7 +19,7 @@
 
         <ImageView
             android:id="@+id/iv_course_particulars_back"
-            android:layout_width="20dp"
+            android:layout_width="18dp"
             android:layout_height="20dp"
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
@@ -41,60 +41,92 @@
 
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:elevation="10dp">
 
             <!-- 视频播放器 -->
             <com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
                 android:id="@+id/gsy_course_particulars_video"
                 android:layout_width="match_parent"
-                app:layout_scrollFlags="scroll"
-                android:layout_height="230dp" />
+                android:layout_height="230dp"
+                app:layout_scrollFlags="scroll" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:text="SpringBoot入门"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:textColor="@android:color/black"
-                app:layout_scrollFlags="scroll"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                app:layout_scrollFlags="scroll"
+                android:layout_marginBottom="5dp">
+
+                <TextView
+                    android:id="@+id/tv_course_particulars_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:text="SpringBoot入门"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_scrollFlags="scroll" />
 
 
                 <com.iarcuschin.simpleratingbar.SimpleRatingBar
+                    android:id="@+id/ratingbar_course_particulars"
+                    android:layout_below="@+id/tv_course_particulars_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:srb_starSize="20dp"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="20dp"
                     android:layout_marginTop="5dp"
+                    app:layout_scrollFlags="scroll"
                     app:srb_numberOfStars="5"
                     app:srb_rating="3"
-                    app:layout_scrollFlags="scroll"
+                    app:srb_starSize="15dp"
                     app:srb_stepSize="0.5" />
 
-
+                <TextView
+                    android:id="@+id/tv_course_particulars_price"
+                    android:layout_below="@+id/ratingbar_course_particulars"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="5dp"
+                    android:text="￥99"
+                    android:textColor="#f11b7b"
+                    android:textSize="20sp"
+                    app:layout_scrollFlags="scroll" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="5dp"
-                    android:paddingLeft="5dp"
-                    android:textColor="#f11b7b"
-                    android:text="$99"
-                    app:layout_scrollFlags="scroll"
-                    android:textSize="20sp"/>
+                    android:layout_alignParentRight="true"
+                    android:text="168人学过"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginRight="30dp"
+                    android:paddingBottom="3dp"/>
 
-            <include layout="@layout/include_interval"/>
+                <ImageView
+                    android:id="@+id/iv_course_particulars_collect"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@mipmap/shoucang"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="40dp"/>
+
+
+
+            </RelativeLayout>
+
+            <include layout="@layout/include_interval" />
 
 
             <net.lucode.hackware.magicindicator.MagicIndicator
                 android:id="@+id/magic_indicator_course_particulars"
                 android:layout_width="match_parent"
-                app:layout_scrollFlags="snap"
-                android:layout_height="45dp" />
+                android:layout_height="45dp"
+                app:layout_scrollFlags="snap" />
 
 
         </android.support.design.widget.AppBarLayout>

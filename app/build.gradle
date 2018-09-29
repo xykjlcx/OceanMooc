@@ -79,5 +79,8 @@ dependencies {
     // 评分
     implementation 'com.iarcuschin:simpleratingbar:0.1.5'
 
+    //
+    implementation 'com.wx.goodview:goodview:1.0.0'
+
 
 }

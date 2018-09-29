@@ -26,7 +26,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1sp"
+        android:layout_height="0.8sp"
         android:layout_below="@+id/tv_course_section_item_child"
         android:background="#e6e7e6"/>
 
