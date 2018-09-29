@@ -85,7 +85,11 @@ public class CourseParticularsDelegate extends OceanDelegate {
 
     @Override
     public void onEnterAnimationEnd(Bundle savedInstanceState) {
-        initNetData();
+//        initNetData();
+        initVideo(
+                "http://pevcw8o7e.bkt.clouddn.com/caifang.mp4",
+                ""
+        );
     }
 
     @Override
@@ -98,7 +102,6 @@ public class CourseParticularsDelegate extends OceanDelegate {
                 pop();
             }
         });
-//        initNetData();
     }
 
 

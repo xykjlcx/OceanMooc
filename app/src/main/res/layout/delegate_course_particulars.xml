@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
 
     <View
         android:id="@+id/view_course_particulars_fill"
@@ -46,14 +47,54 @@
             <com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
                 android:id="@+id/gsy_course_particulars_video"
                 android:layout_width="match_parent"
-                app:layout_scrollFlags="enterAlways"
-                android:layout_height="220dp" />
+                app:layout_scrollFlags="scroll"
+                android:layout_height="230dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:text="SpringBoot入门"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:textColor="@android:color/black"
+                app:layout_scrollFlags="scroll"/>
+
+
+                <com.iarcuschin.simpleratingbar.SimpleRatingBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srb_starSize="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    app:srb_numberOfStars="5"
+                    app:srb_rating="3"
+                    app:layout_scrollFlags="scroll"
+                    app:srb_stepSize="0.5" />
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:paddingLeft="5dp"
+                    android:textColor="#f11b7b"
+                    android:text="$99"
+                    app:layout_scrollFlags="scroll"
+                    android:textSize="20sp"/>
+
+            <include layout="@layout/include_interval"/>
 
 
             <net.lucode.hackware.magicindicator.MagicIndicator
                 android:id="@+id/magic_indicator_course_particulars"
                 android:layout_width="match_parent"
-                android:layout_height="40dp" />
+                app:layout_scrollFlags="snap"
+                android:layout_height="45dp" />
 
 
         </android.support.design.widget.AppBarLayout>

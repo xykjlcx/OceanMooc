@@ -75,4 +75,10 @@ dependencies {
 
     // 选择器
     implementation 'com.contrarywind:Android-PickerView:4.1.6'
+
+    // 评分
+    implementation 'com.iarcuschin:simpleratingbar:0.1.5'
+
+    // 消息总线 eventbus
+    implementation 'org.greenrobot:eventbus:3.1.1'
 }

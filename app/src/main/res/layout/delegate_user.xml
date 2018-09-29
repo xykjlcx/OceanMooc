@@ -7,7 +7,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="280dp">
+        android:layout_height="300dp">
 
         <com.scwang.wave.MultiWaveHeader
             android:id="@+id/waveHeader"
@@ -25,12 +25,95 @@
         <TextView
             android:id="@+id/tv_user_signature"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="40dp"
             android:gravity="center"
-            android:textSize="18dp"
+            android:textSize="18sp"
+            android:layout_marginTop="@dimen/global_default_margin_size"
+            android:layout_marginBottom="@dimen/global_default_margin_size"
             android:textColor="@android:color/white"
             android:text="这家伙很懒，什么都没有留下！"
             android:layout_below="@+id/iv_user_img"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/tv_user_signature"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tv_user_fans_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="19"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="25sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="粉丝"
+                    android:layout_below="@+id/tv_user_fans_count"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="15sp"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+
+
+                <TextView
+                    android:id="@+id/tv_user_attention_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="8"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="25sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="关注"
+                    android:layout_below="@+id/tv_user_attention_count"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="15sp"/>
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+
+
+                <TextView
+                    android:id="@+id/tv_user_study_course_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="25sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="参与课程"
+                    android:layout_below="@+id/tv_user_study_course_count"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="15sp"/>
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
 
     </RelativeLayout>
 
@@ -40,14 +123,149 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"/>
 
-    <LinearLayout
+    <include layout="@layout/include_interval" />
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:orientation="horizontal">
+        android:layout_height="50dp"
+        android:paddingRight="20dp">
+
+        <ImageView
+            android:id="@+id/iv_user_setting_one"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_alignParentLeft="true"
+            android:src="@mipmap/collect"/>
+
+        <TextView
+            android:id="@+id/tv_user_setting_one"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_toRightOf="@+id/iv_user_setting_one"
+            android:text="我的收藏"
+            android:paddingLeft="20dp"
+            android:gravity="center_vertical"/>
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/you"/>
+
+    </RelativeLayout>
 
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingRight="20dp">
 
-    </LinearLayout>
+        <include layout="@layout/include_view_line"/>
+
+        <ImageView
+            android:id="@+id/iv_user_setting_two"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_alignParentLeft="true"
+            android:src="@mipmap/comment"/>
+
+        <TextView
+            android:id="@+id/tv_user_setting_two"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_toRightOf="@+id/iv_user_setting_two"
+            android:text="我的评论"
+            android:paddingLeft="20dp"
+            android:gravity="center_vertical"/>
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/you"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingRight="20dp">
+
+        <include layout="@layout/include_view_line"/>
+
+        <ImageView
+            android:id="@+id/iv_user_setting_three"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_alignParentLeft="true"
+            android:src="@mipmap/opinion"/>
+
+        <TextView
+            android:id="@+id/tv_user_setting_three"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_toRightOf="@+id/iv_user_setting_three"
+            android:text="意见反馈"
+            android:paddingLeft="20dp"
+            android:gravity="center_vertical"/>
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/you"/>
+
+    </RelativeLayout>
+
+
+    <include layout="@layout/include_interval"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingRight="20dp">
+
+
+        <ImageView
+            android:id="@+id/iv_user_setting_four"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_alignParentLeft="true"
+            android:src="@mipmap/setting"/>
+
+        <TextView
+            android:id="@+id/tv_user_setting_four"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_toRightOf="@+id/iv_user_setting_four"
+            android:text="设置"
+            android:paddingLeft="20dp"
+            android:gravity="center_vertical"/>
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/you"/>
+
+    </RelativeLayout>
+
 
 
 </LinearLayout>
