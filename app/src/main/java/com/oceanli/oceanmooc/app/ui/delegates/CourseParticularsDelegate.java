@@ -7,8 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -18,6 +16,7 @@ import com.oceanli.ocean.core.net.callback.IFailure;
 import com.oceanli.ocean.core.net.callback.ISuccess;
 import com.oceanli.oceanmooc.app.R;
 import com.oceanli.oceanmooc.app.adapter.CourseParticularsDelegateViewPagerAdapter;
+import com.oceanli.ocean.core.event.OceanMessageEvent;
 import com.oceanli.oceanmooc.app.ui.diy.ScaleTransitionPagerTitleView;
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
@@ -25,23 +24,18 @@ import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
-import net.lucode.hackware.magicindicator.buildins.UIUtil;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.BezierPagerIndicator;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.SimplePagerTitleView;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import me.yokeyword.fragmentation.SupportFragment;
 
 /**
  * Created by ocean on 2018/9/28
@@ -232,6 +226,15 @@ public class CourseParticularsDelegate extends OceanDelegate {
         standardGSYVideoPlayer.setShowFullAnimation(true);
     }
 
+    @Override
+    public void onMessageEvent(OceanMessageEvent event) {
+        super.onMessageEvent(event);
+        Toast.makeText(_mActivity, "接收到消息了" + event.getMsg(), Toast.LENGTH_SHORT).show();
+        initVideo(
+                "http://pevcw8o7e.bkt.clouddn.com/caipai.mp4",
+                ""
+        );
+    }
 
     @Override
     public void onPause() {

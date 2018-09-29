@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/iv_comment_head"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="@dimen/global_default_margin_size"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_margin="@dimen/global_default_margin_size"
+        android:text="热心网友李先生"
+        android:layout_toRightOf="@+id/iv_comment_head"
+        android:gravity="center_vertical"
+        android:textSize="15sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_margin="@dimen/global_default_margin_size"
+        android:text="2018.09.29"
+        android:layout_alignParentRight="true"
+        android:paddingRight="20dp"
+        android:gravity="center_vertical"
+        android:textSize="15sp"/>
+
+    <TextView
+        android:id="@+id/iv_comment_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_comment_head"
+        android:layout_marginLeft="40dp"
+        android:gravity="center_vertical"
+        android:text="课程很不错，讲的也非常容易听懂，期待老师的后续课程,加油！真好"
+        android:layout_marginBottom="@dimen/global_default_margin_size"
+        android:textSize="15sp"/>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1sp"
+        android:layout_below="@+id/iv_comment_content"
+        android:background="#c2c4c2"/>
+
+</RelativeLayout>

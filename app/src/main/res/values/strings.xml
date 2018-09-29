@@ -1,10 +1,9 @@
 <resources>
     <string name="app_name">OceanMooc</string>
 
-    <string name="course_desc_strings">SpringBoot入门SpringBoot入门SpringBoot入门SpringBoot入门
-    SpringBoot入门SpringBoot入门SpringBoot入门SpringBoot入门
-    SpringBoot入门SpringBoot入门SpringBoot入门SpringBoot入门SpringBoot入门
-    SpringBoot入门SpringBoot入门SpringBoot入门SpringBoot入门</string>
+    <string name="course_desc_strings">简介：目前业界最流行的微服务架构正在或者已被各种规模的互联网公司广泛接受和认可，业已成为互联网开发人员必备技术。无论是互联网、云计算还是大数据Java平台已成为全栈的生态体系，其重要性几乎不可替代。Spring Boot作为微服务的基础设施之一，背靠强大的Spring 生态社区，支撑Spring Cloud技术体系。本课程通过实战的方式，从单一应用开发升级为多模块应用开发。根据不同的部署场景，构建不同格式的打包文件，以及在开发和部署阶段，执行不同的运行方式。</string>
+
+    <string name="course_tearcher">小马哥， BAT 互联网技术专家，十余年 Java EE 从业经验，Apache 开源工程核心开发、架构师。目前主要负责集团微服务基础设施构建、架构衍进等。获得 SUN Java（SCJP、SCWCD、SCBCD）以及 Oracle OCA 等的认证。</string>
 
     <!-- 底部导航 1 -->
     <string name="bottombar_item_one">首页</string>
