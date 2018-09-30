@@ -2,14 +2,8 @@ package com.oceanli.oceanmooc.app;
 
 import android.app.Application;
 
-import com.gyf.barlibrary.ImmersionBar;
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
 import com.oceanli.ocean.core.app.Ocean;
-
-import java.io.IOException;
-
-import okhttp3.Interceptor;
-import okhttp3.Response;
 
 /**
  * Created by ocean on 2018/6/19
@@ -22,7 +16,7 @@ public class OmApplication extends Application {
     public void onCreate() {
         super.onCreate();
         Ocean.init(this)
-                .withApiHost("http://www.baidu.com/")
+                .withApiHost(OmConstant.BASE_URL)
                 .withIcon(new FontAwesomeModule())
                 .configure();
     }

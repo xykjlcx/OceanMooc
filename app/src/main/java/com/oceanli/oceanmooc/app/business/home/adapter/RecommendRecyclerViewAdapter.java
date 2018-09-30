@@ -1,11 +1,13 @@
 package com.oceanli.oceanmooc.app.business.home.adapter;
 
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.oceanli.oceanmooc.app.OmConstant;
 import com.oceanli.oceanmooc.app.R;
 import com.oceanli.oceanmooc.app.business.home.models.RecommendCourseModel;
 
@@ -17,27 +19,23 @@ import java.util.Random;
  * Author :  ocean
  * Email  :  348686686@qq.com
  */
-public class RecommendRecyclerViewAdapter extends BaseQuickAdapter<RecommendCourseModel,BaseViewHolder> {
+public class RecommendRecyclerViewAdapter extends BaseQuickAdapter<RecommendCourseModel.DataBean,BaseViewHolder> {
 
-    public RecommendRecyclerViewAdapter(int layoutResId, @Nullable List<RecommendCourseModel> data) {
+    public RecommendRecyclerViewAdapter(int layoutResId, @Nullable List<RecommendCourseModel.DataBean> data) {
         super(layoutResId, data);
     }
-
-    private String[] imgUrls = {
-            "http://pevcw8o7e.bkt.clouddn.com/om1fuben.jpg",
-            "http://pevcw8o7e.bkt.clouddn.com/om2.jpg",
-            "http://pevcw8o7e.bkt.clouddn.com/om3.jpg",
-            "http://pevcw8o7e.bkt.clouddn.com/om4.jpg"
-    };
 
     private Random random = new Random();
 
     @Override
-    protected void convert(BaseViewHolder helper, RecommendCourseModel item) {
-        helper.setText(R.id.tv_recommend_title,item.getTitle())
-                .setText(R.id.tv_recommend_content,item.getContent());
+    protected void convert(BaseViewHolder helper, RecommendCourseModel.DataBean item) {
+        helper.setText(R.id.tv_recommend_title,item.getCourseName())
+                .setText(R.id.tv_recommend_content,item.getCourseDesc())
+                .setText(R.id.tv_recommend_price,"￥" + item.getPrice())
+                .setText(R.id.tv_recommend_study_count,random.nextInt(200) + "人学过");
+        Log.e(TAG, "convert: " + "查看刷新后的数据：" + item.getCourseName() );
         Glide.with(mContext)
-                .load(imgUrls[random.nextInt(100) % 4])
+                .load(item.getImgUrl() + OmConstant.IMG_COMPRESS_URL)
                 .centerCrop()
                 .dontAnimate()
                 .into((ImageView) helper.getView(R.id.img_recommend));

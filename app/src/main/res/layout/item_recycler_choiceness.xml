@@ -15,7 +15,7 @@
         android:id="@+id/layout_choiceness_item"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:alpha="0.9">
+        android:alpha="1">
 
         <ImageView
             android:id="@+id/iv_choiceness_img"
@@ -24,7 +24,7 @@
 
         <TextView
             android:id="@+id/tv_choiceness_item_course_name"
-            android:layout_width="100dp"
+            android:layout_width="match_parent"
             android:layout_height="30dp"
             android:padding="5dp"
             android:textColor="@android:color/white"
@@ -41,7 +41,7 @@
 
         <TextView
             android:id="@+id/tv_choiceness_item_course_price"
-            android:layout_width="100dp"
+            android:layout_width="match_parent"
             android:layout_height="30dp"
             android:textColor="#f11b7b"
             android:padding="5dp"

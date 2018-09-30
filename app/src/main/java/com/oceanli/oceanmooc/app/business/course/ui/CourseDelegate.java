@@ -39,7 +39,7 @@ public class CourseDelegate extends OceanDelegate{
     @BindView(R.id.recycler_course_list)
     RecyclerView mRecyclerView;
     private ChoicenessGridRecyclerViewAdapter mAdapter;
-    private List<ChoicenessCourseModel> mData;
+    private List<ChoicenessCourseModel.DataBean> mData;
 
     @BindView(R.id.smart_refresh_course)
     SmartRefreshLayout mSmartRefreshLayout;
@@ -128,8 +128,8 @@ public class CourseDelegate extends OceanDelegate{
         initRefresh();
     }
 
-    public List<ChoicenessCourseModel> getCourseData(){
-        List<ChoicenessCourseModel> list = new ArrayList<>();
+    public List<ChoicenessCourseModel.DataBean> getCourseData(){
+        List<ChoicenessCourseModel.DataBean> list = new ArrayList<>();
         final String[] courseNames = {
                 "乔布斯的设计艺术",
                 "Spring Boot开发入门",
@@ -138,11 +138,11 @@ public class CourseDelegate extends OceanDelegate{
         };
         final String desc = "本课程是年度最佳课程，采用模块化讲解，循序渐进的输出知识，为了让学生更好的接收";
         for (int i = 0; i < 30; i++) {
-            ChoicenessCourseModel choicenessCourseModel = new ChoicenessCourseModel();
-            choicenessCourseModel.setCourseName(courseNames[i % 4]);
-            choicenessCourseModel.setCourseDesc(desc);
-            choicenessCourseModel.setPrice("￥99");
-            list.add(choicenessCourseModel);
+            ChoicenessCourseModel.DataBean dataBean = new ChoicenessCourseModel.DataBean();
+//            choicenessCourseModel.setCourseName(courseNames[i % 4]);
+//            choicenessCourseModel.setCourseDesc(desc);
+//            choicenessCourseModel.setPrice("￥99");
+            list.add(dataBean);
         }
         return list;
     }

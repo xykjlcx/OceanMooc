@@ -1,8 +1,13 @@
 package com.oceanli.oceanmooc.app.other.utils;
 
-import com.oceanli.oceanmooc.app.OmConfig;
+import android.content.Context;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.oceanli.oceanmooc.app.OmConstant;
 import com.oceanli.oceanmooc.app.business.user.ui.LoginDelegate;
 
+import es.dmoral.toasty.Toasty;
 import me.yokeyword.fragmentation.SupportFragment;
 
 /**
@@ -19,10 +24,34 @@ public class OmUtil {
      * @return
      */
     public static SupportFragment isLoginSkip(SupportFragment targetFragment){
-        if (OmConfig.isLogin)
+        if (OmConstant.isLogin)
             return targetFragment;
         else
             return LoginDelegate.newInstance();
+    }
+
+    public static class Holder{
+        public static final Gson GSON = new Gson();
+    }
+
+    public static Gson getGson(){
+        return Holder.GSON;
+    }
+
+    public static void toastSuccess(Context context,String content){
+        Toasty.success(context,content, Toast.LENGTH_SHORT).show();
+    }
+
+    public static void toastError(Context context,String content){
+        Toasty.error(context,content, Toast.LENGTH_SHORT).show();
+    }
+
+    public static void toastInfo(Context context,String content){
+        Toasty.info(context,content, Toast.LENGTH_SHORT).show();
+    }
+
+    public static void toastWarning(Context context,String content){
+        Toasty.warning(context,content, Toast.LENGTH_SHORT).show();
     }
 
 }

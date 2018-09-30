@@ -33,11 +33,13 @@
 
         <TextView
             android:id="@+id/tv_recommend_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:layout_toRightOf="@+id/layout_recomment_card"
             android:text="乔布斯的魅力演讲"
             android:textColor="#313131"
@@ -46,20 +48,23 @@
         <TextView
             android:id="@+id/tv_recommend_content"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="70dp"
             android:layout_below="@+id/tv_recommend_title"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:textColor="#9fa19f"
+            android:maxLines="3"
+            android:ellipsize="end"
             android:layout_toRightOf="@id/layout_recomment_card"
             android:text="讲述演讲所用的技巧，让你妙趣横生；口才得到长足进步" />
 
         <TextView
+            android:id="@+id/tv_recommend_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/layout_recomment_card"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="10dp"
             android:layout_marginLeft="10dp"
             android:text="￥99"
             android:textColor="#f11b7b"
@@ -67,12 +72,13 @@
             />
 
         <TextView
+            android:id="@+id/tv_recommend_study_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:text="168人学过"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="10dp"
             android:layout_marginRight="30dp"
             android:paddingBottom="3dp"
             />

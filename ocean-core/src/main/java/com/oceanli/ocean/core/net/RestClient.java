@@ -80,29 +80,34 @@ public final class RestClient {
             case UPLOAD:
                 break;
         }
-        Log.e(TAG, "request: url:" + URL + "111111111111111111111 -> " + PARAMS );
+//        Log.e(TAG, "request: url:" + URL + "111111111111111111111 -> " + PARAMS );
         if (call != null){
             call.enqueue(new Callback<String>() {
                 @Override
                 public void onResponse(Call<String> call, Response<String> response) {
                     String result = response.body().toString();
-                    SUCCESS.onSuccess(result);
-                    new Handler().postDelayed(new Runnable() {
+                    if (SUCCESS != null){
+                        SUCCESS.onSuccess(result);
+                    }
+                    handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             OceanLoader.stopLoading();
                         }
-                    },2000);
+                    },500);
                 }
 
                 @Override
                 public void onFailure(Call<String> call, Throwable t) {
-                    FAILURE.onFailure();
+                    if (FAILURE != null)
+                        FAILURE.onFailure();
                     OceanLoader.stopLoading();
                 }
             });
         }
     }
+
+    private Handler handler = new Handler();
 
     public final void get(){
         Log.e(TAG, "get: 1");

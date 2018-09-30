@@ -6,7 +6,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.oceanli.oceanmooc.app.OmConfig;
+import com.oceanli.oceanmooc.app.OmConstant;
 import com.oceanli.oceanmooc.app.R;
 import com.oceanli.oceanmooc.app.business.home.models.ChoicenessCourseModel;
 
@@ -18,32 +18,21 @@ import java.util.Random;
  * Author :  ocean
  * Email  :  348686686@qq.com
  */
-public class ChoicenessGridRecyclerViewAdapter extends BaseQuickAdapter<ChoicenessCourseModel,BaseViewHolder>{
+public class ChoicenessGridRecyclerViewAdapter extends BaseQuickAdapter<ChoicenessCourseModel.DataBean,BaseViewHolder>{
 
-    public ChoicenessGridRecyclerViewAdapter(int layoutResId, @Nullable List<ChoicenessCourseModel> data) {
+    public ChoicenessGridRecyclerViewAdapter(int layoutResId, @Nullable List<ChoicenessCourseModel.DataBean> data) {
         super(layoutResId, data);
     }
 
-    private String[] imgUrls = {
-            "http://pevcw8o7e.bkt.clouddn.com/om1fuben.jpg",
-            "http://pevcw8o7e.bkt.clouddn.com/om2.jpg",
-            "http://pevcw8o7e.bkt.clouddn.com/om3.jpg",
-            "http://pevcw8o7e.bkt.clouddn.com/om4.jpg"
-    };
-
-    private Random random = new Random();
-
     @Override
-    protected void convert(BaseViewHolder helper, ChoicenessCourseModel item) {
+    protected void convert(BaseViewHolder helper, ChoicenessCourseModel.DataBean item) {
         helper.setText(R.id.tv_choiceness_item_course_name,item.getCourseName())
                 .setText(R.id.tv_choiceness_item_course_desc,item.getCourseDesc())
-                .setText(R.id.tv_choiceness_item_course_price,item.getPrice());
-//        helper.setBackgroundColor(R.id.layout_choiceness_item, Color.parseColor(colors[item.getId()]));
-//        helper.setBackgroundRes(R.id.layout_choiceness_item,imgs[item.getId()]);
+                .setText(R.id.tv_choiceness_item_course_price,"￥" + (Integer)item.getPrice());
         Glide.with(mContext)
-                .load(imgUrls[random.nextInt(100) % 4] + OmConfig.IMG_COMPRESS_URL)
-                .dontAnimate()
+                .load(item.getImgUrl() + OmConstant.IMG_COMPRESS_URL)
                 .centerCrop()
+                .dontAnimate()
                 .into((ImageView) helper.getView(R.id.iv_choiceness_img));
     }
 }
