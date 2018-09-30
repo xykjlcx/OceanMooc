@@ -27,7 +27,7 @@
             android:name="com.oceanli.oceanmooc.app.other.glide_https.UnsafeOkHttpGlideModule"
             android:value="GlideModule" />
 
-        <activity android:name=".ui.activity.LaunchActivity"
+        <activity android:name=".test.activity.LaunchActivity"
             android:theme="@style/AppTheme">
             <!--<intent-filter>-->
                 <!--<action android:name="android.intent.action.MAIN" />-->
@@ -35,10 +35,10 @@
                 <!--<category android:name="android.intent.category.LAUNCHER" />-->
             <!--</intent-filter>-->
         </activity>
-        <activity android:name=".ui.activity.TestActivity"
+        <activity android:name=".test.activity.TestActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.MainActivity"
+        <activity android:name=".business.MainActivity"
             android:windowSoftInputMode="adjustResize|stateHidden"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait">

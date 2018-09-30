@@ -2,14 +2,12 @@ package com.oceanli.oceanmooc.app.other;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.gongwen.marqueen.MarqueeFactory;
 import com.oceanli.oceanmooc.app.R;
-import com.oceanli.oceanmooc.app.models.OceanMarqueeItemModel;
+import com.oceanli.oceanmooc.app.other.models.OceanMarqueeItemModel;
 
 /**
  * Created by ocean on 2018/9/26
