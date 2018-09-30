@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.gyf.barlibrary.ImmersionBar;
 import com.oceanli.ocean.core.delegates.OceanDelegate;
 import com.oceanli.ocean.core.net.RestClient;
 import com.oceanli.ocean.core.net.callback.IFailure;
@@ -51,29 +52,18 @@ public class CourseParticularsDelegate extends OceanDelegate {
     ImageView backImg;
     @BindView(R.id.vp_course_particulars)
     ViewPager mViewPager;
-    private CourseParticularsDelegateViewPagerAdapter mAdapter;
-
     @BindView(R.id.magic_indicator_course_particulars)
     MagicIndicator magicIndicator;
-    private String[] mDataList = {
-            "简介",
-            "章节",
-            "评论"
-    };
-
     @BindView(R.id.gsy_course_particulars_video)
     StandardGSYVideoPlayer standardGSYVideoPlayer;
-    private OrientationUtils orientationUtils;
-
     @BindView(R.id.iv_course_particulars_collect)
     ImageView collectImg;
+
 
     @OnClick(R.id.iv_course_particulars_back)
     public void backOnClick(){
         pop();
     }
-
-    GoodView goodView = null;
 
     @OnClick(R.id.iv_course_particulars_collect)
     public void collectonClick(View view){
@@ -81,6 +71,17 @@ public class CourseParticularsDelegate extends OceanDelegate {
         goodView.show(view);
         collectImg.setImageResource(R.mipmap.shoucanged);
     }
+
+
+    private CourseParticularsDelegateViewPagerAdapter mAdapter;
+    GoodView goodView = null;
+    private OrientationUtils orientationUtils;
+    private String[] mDataList = {
+            "简介",
+            "章节",
+            "评论"
+    };
+
 
 
     public static CourseParticularsDelegate newInstance(){
@@ -98,6 +99,9 @@ public class CourseParticularsDelegate extends OceanDelegate {
         // 启用侧滑返回
         return true;
     }
+
+
+
 
     @Override
     public void onEnterAnimationEnd(Bundle savedInstanceState) {
@@ -149,7 +153,7 @@ public class CourseParticularsDelegate extends OceanDelegate {
 
 
     public void initView(final View rootView){
-        mImmersionBar.setStatusBarView(_mActivity,rootView.findViewById(R.id.view_course_particulars_fill));
+//        mImmersionBar.setStatusBarView(_mActivity,rootView.findViewById(R.id.view_course_particulars_fill));
         goodView = new GoodView(_mActivity);
         initGSYVideoView();
         initMagicIndicator();
@@ -216,6 +220,7 @@ public class CourseParticularsDelegate extends OceanDelegate {
     private void initGSYVideoView(){
         //增加title
         standardGSYVideoPlayer.getTitleTextView().setVisibility(View.VISIBLE);
+        standardGSYVideoPlayer.getTitleTextView().setPadding(20,60,0,0);
         //设置旋转
 //        orientationUtils = new OrientationUtils(_mActivity,standardGSYVideoPlayer);
         //设置全屏按键功能
