@@ -19,6 +19,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import butterknife.BindView;
+
 /**
  * Created by ocean on 2018/9/24
  * Author :  ocean
@@ -26,6 +28,7 @@ import org.json.JSONObject;
  */
 public class VideoDelegate extends OceanDelegate {
 
+    @BindView(R.id.detail_player)
     StandardGSYVideoPlayer videoPlayer;
 
     OrientationUtils orientationUtils;
@@ -37,7 +40,6 @@ public class VideoDelegate extends OceanDelegate {
 
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, final View rootView) {
-        videoPlayer =  (StandardGSYVideoPlayer)rootView.findViewById(R.id.detail_player);
         RestClient.builder()
                 .url("http://192.168.43.214:8088/home/getGuessLikeCourse")
                 .params("page",0)

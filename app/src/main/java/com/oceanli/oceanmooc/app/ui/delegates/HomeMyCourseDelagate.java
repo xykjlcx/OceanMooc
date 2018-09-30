@@ -15,6 +15,8 @@ import com.oceanli.oceanmooc.app.models.MyCourseModel;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+
 /**
  * Created by ocean on 2018/9/25
  * Author :  ocean
@@ -22,7 +24,9 @@ import java.util.List;
  */
 public class HomeMyCourseDelagate extends OceanDelegate {
 
-    private RecyclerView mRecyclerView;
+    @BindView(R.id.recycler_my_course_list)
+    RecyclerView mRecyclerView;
+
     private MyCourseRecyclerViewAdapter myCourseRecyclerViewAdapter;
     private List<MyCourseModel> mData;
 
@@ -49,7 +53,6 @@ public class HomeMyCourseDelagate extends OceanDelegate {
 
 
     public void initRecycler(View rootView){
-        mRecyclerView = rootView.findViewById(R.id.recycler_my_course_list);
         mData = new ArrayList<>();
         for (int i = 0; i < 50; i++) {
             MyCourseModel myCourseModel = new MyCourseModel();

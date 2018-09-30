@@ -28,6 +28,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import butterknife.BindView;
+
 /**
  * Created by ocean on 2018/9/25
  * Author :  ocean
@@ -35,12 +37,15 @@ import java.util.List;
  */
 public class CourseDelegate extends OceanDelegate{
 
-    private ImageView selectIv;
-    private RecyclerView mRecyclerView;
+    @BindView(R.id.iv_course_select)
+    ImageView selectIv;
+    @BindView(R.id.recycler_course_list)
+    RecyclerView mRecyclerView;
     private GridRecyclerViewAdapter mAdapter;
     private List<GridCourseModel> mData;
 
-    private SmartRefreshLayout mSmartRefreshLayout;
+    @BindView(R.id.smart_refresh_course)
+    SmartRefreshLayout mSmartRefreshLayout;
 
     public static CourseDelegate newInstance(){
         Bundle bundle = new Bundle();
@@ -96,14 +101,14 @@ public class CourseDelegate extends OceanDelegate{
 
     public void initView(View rootView){
         mImmersionBar.setStatusBarView(_mActivity,rootView.findViewById(R.id.view_course_fill));
-        mSmartRefreshLayout = rootView.findViewById(R.id.smart_refresh_course);
-        selectIv = rootView.findViewById(R.id.iv_course_select);
+        // 分类选择框
         final OptionsPickerView optionsPickerView = new OptionsPickerBuilder(_mActivity, new OnOptionsSelectListener() {
             @Override
             public void onOptionsSelect(int options1, int options2, int options3, View v) {
                 Toast.makeText(_mActivity, "op1:" + options1 + ",op2:" + options2 + ",op3:" + options3, Toast.LENGTH_SHORT).show();
             }
         }).build();
+        // 初始化分类数据(假数据)
         List<List<String>> twoData = new ArrayList<>();
         for (int i = 0; i < optionsTwo.length; i++) {
             List<String> oneList = new ArrayList<>();
@@ -147,7 +152,6 @@ public class CourseDelegate extends OceanDelegate{
 
 
     public void initRecycler(View rootView){
-        mRecyclerView = rootView.findViewById(R.id.recycler_course_list);
         mData = getCourseData();
         mAdapter = new GridRecyclerViewAdapter(R.layout.item_recycler_choiceness,mData);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(_mActivity,2);

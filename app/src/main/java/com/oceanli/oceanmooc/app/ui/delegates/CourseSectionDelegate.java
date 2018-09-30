@@ -22,6 +22,8 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+
 /**
  * Created by ocean on 2018/9/28
  * Author :  ocean
@@ -29,7 +31,8 @@ import java.util.List;
  */
 public class CourseSectionDelegate extends OceanDelegate {
 
-    private RecyclerView mRecyclerView;
+    @BindView(R.id.recycler_course_section)
+    RecyclerView mRecyclerView;
     private CourseSectionExpandableAdapter mExpandableAdapter;
     private List<MultiItemEntity> mData;
 
@@ -47,19 +50,12 @@ public class CourseSectionDelegate extends OceanDelegate {
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
         initView(rootView);
+        initData();
     }
 
     public void initView(View rootView){
-        mRecyclerView = rootView.findViewById(R.id.recycler_course_section);
         mData = generateData();
         mExpandableAdapter = new CourseSectionExpandableAdapter(mData);
-//        final GridLayoutManager manager = new GridLayoutManager(_mActivity, 2);
-//        manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-//            @Override
-//            public int getSpanSize(int position) {
-//                return mExpandableAdapter.getItemViewType(position) == mExpandableAdapter.TYPE_CHILD ? 1 : manager.getSpanCount();
-//            }
-//        });
         final LinearLayoutManager manager = new LinearLayoutManager(_mActivity);
         manager.setOrientation(LinearLayout.VERTICAL);
         mRecyclerView.setLayoutManager(manager);
@@ -72,6 +68,10 @@ public class CourseSectionDelegate extends OceanDelegate {
                 EventBus.getDefault().post(new OceanMessageEvent("jass"));
             }
         });
+    }
+
+    public void initData(){
+
     }
 
 

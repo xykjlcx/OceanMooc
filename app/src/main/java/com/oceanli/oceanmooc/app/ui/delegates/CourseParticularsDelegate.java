@@ -39,6 +39,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import butterknife.BindView;
+import butterknife.OnClick;
+
 /**
  * Created by ocean on 2018/9/28
  * Author :  ocean
@@ -46,29 +49,46 @@ import org.json.JSONObject;
  */
 public class CourseParticularsDelegate extends OceanDelegate {
 
-    private ImageView backImg;
-
-    private ViewPager mViewPager;
+    @BindView(R.id.iv_course_particulars_back)
+    ImageView backImg;
+    @BindView(R.id.vp_course_particulars)
+    ViewPager mViewPager;
     private CourseParticularsDelegateViewPagerAdapter mAdapter;
 
-    private MagicIndicator magicIndicator;
+    @BindView(R.id.magic_indicator_course_particulars)
+    MagicIndicator magicIndicator;
     private String[] mDataList = {
             "简介",
             "章节",
             "评论"
     };
 
-    private StandardGSYVideoPlayer standardGSYVideoPlayer;
+    @BindView(R.id.gsy_course_particulars_video)
+    StandardGSYVideoPlayer standardGSYVideoPlayer;
     private OrientationUtils orientationUtils;
 
-    private ImageView collectImg;
+    @BindView(R.id.iv_course_particulars_collect)
+    ImageView collectImg;
+
+    @OnClick(R.id.iv_course_particulars_back)
+    public void backOnClick(){
+        pop();
+    }
+
+    GoodView goodView = null;
+
+    @OnClick(R.id.iv_course_particulars_collect)
+    public void collectonClick(View view){
+        goodView.setImage(R.mipmap.shoucanged);
+        goodView.show(view);
+        collectImg.setImageResource(R.mipmap.shoucanged);
+    }
 
 
     public static CourseParticularsDelegate newInstance(){
         CourseParticularsDelegate courseParticularsDelegate = new CourseParticularsDelegate();
         return courseParticularsDelegate;
     }
-
 
     @Override
     public Object setLayout() {
@@ -83,9 +103,9 @@ public class CourseParticularsDelegate extends OceanDelegate {
 
     @Override
     public void onEnterAnimationEnd(Bundle savedInstanceState) {
-//        initNetData();
-        initVideo(
+        setVideoSource(
                 "http://pevcw8o7e.bkt.clouddn.com/caifang.mp4",
+                "初始化加载标题",
                 "http://pevcw8o7e.bkt.clouddn.com/om2.jpg"
         );
     }
@@ -93,13 +113,7 @@ public class CourseParticularsDelegate extends OceanDelegate {
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
         initView(rootView);
-        backImg = rootView.findViewById(R.id.iv_course_particulars_back);
-        backImg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pop();
-            }
-        });
+        initData();
     }
 
 
@@ -119,7 +133,7 @@ public class CourseParticularsDelegate extends OceanDelegate {
                             JSONObject realData = jsonArray.getJSONObject(0);
                             String videoUrl = realData.getString("videoUrl");
                             String imgUrl = realData.getString("imgUrl");
-                            initVideo(videoUrl,imgUrl);
+                            setVideoSource(videoUrl,"网络标题",imgUrl);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -135,28 +149,16 @@ public class CourseParticularsDelegate extends OceanDelegate {
                 .post();
     }
 
+
     public void initView(final View rootView){
-
-        final GoodView goodView = new GoodView(_mActivity);
-
-        collectImg = rootView.findViewById(R.id.iv_course_particulars_collect);
-        collectImg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goodView.setImage(R.mipmap.shoucanged);
-                goodView.show(v);
-                collectImg.setImageResource(R.mipmap.shoucanged);
-            }
-        });
-
-
-        standardGSYVideoPlayer = rootView.findViewById(R.id.gsy_course_particulars_video);
-        standardGSYVideoPlayer.getBackButton().setVisibility(View.GONE);
         mImmersionBar.setStatusBarView(_mActivity,rootView.findViewById(R.id.view_course_particulars_fill));
-        magicIndicator = rootView.findViewById(R.id.magic_indicator_course_particulars);
-        mViewPager = rootView.findViewById(R.id.vp_course_particulars);
-        mAdapter = new CourseParticularsDelegateViewPagerAdapter(getChildFragmentManager(),mDataList);
+        goodView = new GoodView(_mActivity);
+        initGSYVideoView();
         initMagicIndicator();
+    }
+
+    public void initData(){
+        mAdapter = new CourseParticularsDelegateViewPagerAdapter(getChildFragmentManager(),mDataList);
         mViewPager.setAdapter(mAdapter);
         ViewPagerHelper.bind(magicIndicator,mViewPager);
     }
@@ -190,7 +192,6 @@ public class CourseParticularsDelegate extends OceanDelegate {
             @Override
             public IPagerIndicator getIndicator(Context context) {
                 BezierPagerIndicator indicator = new BezierPagerIndicator(context);
-//                indicator.setColors(Color.parseColor("#ff4a42"), Color.parseColor("#fcde64"), Color.parseColor("#73e8f4"), Color.parseColor("#76b0ff"), Color.parseColor("#c683fe"));
                 indicator.setColors(
                         Color.parseColor("#0396FF"),
                         Color.parseColor("#28C76F"),
@@ -201,6 +202,7 @@ public class CourseParticularsDelegate extends OceanDelegate {
 
             @Override
             public float getTitleWeight(Context context, int index) {
+                // 指示器横向评价分配宽度
                 if (index == 0) {
                     return 1.0f;
                 } else if (index == 1) {
@@ -213,11 +215,27 @@ public class CourseParticularsDelegate extends OceanDelegate {
         magicIndicator.setNavigator(commonNavigator);
     }
 
+    private void initGSYVideoView(){
+        //增加title
+        standardGSYVideoPlayer.getTitleTextView().setVisibility(View.VISIBLE);
+        //设置旋转
+//        orientationUtils = new OrientationUtils(_mActivity,standardGSYVideoPlayer);
+        //设置全屏按键功能
+        standardGSYVideoPlayer.getFullscreenButton().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                standardGSYVideoPlayer.startWindowFullscreen(_mActivity,false,true);
+            }
+        });
+        // 设置视频空间返回按钮不显示
+        standardGSYVideoPlayer.getBackButton().setVisibility(View.GONE);
+        //是否可以滑动调整
+        standardGSYVideoPlayer.setIsTouchWiget(true);
+        standardGSYVideoPlayer.setThumbPlay(true);
+        standardGSYVideoPlayer.setShowFullAnimation(true);
+    }
 
-    private void initVideo(String videoUrl,String imgUrl) {
-        String source1 = videoUrl;
-        standardGSYVideoPlayer.setUp(source1, true, "测试视频");
-
+    public void setVideoSource(String videoUrl,String videoTitle,String imgUrl){
         //增加封面
         ImageView imageView = new ImageView(getActivity());
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -226,33 +244,18 @@ public class CourseParticularsDelegate extends OceanDelegate {
                 .centerCrop()
                 .into(imageView);
         standardGSYVideoPlayer.setThumbImageView(imageView);
-        //增加title
-        standardGSYVideoPlayer.getTitleTextView().setVisibility(View.VISIBLE);
-        //设置返回键
-        standardGSYVideoPlayer.getBackButton().setVisibility(View.GONE);
-        //设置旋转
-//        orientationUtils = new OrientationUtils(_mActivity,standardGSYVideoPlayer);
-        //设置全屏按键功能,这是使用的是选择屏幕，而不是全屏
-        standardGSYVideoPlayer.getFullscreenButton().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                orientationUtils.resolveByClick();
-                standardGSYVideoPlayer.startWindowFullscreen(_mActivity,false,true);
-            }
-        });
-        //是否可以滑动调整
-        standardGSYVideoPlayer.setIsTouchWiget(true);
-//        standardGSYVideoPlayer.startPlayLogic();
-        standardGSYVideoPlayer.setThumbPlay(true);
-        standardGSYVideoPlayer.setShowFullAnimation(true);
+        standardGSYVideoPlayer.setUp(videoUrl, true, videoTitle);
     }
 
+
+    // 接收点击章节后视频的更新
     @Override
     public void onMessageEvent(OceanMessageEvent event) {
         super.onMessageEvent(event);
         Toast.makeText(_mActivity, "接收到消息了" + event.getMsg(), Toast.LENGTH_SHORT).show();
-        initVideo(
+        setVideoSource(
                 "http://pevcw8o7e.bkt.clouddn.com/caipai.mp4",
+                "接收的新视频",
                 ""
         );
     }

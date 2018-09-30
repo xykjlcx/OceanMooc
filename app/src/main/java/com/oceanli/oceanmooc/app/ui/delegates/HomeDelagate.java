@@ -24,6 +24,8 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.Simple
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+
 /**
  * Created by ocean on 2018/9/25
  * Author :  ocean
@@ -31,14 +33,18 @@ import java.util.List;
  */
 public class HomeDelagate extends OceanDelegate {
 
-    private ViewPager mViewPager;
+    @BindView(R.id.vp_home_recommend_and_my)
+    ViewPager mViewPager;
+    @BindView(R.id.magicindicator_home)
+    MagicIndicator magicIndicator;
+
     private HomeDelegateViewPageAdapter mAdapter;
     private String[] titles = {
             "推荐",
             "我的"
     };
     private List<String> mTitleDataList;
-    private MagicIndicator magicIndicator;
+
 
     public static HomeDelagate newInstance(){
         Bundle args = new Bundle();
@@ -59,7 +65,6 @@ public class HomeDelagate extends OceanDelegate {
 
     public void initView(View rootView){
         mImmersionBar.setStatusBarView(_mActivity,rootView.findViewById(R.id.view_home_fill));
-        mViewPager = rootView.findViewById(R.id.vp_home_recommend_and_my);
         mAdapter = new HomeDelegateViewPageAdapter(getChildFragmentManager(),titles);
         mTitleDataList = new ArrayList<>();
         mTitleDataList.add("推荐");
@@ -75,7 +80,6 @@ public class HomeDelagate extends OceanDelegate {
     }
 
     public void initTabLayout(View rootView){
-        magicIndicator = rootView.findViewById(R.id.magicindicator_home);
         CommonNavigator commonNavigator = new CommonNavigator(_mActivity);
         commonNavigator.setAdapter(new CommonNavigatorAdapter() {
 

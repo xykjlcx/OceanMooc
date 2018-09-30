@@ -11,6 +11,8 @@ import com.oceanli.ocean.core.ui.launch.OceanLaunchView;
 import com.oceanli.oceanmooc.app.R;
 import com.oceanli.oceanmooc.app.ui.activity.MainActivity;
 
+import butterknife.BindView;
+
 /**
  * Created by ocean on 2018/7/4
  * Author :  ocean
@@ -18,7 +20,8 @@ import com.oceanli.oceanmooc.app.ui.activity.MainActivity;
  */
 public class TestLaunchDelegate extends OceanDelegate {
 
-    private OceanLaunchView launchView;
+    @BindView(R.id.launchView)
+    OceanLaunchView launchView;
 
     @Override
     public Object setLayout() {
@@ -27,7 +30,6 @@ public class TestLaunchDelegate extends OceanDelegate {
 
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
-        launchView = rootView.findViewById(R.id.launchView);
         launchView.setImgResource(new int[]{
                 R.drawable.a1,
                 R.drawable.a2

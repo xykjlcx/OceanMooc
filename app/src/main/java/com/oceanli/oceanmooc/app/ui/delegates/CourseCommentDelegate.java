@@ -15,6 +15,8 @@ import com.oceanli.oceanmooc.app.models.SectionCommentModel;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+
 /**
  * Created by ocean on 2018/9/28
  * Author :  ocean
@@ -22,9 +24,12 @@ import java.util.List;
  */
 public class CourseCommentDelegate extends OceanDelegate {
 
-    private RecyclerView recyclerView;
+    @BindView(R.id.recycler_course_comment)
+    RecyclerView recyclerView;
     private CourseSectionCommentRecyclerViewAdapter commentRecyclerViewAdapter;
     private List<SectionCommentModel> mData;
+
+
 
     public static CourseCommentDelegate newInstance(){
         CourseCommentDelegate courseCommentDelegate = new CourseCommentDelegate();
@@ -38,7 +43,11 @@ public class CourseCommentDelegate extends OceanDelegate {
 
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
-        recyclerView = rootView.findViewById(R.id.recycler_course_comment);
+        initConmentRecycle();
+    }
+
+    // 初始化评论列表
+    public void initConmentRecycle(){
         mData = getData();
         commentRecyclerViewAdapter = new CourseSectionCommentRecyclerViewAdapter(R.layout.item_recycler_course_section_comment,mData);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(_mActivity);
@@ -47,6 +56,7 @@ public class CourseCommentDelegate extends OceanDelegate {
         recyclerView.setAdapter(commentRecyclerViewAdapter);
     }
 
+    // 获取评论数据
     public List<SectionCommentModel> getData(){
         ArrayList<SectionCommentModel> list = new ArrayList<>();
         for (int i = 0; i < 50; i++) {

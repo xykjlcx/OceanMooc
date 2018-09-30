@@ -14,6 +14,7 @@ import com.oceanli.oceanmooc.app.ui.activity.TestActivity;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
 
+import butterknife.BindView;
 import me.yokeyword.fragmentation.SupportFragment;
 
 /**
@@ -22,6 +23,9 @@ import me.yokeyword.fragmentation.SupportFragment;
  * Email  :  348686686@qq.com
  */
 public class MainDelegate extends OceanDelegate {
+
+    @BindView(R.id.bottombar_main)
+    BottomBar bottomBar;
 
     /**
      * 首页
@@ -37,9 +41,6 @@ public class MainDelegate extends OceanDelegate {
     private static final Integer USER = 2;
 
     private SupportFragment[] mFragments = new SupportFragment[3];
-
-    private BottomBar bottomBar;
-
 
 
     public static MainDelegate newInstance(){
@@ -89,7 +90,6 @@ public class MainDelegate extends OceanDelegate {
     }
 
     public void initView(View rootView){
-        bottomBar = rootView.findViewById(R.id.bottombar_main);
         bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelected(@IdRes int tabId) {

@@ -41,6 +41,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import butterknife.BindView;
+
 /**
  * Created by ocean on 2018/9/25
  * Author :  ocean
@@ -48,27 +50,33 @@ import java.util.List;
  */
 public class HomeRecommendDelegate extends OceanDelegate {
 
-    private Banner banner;
+    @BindView(R.id.banner_recommed)
+    Banner mBanner;
     private String[] mtitles = {
             "Spring Data JPA整合",
             "组件化开发",
             "大数据精选"
     };
 
-    private RecyclerView recyclerView;
+    @BindView(R.id.recycler_recommend)
+    RecyclerView mRecommendRecycler;
     private RecommendRecyclerViewAdapter recommendRecyclerViewAdapter;
     private List<HomeCourseModel> data;
 
-    private MarqueeView<RelativeLayout,OceanMarqueeItemModel> modelMarqueeView;
+    @BindView(R.id.marquee_recommed_ocean)
+    MarqueeView<RelativeLayout,OceanMarqueeItemModel> modelMarqueeView;
 
-    private SmartRefreshLayout smartRefreshLayout;
+    @BindView(R.id.recommend_refresh)
+    SmartRefreshLayout smartRefreshLayout;
 
 
-    private RecyclerView gridRecyclerView;
+    @BindView(R.id.recycler_recommend_choiceness_grid)
+    RecyclerView mChoicenessGridRecycler;
     private GridRecyclerViewAdapter gridRecyclerViewAdapter;
     private List<GridCourseModel> gridCourseModelList;
 
-    private AppBarLayout appBarLayout;
+    @BindView(R.id.appbar_recommend)
+    AppBarLayout appBarLayout;
 
 
 
@@ -89,19 +97,18 @@ public class HomeRecommendDelegate extends OceanDelegate {
         initView(rootView);
     }
 
-    public void initView(View rootView){
-        banner = rootView.findViewById(R.id.banner_recommed);
-        banner.setImageLoader(new GlideImageLoader());
+    public void initBanner(){
+        mBanner.setImageLoader(new GlideImageLoader());
         List<String> list = new ArrayList<>();
         list.add("http://img.ui.cn/data/file/2/7/2/1815272.jpg" + OmConfig.IMG_COMPRESS_URL);
         list.add("http://pevcw8o7e.bkt.clouddn.com/134032655.jpg" + OmConfig.IMG_COMPRESS_URL);
         list.add("http://pevcw8o7e.bkt.clouddn.com/318887695.jpg" + OmConfig.IMG_COMPRESS_URL);
-        banner.setImages(list);
-        banner.setBannerTitles(Arrays.asList(mtitles));
-        banner.setBannerAnimation(Transformer.FlipHorizontal);
-        banner.setBannerStyle(BannerConfig.NUM_INDICATOR_TITLE);
-        banner.start();
-        banner.setOnBannerListener(new OnBannerListener() {
+        mBanner.setImages(list);
+        mBanner.setBannerTitles(Arrays.asList(mtitles));
+        mBanner.setBannerAnimation(Transformer.FlipHorizontal);
+        mBanner.setBannerStyle(BannerConfig.NUM_INDICATOR_TITLE);
+        mBanner.start();
+        mBanner.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
                 ((MainDelegate)getParentFragment().getParentFragment()).startBrotherFragment(
@@ -109,22 +116,23 @@ public class HomeRecommendDelegate extends OceanDelegate {
                 );
             }
         });
+    }
 
-        appBarLayout = rootView.findViewById(R.id.appbar_recommend);
+    public void initView(View rootView){
+        initBanner();
+        initRefresh(rootView);
+        initRecycler(rootView);
+        initGridRecycler(rootView);
+        initMarquee(rootView);
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
                 if (smartRefreshLayout == null) return;
                 Log.e("appbar", "onOffsetChanged: " + verticalOffset);
                 // ||isSlideToBottom(recyclerView)
-                smartRefreshLayout.setEnabled(verticalOffset >= 0||isSlideToBottom(recyclerView) ?  true : false);
+                smartRefreshLayout.setEnabled(verticalOffset >= 0||isSlideToBottom(mRecommendRecycler) ?  true : false);
             }
         });
-
-        initRefresh(rootView);
-        initRecycler(rootView);
-        initGridRecycler(rootView);
-        initMarquee(rootView);
     }
 
     protected boolean isSlideToBottom(RecyclerView recyclerView) {
@@ -156,16 +164,15 @@ public class HomeRecommendDelegate extends OceanDelegate {
 
     public void initRecycler(View rootView){
         data = getRecommentData();
-        recyclerView = rootView.findViewById(R.id.recycler_recommend);
         recommendRecyclerViewAdapter = new RecommendRecyclerViewAdapter(R.layout.item_recycler_recommend,data);
         //创建布局管理
         LinearLayoutManager layoutManager = new LinearLayoutManager(_mActivity);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(recommendRecyclerViewAdapter);
+        mRecommendRecycler.setLayoutManager(layoutManager);
+        mRecommendRecycler.setAdapter(recommendRecyclerViewAdapter);
         recommendRecyclerViewAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
         recommendRecyclerViewAdapter.isFirstOnly(false);
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        mRecommendRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
@@ -192,7 +199,6 @@ public class HomeRecommendDelegate extends OceanDelegate {
     }
 
     public void initMarquee(View rootView){
-        modelMarqueeView = rootView.findViewById(R.id.marquee_recommed_ocean);
         OceanMarqueeViewMF viewMF = new OceanMarqueeViewMF(_mActivity,getLayoutInflater());
         List<OceanMarqueeItemModel> marqueeItemModelList = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
@@ -208,7 +214,6 @@ public class HomeRecommendDelegate extends OceanDelegate {
     }
 
     public void initRefresh(View rootView){
-        smartRefreshLayout = rootView.findViewById(R.id.recommend_refresh);
         smartRefreshLayout.setRefreshHeader(new ClassicsHeader(_mActivity));
         smartRefreshLayout.setRefreshFooter(new ClassicsFooter(_mActivity));
         // 尽量优化 下拉触发导致的滑动冲突
@@ -246,11 +251,10 @@ public class HomeRecommendDelegate extends OceanDelegate {
     }
 
     public void initGridRecycler(View rootView){
-        gridRecyclerView = rootView.findViewById(R.id.recycler_recommend_choiceness_grid);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(_mActivity,2);
         gridLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
-        gridRecyclerView.setLayoutManager(gridLayoutManager);
+        mChoicenessGridRecycler.setLayoutManager(gridLayoutManager);
         gridCourseModelList = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
             GridCourseModel model = new GridCourseModel();
@@ -261,7 +265,7 @@ public class HomeRecommendDelegate extends OceanDelegate {
             gridCourseModelList.add(model);
         }
         gridRecyclerViewAdapter = new GridRecyclerViewAdapter(R.layout.item_recycler_choiceness,gridCourseModelList);
-        gridRecyclerView.setAdapter(gridRecyclerViewAdapter);
+        mChoicenessGridRecycler.setAdapter(gridRecyclerViewAdapter);
         gridRecyclerViewAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
         gridRecyclerViewAdapter.isFirstOnly(false);
         gridRecyclerViewAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {

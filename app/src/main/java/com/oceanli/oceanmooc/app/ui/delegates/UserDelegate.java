@@ -5,10 +5,17 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.oceanli.ocean.core.delegates.OceanDelegate;
+import com.oceanli.ocean.mooc.R2;
 import com.oceanli.oceanmooc.app.R;
+
+import org.androidannotations.annotations.Click;
+
+import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Created by ocean on 2018/9/25
@@ -17,8 +24,14 @@ import com.oceanli.oceanmooc.app.R;
  */
 public class UserDelegate extends OceanDelegate {
 
-    private ImageView headIv;
-    private TextView signatureTv;
+    @BindView(R.id.view_user_fill)
+    View view;
+
+    @BindView(R.id.iv_user_img)
+    ImageView headIv;
+
+    @BindView(R.id.tv_user_signature)
+    TextView signatureTv;
 
     public static UserDelegate newInstance(){
         Bundle bundle = new Bundle();
@@ -39,9 +52,8 @@ public class UserDelegate extends OceanDelegate {
     }
 
     public void initView(View rootView){
-        mImmersionBar.setStatusBarView(_mActivity,rootView.findViewById(R.id.view_user_fill));
-        headIv = rootView.findViewById(R.id.iv_user_img);
-        signatureTv = rootView.findViewById(R.id.tv_user_signature);
+        mImmersionBar.setStatusBarView(_mActivity,view);
+        signatureTv.setText("Jass");
         Glide.with(_mActivity)
                 .load(R.drawable.head)
                 .centerCrop()

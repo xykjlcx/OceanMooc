@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 
+
 android {
     compileSdkVersion 26
     defaultConfig {
@@ -26,22 +27,15 @@ dependencies {
 //    configurations {
 //        all*.exclude group: 'com.android.support', module: 'support-v13'
 //    }
-
     implementation 'com.android.support:design:27.1.0'
-
-
     // 视频框架DKPlayer
     implementation 'com.shuyu:GSYVideoPlayer:6.0.0-beta'
-
     // bottomBar
     api 'com.roughike:bottom-bar:2.3.1'
-
     // tablyout
     api 'com.github.hackware1993:MagicIndicator:1.5.0'
-
     // 轮播
     api 'com.youth.banner:banner:1.4.10'  //最新版本
-
     //
     api 'com.android.support:cardview-v7:25.3.1'
     // okhttp
@@ -50,37 +44,31 @@ dependencies {
     api 'com.google.code.gson:gson:2.8.5'
     // glide
     api 'com.github.bumptech.glide:glide:3.7.0'
-
     // 引入recyclerlistview
     implementation 'com.android.support:recyclerview-v7:24.2.1'
-
     // recyclerview框架 BRVAH
     api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
-
     // 跑马灯
     implementation 'com.gongwen:marqueelibrary:1.1.3'
-
     // 刷新refresh
     //1.0.5 当1.1.0出现问题可以回退到1.0.5.1
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1'
     implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.5.1'//没有使用特殊Header，可以不加这行
     implementation 'com.android.support:appcompat-v7:25.3.1'//版本 23以上（必须）
     implementation 'com.android.support:design:25.3.1'//版本随意（非必须，引用可以解决无法预览问题）
-
     // junit
     testImplementation 'junit:junit:4.12'
-
     // 水波纹
     implementation 'com.scwang.wave:MultiWaveHeader:1.0.0-alpha-1'
-
     // 选择器
     implementation 'com.contrarywind:Android-PickerView:4.1.6'
-
     // 评分
     implementation 'com.iarcuschin:simpleratingbar:0.1.5'
-
     //
     implementation 'com.wx.goodview:goodview:1.0.0'
+    // butnif
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
 
 }

@@ -23,8 +23,17 @@ public abstract class BaseDelegate extends SwipeBackFragment {
 
     protected ImmersionBar mImmersionBar;
 
+    /**
+     * 子类返回具体的布局
+     * @return
+     */
     public abstract Object setLayout();
 
+    /**
+     * 子类在这个方法里初始化布局
+     * @param savedInstanceState
+     * @param rootView
+     */
     public abstract void onBindView(@Nullable Bundle savedInstanceState,View rootView);
 
     @Nullable
@@ -47,6 +56,12 @@ public abstract class BaseDelegate extends SwipeBackFragment {
         }
     }
 
+    /**
+     * 是否支持侧滑
+     * 默认 不支持
+     * 子类重写该方法，返回true即可
+     * @return
+     */
     public boolean isSwip(){
         return false;
     }

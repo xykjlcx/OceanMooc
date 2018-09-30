@@ -21,7 +21,6 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator;
 public class LoginDelegate extends OceanDelegate {
 
 
-
     public static LoginDelegate newInstance(){
         LoginDelegate loginDelegate = new LoginDelegate();
         return loginDelegate;

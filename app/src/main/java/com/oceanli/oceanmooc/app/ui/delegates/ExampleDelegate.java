@@ -15,6 +15,8 @@ import com.oceanli.ocean.core.net.RestClient;
 import com.oceanli.ocean.core.net.callback.ISuccess;
 import com.oceanli.oceanmooc.app.R;
 
+import butterknife.BindView;
+
 /**
  * Created by ocean on 2018/6/20
  * Author :  ocean
@@ -22,8 +24,10 @@ import com.oceanli.oceanmooc.app.R;
  */
 public class ExampleDelegate extends OceanDelegate {
 
-    private AppCompatButton test_Btn;
-    private OceanLaunchView oceanLaunchView;
+    @BindView(R.id.test_Btn)
+    AppCompatButton test_Btn;
+    @BindView(R.id.test_launch)
+    OceanLaunchView oceanLaunchView;
 
 
     @Override
@@ -33,7 +37,6 @@ public class ExampleDelegate extends OceanDelegate {
 
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
-        test_Btn = rootView.findViewById(R.id.test_Btn);
         test_Btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,7 +60,6 @@ public class ExampleDelegate extends OceanDelegate {
                         .get();
             }
         });
-        oceanLaunchView = rootView.findViewById(R.id.test_launch);
         int[] resources = {R.drawable.shadow_bottom,R.drawable.shadow_right};
         oceanLaunchView.setImgResource(resources);
         oceanLaunchView.setSkipListener(new ISkipListener() {
