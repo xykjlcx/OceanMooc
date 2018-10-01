@@ -6,10 +6,8 @@ import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gongwen.marqueen.MarqueeView;
@@ -20,7 +18,7 @@ import com.oceanli.oceanmooc.app.OmConstant;
 import com.oceanli.oceanmooc.app.R;
 import com.oceanli.oceanmooc.app.business.home.adapter.ChoicenessGridRecyclerViewAdapter;
 import com.oceanli.oceanmooc.app.business.home.adapter.RecommendRecyclerViewAdapter;
-import com.oceanli.oceanmooc.app.business.home.models.ChoicenessCourseModel;
+import com.oceanli.oceanmooc.app.business.home.models.CourseVoModel;
 import com.oceanli.oceanmooc.app.business.home.models.HomeBannerVo;
 import com.oceanli.oceanmooc.app.business.home.models.HomeNoticesVo;
 import com.oceanli.oceanmooc.app.business.home.models.RecommendCourseModel;
@@ -72,7 +70,7 @@ public class HomeRecommendDelegate extends OceanDelegate {
 
     private List<String> mBannerTitles = new ArrayList<>();
     private ChoicenessGridRecyclerViewAdapter mChoicenessGridRecyclerViewAdapter;
-    private List<ChoicenessCourseModel.DataBean> mChoicenessCourseModelList;
+    private List<CourseVoModel.DataBean> mChoicenessCourseModelList;
     private RecommendRecyclerViewAdapter mRecommendRecyclerViewAdapter;
     private List<RecommendCourseModel.DataBean> mRecommendData;
 
@@ -246,10 +244,10 @@ public class HomeRecommendDelegate extends OceanDelegate {
         setChoicenessData();
     }
 
-    public List<ChoicenessCourseModel.DataBean> mockChoicenessRecyclerData(){
-        List<ChoicenessCourseModel.DataBean> list = new ArrayList<>();
+    public List<CourseVoModel.DataBean> mockChoicenessRecyclerData(){
+        List<CourseVoModel.DataBean> list = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
-            ChoicenessCourseModel.DataBean dataBean = new ChoicenessCourseModel.DataBean();
+            CourseVoModel.DataBean dataBean = new CourseVoModel.DataBean();
             dataBean.setId(i);
             dataBean.setCourseName("");
             dataBean.setCourseDesc("");
@@ -324,7 +322,7 @@ public class HomeRecommendDelegate extends OceanDelegate {
                 .success(new ISuccess() {
                     @Override
                     public void onSuccess(String response) {
-                        ChoicenessCourseModel choicenessCourseModel = OmUtil.getGson().fromJson(response,ChoicenessCourseModel.class);
+                        CourseVoModel choicenessCourseModel = OmUtil.getGson().fromJson(response,CourseVoModel.class);
                         if (choicenessCourseModel.getCode() == OmConstant.SUCCESS_CODE){
                             for (int i = 0; i < choicenessCourseModel.getData().size(); i++) {
                                 mChoicenessCourseModelList.set(i,choicenessCourseModel.getData().get(i));

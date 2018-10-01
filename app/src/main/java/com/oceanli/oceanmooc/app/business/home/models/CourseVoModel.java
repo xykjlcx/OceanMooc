@@ -7,7 +7,7 @@ import java.util.List;
  * Author :  ocean
  * Email  :  348686686@qq.com
  */
-public class ChoicenessCourseModel {
+public class CourseVoModel {
     /**
      * code : 0
      * msg : 获取推荐好课成功
@@ -177,7 +177,7 @@ public class ChoicenessCourseModel {
 
     @Override
     public String toString() {
-        return "ChoicenessCourseModel{" +
+        return "CourseVoModel{" +
                 "code=" + code +
                 ", msg='" + msg + '\'' +
                 ", data=" + data +

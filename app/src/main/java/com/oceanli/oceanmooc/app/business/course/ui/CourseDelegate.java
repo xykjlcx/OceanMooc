@@ -14,12 +14,19 @@ import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.oceanli.ocean.core.delegates.OceanDelegate;
+import com.oceanli.ocean.core.net.RestClient;
+import com.oceanli.ocean.core.net.callback.ISuccess;
+import com.oceanli.oceanmooc.app.OmConstant;
 import com.oceanli.oceanmooc.app.R;
 import com.oceanli.oceanmooc.app.business.home.adapter.ChoicenessGridRecyclerViewAdapter;
-import com.oceanli.oceanmooc.app.business.home.models.ChoicenessCourseModel;
+import com.oceanli.oceanmooc.app.business.home.models.CourseVoModel;
 import com.oceanli.oceanmooc.app.business.MainDelegate;
+import com.oceanli.oceanmooc.app.other.utils.OmUtil;
 import com.scwang.smartrefresh.header.PhoenixHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,11 +45,27 @@ public class CourseDelegate extends OceanDelegate{
     ImageView selectIv;
     @BindView(R.id.recycler_course_list)
     RecyclerView mRecyclerView;
-    private ChoicenessGridRecyclerViewAdapter mAdapter;
-    private List<ChoicenessCourseModel.DataBean> mData;
-
     @BindView(R.id.smart_refresh_course)
     SmartRefreshLayout mSmartRefreshLayout;
+
+    /**
+     * 当前请求页码
+     * 初始化为第0页
+     */
+    private static Integer PAGE_NUM = 0;
+    /**
+     * 每页显示item数
+     * 默认为8
+     * 得到数据时判断，当json数据size小于该值，则下次上拉记载则不执行请求
+     */
+    private static Integer SIZE = 14;
+    /**
+     * 是否到底部，默认已经到最底
+     */
+    private static boolean IS_BOTTOM = false;
+
+    private ChoicenessGridRecyclerViewAdapter mAdapter;
+    private List<CourseVoModel.DataBean> mData;
 
     public static CourseDelegate newInstance(){
         Bundle bundle = new Bundle();
@@ -128,28 +151,11 @@ public class CourseDelegate extends OceanDelegate{
         initRefresh();
     }
 
-    public List<ChoicenessCourseModel.DataBean> getCourseData(){
-        List<ChoicenessCourseModel.DataBean> list = new ArrayList<>();
-        final String[] courseNames = {
-                "乔布斯的设计艺术",
-                "Spring Boot开发入门",
-                "Spark大数据处理",
-                "Python机器学习"
-        };
-        final String desc = "本课程是年度最佳课程，采用模块化讲解，循序渐进的输出知识，为了让学生更好的接收";
-        for (int i = 0; i < 30; i++) {
-            ChoicenessCourseModel.DataBean dataBean = new ChoicenessCourseModel.DataBean();
-//            choicenessCourseModel.setCourseName(courseNames[i % 4]);
-//            choicenessCourseModel.setCourseDesc(desc);
-//            choicenessCourseModel.setPrice("￥99");
-            list.add(dataBean);
-        }
-        return list;
-    }
+
 
 
     public void initRecycler(View rootView){
-        mData = getCourseData();
+        mData = new ArrayList<>();
         mAdapter = new ChoicenessGridRecyclerViewAdapter(R.layout.item_recycler_choiceness,mData);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(_mActivity,2);
         gridLayoutManager.setOrientation(LinearLayout.VERTICAL);
@@ -162,10 +168,68 @@ public class CourseDelegate extends OceanDelegate{
                 ((MainDelegate)getParentFragment()).startBrotherFragment(CourseParticularsDelegate.newInstance());
             }
         });
+        setCourseListData(true);
     }
 
     public void initRefresh(){
         mSmartRefreshLayout.setRefreshHeader(new PhoenixHeader(_mActivity));
+        mSmartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshLayout) {
+                PAGE_NUM = 0;
+                SIZE = 14;
+                IS_BOTTOM = false;
+                setCourseListData(true);
+                refreshLayout.finishRefresh();
+            }
+        });
+        mSmartRefreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(RefreshLayout refreshLayout) {
+                // 上拉加载
+                if (!IS_BOTTOM){
+                    PAGE_NUM++;
+                    setCourseListData(false);
+                }else {
+                    OmUtil.toastInfo(_mActivity,"已经到底了!");
+                }
+                refreshLayout.finishLoadMore();
+            }
+        });
+    }
+
+    public void setCourseListData(boolean isFirst){
+        RestClient.builder()
+                .url(OmConstant.BASE_URL + OmConstant.REQUEST_URL_POST_RECOMMEND)
+                .params("page",PAGE_NUM)
+                .params("size",SIZE)
+                .success(response -> {
+                    CourseVoModel courseVoModel = OmUtil.getGson().fromJson(response,CourseVoModel.class);
+                    if (courseVoModel.getCode() == OmConstant.SUCCESS_CODE){
+                        int dataCount = 0;
+                        if (courseVoModel.getData() != null)
+                            dataCount = courseVoModel.getData().size();
+                        if (dataCount > 0){
+                            IS_BOTTOM = false;
+                        }
+                        if (isFirst) {
+                            mData.clear();
+                        }
+                        if (!IS_BOTTOM){
+                            for (int i = 0; i < courseVoModel.getData().size(); i++) {
+                                mData.add(courseVoModel.getData().get(i));
+                            }
+                            mAdapter.notifyDataSetChanged();
+                        }else {
+
+                        }
+                        if (dataCount < SIZE){
+                            IS_BOTTOM = true;
+                        }
+                    }
+                })
+                .build()
+                .post();
     }
 
 }
