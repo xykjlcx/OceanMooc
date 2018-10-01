@@ -8,14 +8,10 @@ import com.oceanli.ocean.core.delegates.OceanDelegate;
 import com.oceanli.oceanmooc.app.R;
 
 /**
- * Created by ocean on 2018/9/29
- * Author :  ocean
- * Email  :  348686686@qq.com
+ * Created by ocean on 2018/9/29 Author :  ocean Email  :  348686686@qq.com
  */
 public class LoginDelegate extends OceanDelegate {
-
-
-    public static LoginDelegate newInstance(){
+    public static LoginDelegate newInstance() {
         LoginDelegate loginDelegate = new LoginDelegate();
         return loginDelegate;
     }
@@ -32,7 +28,6 @@ public class LoginDelegate extends OceanDelegate {
 
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
-        mImmersionBar.setStatusBarView(_mActivity,rootView.findViewById(R.id.view_login_fill));
-
+        mImmersionBar.setStatusBarView(_mActivity, rootView.findViewById(R.id.view_login_fill));
     }
 }

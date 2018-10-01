@@ -18,22 +18,16 @@ import retrofit2.http.QueryMap;
 import retrofit2.http.Url;
 
 /**
- * Created by ocean on 2018/6/20
- * Author :  ocean
- * Email  :  348686686@qq.com
+ * Created by ocean on 2018/6/20 Author :  ocean Email  :  348686686@qq.com
  */
-
 public interface ApiService {
-
     @GET
-    Call<String> get(@Url String url, @QueryMap HashMap<String,Object> params);
+    Call<String> get(@Url String url, @QueryMap HashMap<String, Object> params);
 
     @POST
     @FormUrlEncoded
-    Call<String> post(@Url String url, @FieldMap HashMap<String,Object> params);
+    Call<String> post(@Url String url, @FieldMap HashMap<String, Object> params);
 
     @POST
     Call<String> postJson(@Url String url, @Body RequestBody requestBody);
-
-
 }

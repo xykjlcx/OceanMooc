@@ -3,12 +3,9 @@ package com.oceanli.oceanmooc.app.business.course.models;
 import java.sql.Timestamp;
 
 /**
- * Created by ocean on 2018/9/29
- * Author :  ocean
- * Email  :  348686686@qq.com
+ * Created by ocean on 2018/9/29 Author :  ocean Email  :  348686686@qq.com
  */
 public class SectionCommentModel {
-
     private Integer id;
     private String headImgUrl;
     private String content;
@@ -58,11 +55,6 @@ public class SectionCommentModel {
 
     @Override
     public String toString() {
-        return "SectionCommentModel{" +
-                "id=" + id +
-                ", headImgUrl='" + headImgUrl + '\'' +
-                ", content='" + content + '\'' +
-                ", time=" + time +
-                '}';
+        return "SectionCommentModel{id=" + id + ", headImgUrl='" + headImgUrl + '\'' + ", content='" + content + '\'' + ", time=" + time + '}';
     }
 }

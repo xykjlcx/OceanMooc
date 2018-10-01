@@ -17,30 +17,21 @@ import com.oceanli.ocean.core.delegates.OceanDelegate;
 import me.yokeyword.fragmentation.SupportActivity;
 
 /**
- * Created by ocean on 2018/6/20
- * Author :  ocean
- * Email  :  348686686@qq.com
+ * Created by ocean on 2018/6/20 Author :  ocean Email  :  348686686@qq.com
  */
 public abstract class ProxyActivity extends SupportActivity {
-
     public abstract OceanDelegate setRootDelegate();
 
     private ImmersionBar mImmersionBar;
     private static final String NAVIGATIONBAR_IS_MIN = "navigationbar_is_min";
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
-        getSupportActionBar().hide();
-
-        //
+        getSupportActionBar().hide();/**/
         mImmersionBar = ImmersionBar.with(this).statusBarDarkFont(true, 0.2f);
         mImmersionBar.keyboardEnable(true).navigationBarWithKitkatEnable(false).init();
-
-
         initContainer(savedInstanceState);
     }
 
@@ -48,16 +39,13 @@ public abstract class ProxyActivity extends SupportActivity {
         @SuppressLint("RestrictedApi") final ContentFrameLayout contentFrameLayout = new ContentFrameLayout(this);
         contentFrameLayout.setId(R.id.delegate_container);
         setContentView(contentFrameLayout);
-        if (savedInstanceState == null){
-            loadRootFragment(R.id.delegate_container,setRootDelegate());
-        }
+        if (savedInstanceState == null) loadRootFragment(R.id.delegate_container, setRootDelegate());
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mImmersionBar != null)
-            mImmersionBar.destroy();
+        if (mImmersionBar != null) mImmersionBar.destroy();
         System.gc();
         System.runFinalization();
     }
@@ -65,19 +53,12 @@ public abstract class ProxyActivity extends SupportActivity {
     private ContentObserver mNavigationStatusObserver = new ContentObserver(new Handler()) {
         @Override
         public void onChange(boolean selfChange) {
-            int navigationBarIsMin = Settings.System.getInt(getContentResolver(),
-                    NAVIGATIONBAR_IS_MIN, 0);
-            if (navigationBarIsMin == 1) {
-                //导航键隐藏了
+            int navigationBarIsMin = Settings.System.getInt(getContentResolver(), NAVIGATIONBAR_IS_MIN, 0);
+            if (navigationBarIsMin == 1) {/*导航键隐藏了*/
                 mImmersionBar.transparentNavigationBar().init();
-            } else {
-                //导航键显示了
-                mImmersionBar.navigationBarColor(android.R.color.black) //隐藏前导航栏的颜色
-                        .fullScreen(false)
-                        .init();
+            } else {/*导航键显示了*/
+                mImmersionBar.navigationBarColor(android.R.color.black) /*隐藏前导航栏的颜色*/.fullScreen(false).init();
             }
         }
     };
-
-
 }

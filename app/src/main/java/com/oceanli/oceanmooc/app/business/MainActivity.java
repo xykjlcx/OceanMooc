@@ -12,12 +12,9 @@ import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator;
 import me.yokeyword.fragmentation.anim.FragmentAnimator;
 
 /**
- * Created by ocean on 2018/9/25
- * Author :  ocean
- * Email  :  348686686@qq.com
+ * Created by ocean on 2018/9/25 Author :  ocean Email  :  348686686@qq.com
  */
 public class MainActivity extends ProxyActivity {
-
     @Override
     public OceanDelegate setRootDelegate() {
         return MainDelegate.newInstance();

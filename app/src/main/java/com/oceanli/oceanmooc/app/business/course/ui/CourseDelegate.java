@@ -35,46 +35,38 @@ import java.util.List;
 import butterknife.BindView;
 
 /**
- * Created by ocean on 2018/9/25
- * Author :  ocean
- * Email  :  348686686@qq.com
+ * Created by ocean on 2018/9/25 Author :  ocean Email  :  348686686@qq.com
  */
-public class CourseDelegate extends OceanDelegate{
-
+public class CourseDelegate extends OceanDelegate {
     @BindView(R.id.iv_course_select)
     ImageView selectIv;
     @BindView(R.id.recycler_course_list)
     RecyclerView mRecyclerView;
     @BindView(R.id.smart_refresh_course)
     SmartRefreshLayout mSmartRefreshLayout;
-
     /**
-     * 当前请求页码
-     * 初始化为第0页
+     * 当前请求页码 初始化为第0页
      */
     private static Integer PAGE_NUM = 0;
     /**
-     * 每页显示item数
-     * 默认为8
-     * 得到数据时判断，当json数据size小于该值，则下次上拉记载则不执行请求
+     * 每页显示item数 默认为8 得到数据时判断，当json数据size小于该值，则下次上拉记载则不执行请求
      */
     private static Integer SIZE = 14;
     /**
      * 是否到底部，默认已经到最底
      */
     private static boolean IS_BOTTOM = false;
-
     private ChoicenessGridRecyclerViewAdapter mAdapter;
     private List<CourseVoModel.DataBean> mData;
 
-    public static CourseDelegate newInstance(){
+    public static CourseDelegate newInstance() {
         Bundle bundle = new Bundle();
         CourseDelegate courseDelegate = new CourseDelegate();
         courseDelegate.setArguments(bundle);
         return courseDelegate;
     }
 
-        @Override
+    @Override
     public Object setLayout() {
         return R.layout.delegate_course;
     }
@@ -84,152 +76,77 @@ public class CourseDelegate extends OceanDelegate{
         initView(rootView);
     }
 
-    private String[] optionsone = {
-            "前端",
-            "后端",
-            "移动端",
-            "游戏开发",
-            "运维"
-    };
-    private String[][] optionsTwo = {
-            {
-                "HTML",
-                    "CSS",
-                    "Vue"
-            },
-            {
-                "Java",
-                    "Python",
-                    "PHP"
-            },
-            {
-                "Android",
-                    "IOS",
-                    "React Native"
-            },
-            {
-                "Unity",
-                    "Cocos2d",
-                    "C++"
-            },
-            {
-                "Linux",
-                    "自动化运维",
-                    "Shell"
-            }
-    };
+    private String[] optionsone = {"前端", "后端", "移动端", "游戏开发", "运维"};
+    private String[][] optionsTwo = {{"HTML", "CSS", "Vue"}, {"Java", "Python", "PHP"}, {"Android", "IOS", "React Native"}, {"Unity", "Cocos2d",
+            "C++"}, {"Linux", "自动化运维", "Shell"}};
 
-    public void initView(View rootView){
-        mImmersionBar.setStatusBarView(_mActivity,rootView.findViewById(R.id.view_course_fill));
-        // 分类选择框
-        final OptionsPickerView optionsPickerView = new OptionsPickerBuilder(_mActivity, new OnOptionsSelectListener() {
-            @Override
-            public void onOptionsSelect(int options1, int options2, int options3, View v) {
-                Toast.makeText(_mActivity, "op1:" + options1 + ",op2:" + options2 + ",op3:" + options3, Toast.LENGTH_SHORT).show();
-            }
-        }).build();
-        // 初始化分类数据(假数据)
+    public void initView(View rootView) {
+        mImmersionBar.setStatusBarView(_mActivity, rootView.findViewById(R.id.view_course_fill)); /* 分类选择框*/
+        final OptionsPickerView optionsPickerView = new OptionsPickerBuilder(_mActivity, (options1, options2, options3, v) -> Toast.makeText
+                (_mActivity, "op1:" + options1 + ",op2:" + options2 + ",op3:" + options3, Toast.LENGTH_SHORT).show()).build();/* 初始化分类数据(假数据)*/
         List<List<String>> twoData = new ArrayList<>();
         for (int i = 0; i < optionsTwo.length; i++) {
             List<String> oneList = new ArrayList<>();
-            for (int j = 0; j < optionsTwo[i].length; j++) {
-                oneList.add(optionsTwo[i][j]);
-            }
+            for (int j = 0; j < optionsTwo[i].length; j++) oneList.add(optionsTwo[i][j]);
             twoData.add(oneList);
         }
-        optionsPickerView.setPicker(
-                Arrays.asList(optionsone),
-                twoData
-        );
+        optionsPickerView.setPicker(Arrays.asList(optionsone), twoData);
         selectIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 optionsPickerView.show();
             }
         });
-        initRecycler(rootView);
+        initRecycler();
         initRefresh();
     }
 
-
-
-
-    public void initRecycler(View rootView){
+    public void initRecycler() {
         mData = new ArrayList<>();
-        mAdapter = new ChoicenessGridRecyclerViewAdapter(R.layout.item_recycler_choiceness,mData);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(_mActivity,2);
+        mAdapter = new ChoicenessGridRecyclerViewAdapter(R.layout.item_recycler_choiceness, mData);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(_mActivity, 2);
         gridLayoutManager.setOrientation(LinearLayout.VERTICAL);
         mRecyclerView.setLayoutManager(gridLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
-        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ((MainDelegate)getParentFragment()).startBrotherFragment(CourseParticularsDelegate.newInstance());
-            }
-        });
+        mAdapter.setOnItemClickListener((adapter, view, position) -> ((MainDelegate) getParentFragment()).startBrotherFragment
+                (CourseParticularsDelegate.newInstance()));
         setCourseListData(true);
     }
 
-    public void initRefresh(){
+    public void initRefresh() {
         mSmartRefreshLayout.setRefreshHeader(new PhoenixHeader(_mActivity));
-        mSmartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh(RefreshLayout refreshLayout) {
-                PAGE_NUM = 0;
-                SIZE = 14;
-                IS_BOTTOM = false;
-                setCourseListData(true);
-                refreshLayout.finishRefresh();
-            }
+        mSmartRefreshLayout.setOnRefreshListener(refreshLayout -> {
+            PAGE_NUM = 0;
+            SIZE = 14;
+            IS_BOTTOM = false;
+            setCourseListData(true);
+            refreshLayout.finishRefresh();
         });
-        mSmartRefreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore(RefreshLayout refreshLayout) {
-                // 上拉加载
-                if (!IS_BOTTOM){
-                    PAGE_NUM++;
-                    setCourseListData(false);
-                }else {
-                    OmUtil.toastInfo(_mActivity,"已经到底了!");
+        mSmartRefreshLayout.setOnLoadMoreListener(refreshLayout -> {/* 上拉加载*/
+            if (!IS_BOTTOM) {
+                PAGE_NUM++;
+                setCourseListData(false);
+            } else OmUtil.toastInfo(_mActivity, "已经到底了!");
+            refreshLayout.finishLoadMore();
+        });
+    }
+
+    public void setCourseListData(boolean isFirst) {
+        RestClient.builder().url(OmConstant.BASE_URL + OmConstant.REQUEST_URL_POST_RECOMMEND).params("page", PAGE_NUM).params("size", SIZE).success(response -> {
+            CourseVoModel courseVoModel = OmUtil.getGson().fromJson(response, CourseVoModel.class);
+            if (courseVoModel.getCode() == OmConstant.SUCCESS_CODE) {
+                int dataCount = 0;
+                if (courseVoModel.getData() != null) dataCount = courseVoModel.getData().size();
+                if (dataCount > 0) IS_BOTTOM = false;
+                if (isFirst) mData.clear();
+                if (!IS_BOTTOM) {
+                    for (int i = 0; i < courseVoModel.getData().size(); i++) mData.add(courseVoModel.getData().get(i));
+                    mAdapter.notifyDataSetChanged();
+                } else {
                 }
-                refreshLayout.finishLoadMore();
+                if (dataCount < SIZE) IS_BOTTOM = true;
             }
-        });
+        }).build().post();
     }
-
-    public void setCourseListData(boolean isFirst){
-        RestClient.builder()
-                .url(OmConstant.BASE_URL + OmConstant.REQUEST_URL_POST_RECOMMEND)
-                .params("page",PAGE_NUM)
-                .params("size",SIZE)
-                .success(response -> {
-                    CourseVoModel courseVoModel = OmUtil.getGson().fromJson(response,CourseVoModel.class);
-                    if (courseVoModel.getCode() == OmConstant.SUCCESS_CODE){
-                        int dataCount = 0;
-                        if (courseVoModel.getData() != null)
-                            dataCount = courseVoModel.getData().size();
-                        if (dataCount > 0){
-                            IS_BOTTOM = false;
-                        }
-                        if (isFirst) {
-                            mData.clear();
-                        }
-                        if (!IS_BOTTOM){
-                            for (int i = 0; i < courseVoModel.getData().size(); i++) {
-                                mData.add(courseVoModel.getData().get(i));
-                            }
-                            mAdapter.notifyDataSetChanged();
-                        }else {
-
-                        }
-                        if (dataCount < SIZE){
-                            IS_BOTTOM = true;
-                        }
-                    }
-                })
-                .build()
-                .post();
-    }
-
 }

@@ -3,19 +3,15 @@ package com.oceanli.oceanmooc.app.business.home.models;
 import java.util.List;
 
 /**
- * Created by ocean on 2018/9/30
- * Author :  ocean
- * Email  :  348686686@qq.com
+ * Created by ocean on 2018/9/30 Author :  ocean Email  :  348686686@qq.com
  */
 public class HomeNoticesVo {
-
-
     /**
-     * code : 0
-     * msg : 获取首页公告成功
-     * data : [{"id":1,"contentOne":"常州信息职业技术学院2018迎新","contentTwo":"关于宿舍整改","createTime":"2018-09-30T11:08:46.000+0000","updateTime":"2018-09-30T11:08:46.000+0000"},{"id":2,"contentOne":"英语AB级开放报名","contentTwo":"大三实习准备","createTime":"2018-09-30T11:09:04.000+0000","updateTime":"2018-09-30T11:09:04.000+0000"}]
+     * code : 0 msg : 获取首页公告成功 data : [{"id":1,"contentOne":"常州信息职业技术学院2018迎新","contentTwo":"关于宿舍整改","createTime":"2018-09-30T11:08:46.000+0000",
+     * "updateTime":"2018-09-30T11:08:46.000+0000"},{"id":2,"contentOne":"英语AB级开放报名","contentTwo":"大三实习准备",
+     * "createTime":"2018-09-30T11:09:04.000+0000",
+     * "updateTime":"2018-09-30T11:09:04.000+0000"}]
      */
-
     private int code;
     private String msg;
     private List<DataBean> data;
@@ -46,13 +42,9 @@ public class HomeNoticesVo {
 
     public static class DataBean {
         /**
-         * id : 1
-         * contentOne : 常州信息职业技术学院2018迎新
-         * contentTwo : 关于宿舍整改
-         * createTime : 2018-09-30T11:08:46.000+0000
-         * updateTime : 2018-09-30T11:08:46.000+0000
+         * id : 1 contentOne : 常州信息职业技术学院2018迎新 contentTwo : 关于宿舍整改 createTime : 2018-09-30T11:08:46.000+0000 updateTime :
+         * 2018-09-30T11:08:46.000+0000
          */
-
         private int id;
         private String contentOne;
         private String contentTwo;

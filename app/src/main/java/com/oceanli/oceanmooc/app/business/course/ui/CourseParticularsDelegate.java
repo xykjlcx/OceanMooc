@@ -42,12 +42,9 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
- * Created by ocean on 2018/9/28
- * Author :  ocean
- * Email  :  348686686@qq.com
+ * Created by ocean on 2018/9/28 Author :  ocean Email  :  348686686@qq.com
  */
 public class CourseParticularsDelegate extends OceanDelegate {
-
     @BindView(R.id.iv_course_particulars_back)
     ImageView backImg;
     @BindView(R.id.vp_course_particulars)
@@ -59,32 +56,24 @@ public class CourseParticularsDelegate extends OceanDelegate {
     @BindView(R.id.iv_course_particulars_collect)
     ImageView collectImg;
 
-
     @OnClick(R.id.iv_course_particulars_back)
-    public void backOnClick(){
+    public void backOnClick() {
         pop();
     }
 
     @OnClick(R.id.iv_course_particulars_collect)
-    public void collectonClick(View view){
+    public void collectonClick(View view) {
         goodView.setImage(R.mipmap.shoucanged);
         goodView.show(view);
         collectImg.setImageResource(R.mipmap.shoucanged);
     }
 
-
     private CourseParticularsDelegateViewPagerAdapter mAdapter;
     GoodView goodView = null;
     private OrientationUtils orientationUtils;
-    private String[] mDataList = {
-            "简介",
-            "章节",
-            "评论"
-    };
+    private String[] mDataList = {"简介", "章节", "评论"};
 
-
-
-    public static CourseParticularsDelegate newInstance(){
+    public static CourseParticularsDelegate newInstance() {
         CourseParticularsDelegate courseParticularsDelegate = new CourseParticularsDelegate();
         return courseParticularsDelegate;
     }
@@ -95,21 +84,13 @@ public class CourseParticularsDelegate extends OceanDelegate {
     }
 
     @Override
-    public boolean isSwip() {
-        // 启用侧滑返回
+    public boolean isSwip() {/* 启用侧滑返回*/
         return true;
     }
 
-
-
-
     @Override
     public void onEnterAnimationEnd(Bundle savedInstanceState) {
-        setVideoSource(
-                "http://pevcw8o7e.bkt.clouddn.com/caifang.mp4",
-                "初始化加载标题",
-                "http://pevcw8o7e.bkt.clouddn.com/om2.jpg"
-        );
+        setVideoSource("http://pevcw8o7e.bkt.clouddn.com/caifang.mp4", "初始化加载标题", "http://pevcw8o7e.bkt.clouddn.com/om2.jpg");
     }
 
     @Override
@@ -118,51 +99,41 @@ public class CourseParticularsDelegate extends OceanDelegate {
         initData();
     }
 
-
-    public void initNetData(){
-        //
-        RestClient.builder()
-                .url("http://192.168.43.214:8088/home/getGuessLikeCourse")
-                .params("page",0)
-                .params("size",3)
-                .success(new ISuccess() {
-                    @Override
-                    public void onSuccess(String response) {
-                        try {
-                            Log.e("jass", "onSuccess: " + response);
-                            JSONObject jsonObject = new JSONObject(response);
-                            JSONArray jsonArray = jsonObject.getJSONArray("data");
-                            JSONObject realData = jsonArray.getJSONObject(0);
-                            String videoUrl = realData.getString("videoUrl");
-                            String imgUrl = realData.getString("imgUrl");
-                            setVideoSource(videoUrl,"网络标题",imgUrl);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                })
-                .failure(new IFailure() {
-                    @Override
-                    public void onFailure() {
-                        Log.e("jass", "onFailure: " + "失败?");
-                    }
-                })
-                .build()
-                .post();
+    public void initNetData() {/**/
+        RestClient.builder().url("http://192.168.43.214:8088/home/getGuessLikeCourse").params("page", 0).params("size", 3).success(new ISuccess() {
+            @Override
+            public void onSuccess(String response) {
+                try {
+                    Log.e("jass", "onSuccess: " + response);
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
+                    JSONObject realData = jsonArray.getJSONObject(0);
+                    String videoUrl = realData.getString("videoUrl");
+                    String imgUrl = realData.getString("imgUrl");
+                    setVideoSource(videoUrl, "网络标题", imgUrl);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).failure(new IFailure() {
+            @Override
+            public void onFailure() {
+                Log.e("jass", "onFailure: " + "失败?");
+            }
+        }).build().post();
     }
 
-
-    public void initView(final View rootView){
-//        mImmersionBar.setStatusBarView(_mActivity,rootView.findViewById(R.id.view_course_particulars_fill));
+    public void initView(final View rootView) {/*        mImmersionBar.setStatusBarView(_mActivity,rootView.findViewById(R.id
+    .view_course_particulars_fill));*/
         goodView = new GoodView(_mActivity);
         initGSYVideoView();
         initMagicIndicator();
     }
 
-    public void initData(){
-        mAdapter = new CourseParticularsDelegateViewPagerAdapter(getChildFragmentManager(),mDataList);
+    public void initData() {
+        mAdapter = new CourseParticularsDelegateViewPagerAdapter(getChildFragmentManager(), mDataList);
         mViewPager.setAdapter(mAdapter);
-        ViewPagerHelper.bind(magicIndicator,mViewPager);
+        ViewPagerHelper.bind(magicIndicator, mViewPager);
     }
 
     private void initMagicIndicator() {
@@ -194,73 +165,49 @@ public class CourseParticularsDelegate extends OceanDelegate {
             @Override
             public IPagerIndicator getIndicator(Context context) {
                 BezierPagerIndicator indicator = new BezierPagerIndicator(context);
-                indicator.setColors(
-                        Color.parseColor("#0396FF"),
-                        Color.parseColor("#28C76F"),
-                        Color.parseColor("#F8D800")
-                );
+                indicator.setColors(Color.parseColor("#0396FF"), Color.parseColor("#28C76F"), Color.parseColor("#F8D800"));
                 return indicator;
             }
 
             @Override
-            public float getTitleWeight(Context context, int index) {
-                // 指示器横向评价分配宽度
-                if (index == 0) {
-                    return 1.0f;
-                } else if (index == 1) {
-                    return 1.0f;
-                } else {
-                    return 1.0f;
-                }
+            public float getTitleWeight(Context context, int index) {/* 指示器横向评价分配宽度*/
+                if (index == 0) return 1.0f;
+                else if (index == 1) return 1.0f;
+                else return 1.0f;
             }
         });
         magicIndicator.setNavigator(commonNavigator);
     }
 
-    private void initGSYVideoView(){
-        //增加title
+    private void initGSYVideoView() {/*增加title*/
         standardGSYVideoPlayer.getTitleTextView().setVisibility(View.VISIBLE);
-        standardGSYVideoPlayer.getTitleTextView().setPadding(20,60,0,0);
-        //设置旋转
-//        orientationUtils = new OrientationUtils(_mActivity,standardGSYVideoPlayer);
-        //设置全屏按键功能
+        standardGSYVideoPlayer.getTitleTextView().setPadding(20, 60, 0, 0);/*设置旋转 orientationUtils = new OrientationUtils(_mActivity,
+        standardGSYVideoPlayer); 设置全屏按键功能*/
         standardGSYVideoPlayer.getFullscreenButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                standardGSYVideoPlayer.startWindowFullscreen(_mActivity,false,true);
+                standardGSYVideoPlayer.startWindowFullscreen(_mActivity, false, true);
             }
-        });
-        // 设置视频空间返回按钮不显示
-        standardGSYVideoPlayer.getBackButton().setVisibility(View.GONE);
-        //是否可以滑动调整
+        });/* 设置视频空间返回按钮不显示*/
+        standardGSYVideoPlayer.getBackButton().setVisibility(View.GONE);/*是否可以滑动调整*/
         standardGSYVideoPlayer.setIsTouchWiget(true);
         standardGSYVideoPlayer.setThumbPlay(true);
         standardGSYVideoPlayer.setShowFullAnimation(true);
     }
 
-    public void setVideoSource(String videoUrl,String videoTitle,String imgUrl){
-        //增加封面
+    public void setVideoSource(String videoUrl, String videoTitle, String imgUrl) {/*增加封面*/
         ImageView imageView = new ImageView(getActivity());
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        Glide.with(_mActivity)
-                .load(imgUrl)
-                .centerCrop()
-                .into(imageView);
+        Glide.with(_mActivity).load(imgUrl).centerCrop().into(imageView);
         standardGSYVideoPlayer.setThumbImageView(imageView);
         standardGSYVideoPlayer.setUp(videoUrl, true, videoTitle);
-    }
+    }/* 接收点击章节后视频的更新*/
 
-
-    // 接收点击章节后视频的更新
     @Override
     public void onMessageEvent(OceanMessageEvent event) {
         super.onMessageEvent(event);
         Toast.makeText(_mActivity, "接收到消息了" + event.getMsg(), Toast.LENGTH_SHORT).show();
-        setVideoSource(
-                "http://pevcw8o7e.bkt.clouddn.com/caipai.mp4",
-                "接收的新视频",
-                ""
-        );
+        setVideoSource("http://pevcw8o7e.bkt.clouddn.com/caipai.mp4", "接收的新视频", "");
     }
 
     @Override
@@ -279,15 +226,11 @@ public class CourseParticularsDelegate extends OceanDelegate {
     public void onDestroy() {
         super.onDestroy();
         GSYVideoManager.releaseAllVideos();
-        if (orientationUtils != null)
-            orientationUtils.releaseListener();
+        if (orientationUtils != null) orientationUtils.releaseListener();
     }
 
     @Override
-    public boolean onBackPressedSupport() {
-        // 通过获取返回事件的发出场景，判断是否继续向上传递事件
-        // backFromWindowFull()方法若当前处于全屏播放，推出全屏 并返回ture
-        // 若不处于全屏，返回false
+    public boolean onBackPressedSupport() {// 通过获取返回事件的发出场景，判断是否继续向上传递事件 backFromWindowFull()方法若当前处于全屏播放，推出全屏 并返回ture 若不处于全屏，返回false
         // onBackPressedSupport()返回true则不会将back事件继续向上传递(同理，从全屏触发的back，并不会向上传递back事件)
         boolean isFull = GSYVideoManager.backFromWindowFull(_mActivity);
         return isFull;

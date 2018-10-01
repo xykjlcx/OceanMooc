@@ -8,9 +8,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 /**
- * Created by ocean on 2018/9/27
- * Author :  ocean
- * Email  :  348686686@qq.com
+ * Created by ocean on 2018/9/27 Author :  ocean Email  :  348686686@qq.com
  */
 public final class FlingBehavior extends AppBarLayout.Behavior {
     private static final int TOP_CHILD_FLING_THRESHOLD = 3;
@@ -24,10 +22,9 @@ public final class FlingBehavior extends AppBarLayout.Behavior {
     }
 
     @Override
-    public boolean onNestedFling(CoordinatorLayout coordinatorLayout, AppBarLayout child, View target, float velocityX, float velocityY, boolean consumed) {
-        if (velocityY > 0 && !isPositive || velocityY < 0 && isPositive) {
-            velocityY = velocityY * -1;
-        }
+    public boolean onNestedFling(CoordinatorLayout coordinatorLayout, AppBarLayout child, View target, float velocityX, float velocityY, boolean
+            consumed) {
+        if (velocityY > 0 && !isPositive || velocityY < 0 && isPositive) velocityY = velocityY * -1;
         if (target instanceof RecyclerView && velocityY < 0) {
             final RecyclerView recyclerView = (RecyclerView) target;
             final View firstChild = recyclerView.getChildAt(0);

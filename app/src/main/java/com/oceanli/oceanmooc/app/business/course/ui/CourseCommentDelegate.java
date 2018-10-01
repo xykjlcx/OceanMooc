@@ -18,20 +18,15 @@ import java.util.List;
 import butterknife.BindView;
 
 /**
- * Created by ocean on 2018/9/28
- * Author :  ocean
- * Email  :  348686686@qq.com
+ * Created by ocean on 2018/9/28 Author :  ocean Email  :  348686686@qq.com
  */
 public class CourseCommentDelegate extends OceanDelegate {
-
     @BindView(R.id.recycler_course_comment)
     RecyclerView recyclerView;
     private CourseSectionCommentRecyclerViewAdapter commentRecyclerViewAdapter;
     private List<SectionCommentModel> mData;
 
-
-
-    public static CourseCommentDelegate newInstance(){
+    public static CourseCommentDelegate newInstance() {
         CourseCommentDelegate courseCommentDelegate = new CourseCommentDelegate();
         return courseCommentDelegate;
     }
@@ -46,18 +41,18 @@ public class CourseCommentDelegate extends OceanDelegate {
         initConmentRecycle();
     }
 
-    // 初始化评论列表
-    public void initConmentRecycle(){
+    /* 初始化评论列表*/
+    public void initConmentRecycle() {
         mData = getData();
-        commentRecyclerViewAdapter = new CourseSectionCommentRecyclerViewAdapter(R.layout.item_recycler_course_section_comment,mData);
+        commentRecyclerViewAdapter = new CourseSectionCommentRecyclerViewAdapter(R.layout.item_recycler_course_section_comment, mData);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(_mActivity);
         linearLayoutManager.setOrientation(LinearLayout.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(commentRecyclerViewAdapter);
     }
 
-    // 获取评论数据
-    public List<SectionCommentModel> getData(){
+    /* 获取评论数据*/
+    public List<SectionCommentModel> getData() {
         ArrayList<SectionCommentModel> list = new ArrayList<>();
         for (int i = 0; i < 50; i++) {
             SectionCommentModel commentModel = new SectionCommentModel();
@@ -65,5 +60,4 @@ public class CourseCommentDelegate extends OceanDelegate {
         }
         return list;
     }
-
 }

@@ -11,17 +11,14 @@ import java.util.HashMap;
 import java.util.WeakHashMap;
 
 /**
- * Created by ocean on 2018/6/20
- * Author :  ocean
- * Email  :  348686686@qq.com
+ * Created by ocean on 2018/6/20 Author :  ocean Email  :  348686686@qq.com
  */
 public interface IRestClientBuilder<T> {
-
     T url(String url);
 
-    T params(HashMap<String,Object> params);
+    T params(HashMap<String, Object> params);
 
-    T params(String key,Object value);
+    T params(String key, Object value);
 
     T requestBody(String body);
 
@@ -31,8 +28,7 @@ public interface IRestClientBuilder<T> {
 
     T request(IRequest iRequest);
 
-    T loader(Context context,LoaderStyle style);
+    T loader(Context context, LoaderStyle style);
 
     RestClient build();
-
 }

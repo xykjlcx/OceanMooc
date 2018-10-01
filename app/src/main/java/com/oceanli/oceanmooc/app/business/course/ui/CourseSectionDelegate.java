@@ -24,19 +24,15 @@ import java.util.List;
 import butterknife.BindView;
 
 /**
- * Created by ocean on 2018/9/28
- * Author :  ocean
- * Email  :  348686686@qq.com
+ * Created by ocean on 2018/9/28 Author :  ocean Email  :  348686686@qq.com
  */
 public class CourseSectionDelegate extends OceanDelegate {
-
     @BindView(R.id.recycler_course_section)
     RecyclerView mRecyclerView;
     private CourseSectionExpandableAdapter mExpandableAdapter;
     private List<MultiItemEntity> mData;
 
-
-    public static CourseSectionDelegate newInstance(){
+    public static CourseSectionDelegate newInstance() {
         CourseSectionDelegate courseSectionDelegate = new CourseSectionDelegate();
         return courseSectionDelegate;
     }
@@ -52,7 +48,7 @@ public class CourseSectionDelegate extends OceanDelegate {
         initData();
     }
 
-    public void initView(View rootView){
+    public void initView(View rootView) {
         mData = generateData();
         mExpandableAdapter = new CourseSectionExpandableAdapter(mData);
         final LinearLayoutManager manager = new LinearLayoutManager(_mActivity);
@@ -62,46 +58,27 @@ public class CourseSectionDelegate extends OceanDelegate {
         mExpandableAdapter.expandAll();
         mExpandableAdapter.setIOnCourseSectionChildOnclickCallBack(new IOnCourseSectionChildOnclickCallBack() {
             @Override
-            public void onSectionChildClick(int adapterPos, int displayPos, SectionChildModel childModel) {
-//                Toast.makeText(_mActivity, "callback出来了：" + adapterPos, Toast.LENGTH_SHORT).show();
+            public void onSectionChildClick(int adapterPos, int displayPos, SectionChildModel childModel) {/*                Toast.makeText
+            (_mActivity, "callback出来了：" + adapterPos, Toast.LENGTH_SHORT).show();*/
                 EventBus.getDefault().post(new OceanMessageEvent("jass"));
             }
         });
     }
 
-    public void initData(){
-
+    public void initData() {
     }
-
 
     private ArrayList<MultiItemEntity> generateData() {
         int groupCount = 4;
         int childCount = 5;
         ArrayList<MultiItemEntity> res = new ArrayList<>();
-
-        final String[] groupStrs = {
-                "什么是Spring Boot?",
-                "快速入门",
-                "进阶",
-                "实战"
-        };
-
-        final String[] childStrs = {
-                "环境搭建IDEA",
-                "测试样例编写",
-                "Dao层搭建",
-                "基于注解扫描的Bean加载",
-                "约定大于配置"
-        };
-
+        final String[] groupStrs = {"什么是Spring Boot?", "快速入门", "进阶", "实战"};
+        final String[] childStrs = {"环境搭建IDEA", "测试样例编写", "Dao层搭建", "基于注解扫描的Bean加载", "约定大于配置"};
         for (int i = 0; i < groupCount; i++) {
-            SectionGroupModel groupModel = new SectionGroupModel(i,groupStrs[i % groupCount]);
-            for (int j = 0; j < childCount; j++) {
-                groupModel.addSubItem(new SectionChildModel(j,childStrs[j % childCount]));
-            }
+            SectionGroupModel groupModel = new SectionGroupModel(i, groupStrs[i % groupCount]);
+            for (int j = 0; j < childCount; j++) groupModel.addSubItem(new SectionChildModel(j, childStrs[j % childCount]));
             res.add(groupModel);
         }
         return res;
     }
-
 }

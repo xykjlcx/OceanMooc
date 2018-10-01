@@ -12,19 +12,16 @@ import java.util.WeakHashMap;
 import okhttp3.Interceptor;
 
 /**
- * Created by ocean on 2018/6/19
- * Author :  ocean
- * Email  :  348686686@qq.com
+ * Created by ocean on 2018/6/19 Author :  ocean Email  :  348686686@qq.com
  */
 public class Configurator {
-
-    private static final HashMap<String,Object> OCEAN_CONFIGS = new HashMap<>();
-    private static final ArrayList <IconFontDescriptor> ICONS = new ArrayList();
+    private static final HashMap<String, Object> OCEAN_CONFIGS = new HashMap<>();
+    private static final ArrayList<IconFontDescriptor> ICONS = new ArrayList();
     private static final ArrayList<Interceptor> INTERCEPTORS = new ArrayList<>();
 
     private Configurator() {
-        OCEAN_CONFIGS.put(ConfigType.CONFIG_READY.name(),false);
-        OCEAN_CONFIGS.put(ConfigType.INTERCEPTOR.name(),INTERCEPTORS);
+        OCEAN_CONFIGS.put(ConfigType.CONFIG_READY.name(), false);
+        OCEAN_CONFIGS.put(ConfigType.INTERCEPTOR.name(), INTERCEPTORS);
     }
 
     /**
@@ -38,32 +35,30 @@ public class Configurator {
         return Holder.INSTANCE;
     }
 
-    final HashMap<String,Object> getOceanConfigs() {
+    final HashMap<String, Object> getOceanConfigs() {
         return OCEAN_CONFIGS;
     }
 
     public final void configure() {
         initIcons();
-        OCEAN_CONFIGS.put(ConfigType.CONFIG_READY.name(),true);
+        OCEAN_CONFIGS.put(ConfigType.CONFIG_READY.name(), true);
     }
 
     public final Configurator withApiHost(String host) {
-        OCEAN_CONFIGS.put(ConfigType.API_HOST.name(),host);
+        OCEAN_CONFIGS.put(ConfigType.API_HOST.name(), host);
         return this;
     }
 
     public final Configurator withIntercepter(Interceptor intercepter) {
         INTERCEPTORS.add(intercepter);
-        OCEAN_CONFIGS.put(ConfigType.INTERCEPTOR.name(),INTERCEPTORS);
+        OCEAN_CONFIGS.put(ConfigType.INTERCEPTOR.name(), INTERCEPTORS);
         return this;
     }
 
-    private  void initIcons() {
-        if (ICONS.size() > 0){
+    private void initIcons() {
+        if (ICONS.size() > 0) {
             final Iconify.IconifyInitializer initializer = Iconify.with(ICONS.get(0));
-            for (int i = 1; i < ICONS.size(); i++) {
-                initializer.with(ICONS.get(i));
-            }
+            for (int i = 1; i < ICONS.size(); i++) initializer.with(ICONS.get(i));
         }
     }
 
@@ -74,18 +69,14 @@ public class Configurator {
 
     public void checkConfiguration() {
         final boolean isReady = (boolean) OCEAN_CONFIGS.get(ConfigType.CONFIG_READY.name());
-        if (!isReady){
-            throw new RuntimeException("Configurator 配置未完成 ！");
-        }
+        if (!isReady) throw new RuntimeException("Configurator 配置未完成 ！");
     }
 
     @SuppressWarnings("unchecked")
     final <T> T getConfiguration(Object key) {
         checkConfiguration();
         final Object value = OCEAN_CONFIGS.get(key);
-        if (value == null) {
-            throw new NullPointerException(key.toString() + " IS NULL");
-        }
+        if (value == null) throw new NullPointerException(key.toString() + " IS NULL");
         return (T) OCEAN_CONFIGS.get(key);
     }
 

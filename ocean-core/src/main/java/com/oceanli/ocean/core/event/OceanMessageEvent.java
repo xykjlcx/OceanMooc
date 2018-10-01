@@ -1,12 +1,9 @@
 package com.oceanli.ocean.core.event;
 
 /**
- * Created by ocean on 2018/9/29
- * Author :  ocean
- * Email  :  348686686@qq.com
+ * Created by ocean on 2018/9/29 Author :  ocean Email  :  348686686@qq.com
  */
 public class OceanMessageEvent {
-
     private Integer code;
     private String msg;
     private Object data;

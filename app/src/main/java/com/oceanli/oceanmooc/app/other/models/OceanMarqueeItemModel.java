@@ -1,12 +1,9 @@
 package com.oceanli.oceanmooc.app.other.models;
 
 /**
- * Created by ocean on 2018/9/26
- * Author :  ocean
- * Email  :  348686686@qq.com
+ * Created by ocean on 2018/9/26 Author :  ocean Email  :  348686686@qq.com
  */
 public class OceanMarqueeItemModel {
-
     private Integer img;
     private String titleOne;
     private String titleTwo;

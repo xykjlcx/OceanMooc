@@ -15,13 +15,10 @@ import okhttp3.MediaType;
 import okhttp3.RequestBody;
 
 /**
- * Created by ocean on 2018/6/20
- * Author :  ocean
- * Email  :  348686686@qq.com
+ * Created by ocean on 2018/6/20 Author :  ocean Email  :  348686686@qq.com
  */
 public class RestClientBuilder implements IRestClientBuilder<RestClientBuilder> {
-
-    private static final HashMap<String,Object> PARAMS = RestCreator.getParams();
+    private static final HashMap<String, Object> PARAMS = RestCreator.getParams();
     private String mUrl = null;
     private RequestBody mBody;
     private IFailure mIFailure = null;
@@ -29,7 +26,6 @@ public class RestClientBuilder implements IRestClientBuilder<RestClientBuilder> 
     private IRequest mIRequest = null;
     private LoaderStyle mLoadStyle = null;
     private Context mContext = null;
-
 
     @Override
     public RestClientBuilder url(String url) {
@@ -45,13 +41,13 @@ public class RestClientBuilder implements IRestClientBuilder<RestClientBuilder> 
 
     @Override
     public RestClientBuilder params(String key, Object value) {
-        PARAMS.put(key,value);
+        PARAMS.put(key, value);
         return this;
     }
 
     @Override
     public RestClientBuilder requestBody(String body) {
-        this.mBody = RequestBody.create(MediaType.parse("application/json;charset=utf-8"),body);
+        this.mBody = RequestBody.create(MediaType.parse("application/json;charset=utf-8"), body);
         return this;
     }
 
@@ -88,13 +84,6 @@ public class RestClientBuilder implements IRestClientBuilder<RestClientBuilder> 
 
     @Override
     public RestClient build() {
-        return new RestClient(mUrl,
-                PARAMS,
-                mBody,
-                mIFailure,
-                mISuccess,
-                mIRequest,
-                mLoadStyle,
-                mContext);
+        return new RestClient(mUrl, PARAMS, mBody, mIFailure, mISuccess, mIRequest, mLoadStyle, mContext);
     }
 }

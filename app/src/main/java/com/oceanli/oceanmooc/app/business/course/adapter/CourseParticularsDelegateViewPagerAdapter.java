@@ -29,7 +29,7 @@ public class CourseParticularsDelegateViewPagerAdapter extends FragmentPagerAdap
     public Fragment getItem(int position) {
         if (position == 0) {
             return CourseIntroDelegate.newInstance();
-        } else if (position == 1){
+        } else if (position == 1) {
             return CourseSectionDelegate.newInstance();
         } else {
             return CourseCommentDelegate.newInstance();

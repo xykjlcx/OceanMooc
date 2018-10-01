@@ -13,12 +13,9 @@ import java.io.InputStream;
 import okhttp3.OkHttpClient;
 
 /**
- * Created by ocean on 2018/9/25
- * Author :  ocean
- * Email  :  348686686@qq.com
+ * Created by ocean on 2018/9/25 Author :  ocean Email  :  348686686@qq.com
  */
 public class OkHttpUrlLoader implements ModelLoader<GlideUrl, InputStream> {
-
     /**
      * The default factory for {@link OkHttpUrlLoader}s.
      */
@@ -27,12 +24,8 @@ public class OkHttpUrlLoader implements ModelLoader<GlideUrl, InputStream> {
         private OkHttpClient client;
 
         private static OkHttpClient getInternalClient() {
-            if (internalClient == null) {
-                synchronized (Factory.class) {
-                    if (internalClient == null) {
-                        internalClient = UnsafeOkHttpClient.getUnsafeOkHttpClient();
-                    }
-                }
+            if (internalClient == null) synchronized (Factory.class) {
+                if (internalClient == null) internalClient = UnsafeOkHttpClient.getUnsafeOkHttpClient();
             }
             return internalClient;
         }
@@ -57,9 +50,7 @@ public class OkHttpUrlLoader implements ModelLoader<GlideUrl, InputStream> {
         }
 
         @Override
-        public void teardown() {
-            // Do nothing, this instance doesn't own the client.
-        }
+        public void teardown() {/* Do nothing, this instance doesn't own the client.*/}
     }
 
     private final OkHttpClient client;
