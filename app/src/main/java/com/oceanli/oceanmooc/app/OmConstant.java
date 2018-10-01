@@ -13,7 +13,7 @@ public class OmConstant {
 
     public static final Integer ERROR_CODE = 1;
 
-    public static final String BASE_URL = "http://10.16.216.47:8088";
+    public static final String BASE_URL = "http://10.18.139.66:8088";
 
     public static final String REQUEST_URL_GET_BANNER = "/home/getBannerData";
 
@@ -22,6 +22,9 @@ public class OmConstant {
     public static final String REQUEST_URL_GET_CHOICENESS = "/home/getRecommendCourse";
 
     public static final String REQUEST_URL_POST_RECOMMEND = "/home/getGuessLikeCourse";
+
+    public static final String REQUEST_URL_POST_MY_COURSES = "/users/getStudyCourses";
+
 
 
     /**

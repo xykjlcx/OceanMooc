@@ -30,6 +30,7 @@ import com.oceanli.oceanmooc.app.other.OceanMarqueeViewMF;
 import com.oceanli.oceanmooc.app.other.utils.OmUtil;
 import com.oceanli.oceanmooc.app.business.course.ui.CourseParticularsDelegate;
 import com.oceanli.oceanmooc.app.business.MainDelegate;
+import com.orhanobut.logger.Logger;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
@@ -120,7 +121,7 @@ public class HomeRecommendDelegate extends OceanDelegate {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
                 if (smartRefreshLayout == null) return;
-                Log.e("appbar", "onOffsetChanged: " + verticalOffset);
+//                Log.e("appbar", "onOffsetChanged: " + verticalOffset);
                 // ||isSlideToBottom(recyclerView)
                 smartRefreshLayout.setEnabled(verticalOffset >= 0||isSlideToBottom(mRecommendRecycler) ?  true : false);
             }
@@ -135,6 +136,7 @@ public class HomeRecommendDelegate extends OceanDelegate {
         setMarqueeData(false);
         setChoicenessData();
         setRecommendRecyclerData(PAGE_NUM,SIZE,true);
+        Logger.d("数据重新加载完成");
     }
 
     public void initRefresh(){
@@ -303,7 +305,7 @@ public class HomeRecommendDelegate extends OceanDelegate {
                                 marqueeItemModelList.add(itemModel);
                             }
                             viewMF.setData(marqueeItemModelList);
-                            if (isFirst){
+                            if (!modelMarqueeView.isFlipping()){
                                 modelMarqueeView.setMarqueeFactory(viewMF);
                                 modelMarqueeView.startFlipping();
                             }

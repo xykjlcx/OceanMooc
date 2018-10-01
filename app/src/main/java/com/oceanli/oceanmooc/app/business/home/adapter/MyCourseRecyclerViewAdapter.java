@@ -16,20 +16,20 @@ import java.util.List;
  * Author :  ocean
  * Email  :  348686686@qq.com
  */
-public class MyCourseRecyclerViewAdapter extends BaseQuickAdapter<MyCourseModel,BaseViewHolder> {
+public class MyCourseRecyclerViewAdapter extends BaseQuickAdapter<MyCourseModel.DataBean,BaseViewHolder> {
 
-    public MyCourseRecyclerViewAdapter(int layoutResId, @Nullable List<MyCourseModel> data) {
+    public MyCourseRecyclerViewAdapter(int layoutResId, @Nullable List<MyCourseModel.DataBean> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, MyCourseModel item) {
-        helper.setText(R.id.tv_my_course_last_time,"最后时间")
-                .setText(R.id.tv_my_course_name,item.getCourseName())
-                .setText(R.id.tv_my_course_teacher,item.getTeacherName())
-                .setText(R.id.tv_my_course_duration,item.getDuration());
+    protected void convert(BaseViewHolder helper, MyCourseModel.DataBean item) {
+        helper.setText(R.id.tv_my_course_last_time,item.getLastStudyTime())
+                .setText(R.id.tv_my_course_name,"课程名称： " + item.getCourseVo().getCourseName())
+                .setText(R.id.tv_my_course_study_section,"学习至： " + item.getSectionName())
+                .setText(R.id.tv_my_course_duration,"时长： " + item.getCourseVo().getDuration());
         Glide.with(mContext)
-                .load(R.drawable.a2)
+                .load(item.getCourseVo().getImgUrl())
                 .centerCrop()
                 .into((ImageView) helper.getView(R.id.iv_my_course_img));
     }

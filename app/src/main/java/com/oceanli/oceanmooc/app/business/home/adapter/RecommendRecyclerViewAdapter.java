@@ -33,7 +33,6 @@ public class RecommendRecyclerViewAdapter extends BaseQuickAdapter<RecommendCour
                 .setText(R.id.tv_recommend_content,item.getCourseDesc())
                 .setText(R.id.tv_recommend_price,"￥" + item.getPrice())
                 .setText(R.id.tv_recommend_study_count,random.nextInt(200) + "人学过");
-        Log.e(TAG, "convert: " + "查看刷新后的数据：" + item.getCourseName() );
         Glide.with(mContext)
                 .load(item.getImgUrl() + OmConstant.IMG_COMPRESS_URL)
                 .centerCrop()

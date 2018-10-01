@@ -33,11 +33,42 @@
             app:layout_scrollFlags="scroll"
             app:cardElevation="10dp">
 
-
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/ic_launcher_background">
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/iv_my_course_lately"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                </ImageView>
+
+
+                <TextView
+                    android:id="@+id/tv_my_course_lately_lasttime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:gravity="center_vertical"
+                    android:text="1970-01-06 11:45:55"
+                    android:textColor="#000000"
+                    android:layout_marginRight="10dp"
+                    android:textSize="15sp"
+                    android:layout_marginBottom="@dimen/global_default_margin_size"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"/>
+
+                <TextView
+                    android:id="@+id/tv_my_course_lately_coursename"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="30sp"
+                    android:textColor="#000000"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="20dp"
+                    android:background="#3d3d3c"
+                    android:alpha="0.3"
+                    android:layout_centerInParent="true"
+                    android:text="Spring boot"/>
 
             </RelativeLayout>
 
