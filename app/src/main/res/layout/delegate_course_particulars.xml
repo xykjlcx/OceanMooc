@@ -15,7 +15,6 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:visibility="gone"
         android:paddingLeft="15dp">
 
         <ImageView
@@ -124,6 +123,7 @@
 
 
             <net.lucode.hackware.magicindicator.MagicIndicator
+                android:visibility="gone"
                 android:id="@+id/magic_indicator_course_particulars"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
@@ -134,13 +134,62 @@
 
 
             <android.support.v4.view.ViewPager
+                android:visibility="gone"
                 android:id="@+id/vp_course_particulars"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
             </android.support.v4.view.ViewPager>
 
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/nested_scroll_particular_no_study_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp">
+
+                    <Button
+                        android:id="@+id/btn_particular_start_study"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginVertical="@dimen/global_default_margin_size"
+                        android:layout_marginHorizontal="10dp"
+                        android:background="@drawable/shape_particular_start_study_btn"
+                        android:textColor="@android:color/white"
+                        android:text="开始学习"/>
+
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:text="课程简介"
+                    android:textSize="20sp"
+                    android:textColor="#333333"
+                    android:layout_margin="15dp"/>
+
+                <TextView
+                    android:id="@+id/tv_course_particulars_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/course_desc_strings"
+                    android:textSize="15sp"
+                    android:layout_marginHorizontal="15dp"
+                    android:textColor="#333333"/>
+
+
+            </LinearLayout>
+
+        </android.support.v4.widget.NestedScrollView>
 
 
 

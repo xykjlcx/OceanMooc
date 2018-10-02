@@ -129,8 +129,11 @@ public class CourseDelegate extends OceanDelegate {
         mRecyclerView.setLayoutManager(gridLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
-        mAdapter.setOnItemClickListener((adapter, view, position) -> ((MainDelegate)
-                getParentFragment()).startBrotherFragment(CourseParticularsDelegate.newInstance()));
+        mAdapter.setOnItemClickListener((adapter, view, position) -> {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(OmConstant.BUNDLE_COURSE,mData.get(position));
+            ((MainDelegate) getParentFragment()).startBrotherFragment(CourseParticularsDelegate.newInstance(bundle));
+        });
         setCourseListData(true);
     }
 

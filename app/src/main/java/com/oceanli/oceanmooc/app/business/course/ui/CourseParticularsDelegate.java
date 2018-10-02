@@ -5,9 +5,12 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.NestedScrollView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -16,9 +19,11 @@ import com.oceanli.ocean.core.delegates.OceanDelegate;
 import com.oceanli.ocean.core.net.RestClient;
 import com.oceanli.ocean.core.net.callback.IFailure;
 import com.oceanli.ocean.core.net.callback.ISuccess;
+import com.oceanli.oceanmooc.app.OmConstant;
 import com.oceanli.oceanmooc.app.R;
 import com.oceanli.oceanmooc.app.business.course.adapter.CourseParticularsDelegateViewPagerAdapter;
 import com.oceanli.ocean.core.event.OceanMessageEvent;
+import com.oceanli.oceanmooc.app.business.home.models.CourseVoModel;
 import com.oceanli.oceanmooc.app.other.diy.ScaleTransitionPagerTitleView;
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
@@ -40,6 +45,7 @@ import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import me.yokeyword.fragmentation.SupportFragment;
 
 /**
  * Created by ocean on 2018/9/28 Author :  ocean Email  :  348686686@qq.com
@@ -53,8 +59,18 @@ public class CourseParticularsDelegate extends OceanDelegate {
     MagicIndicator magicIndicator;
     @BindView(R.id.gsy_course_particulars_video)
     StandardGSYVideoPlayer standardGSYVideoPlayer;
+    @BindView(R.id.tv_course_particulars_name)
+    TextView courseNameTv;
+    @BindView(R.id.tv_course_particulars_price)
+    TextView coursePriceTv;
+    @BindView(R.id.tv_course_particulars_desc)
+    TextView courseDescTv;
     @BindView(R.id.iv_course_particulars_collect)
     ImageView collectImg;
+    @BindView(R.id.btn_particular_start_study)
+    Button startStudyBtn;
+    @BindView(R.id.nested_scroll_particular_no_study_layout)
+    NestedScrollView noStudyLayout;
 
     @OnClick(R.id.iv_course_particulars_back)
     public void backOnClick() {
@@ -68,10 +84,26 @@ public class CourseParticularsDelegate extends OceanDelegate {
         collectImg.setImageResource(R.mipmap.shoucanged);
     }
 
+    @OnClick(R.id.btn_particular_start_study)
+    public void startStudyBtnOnClick(View view){
+        // todo 网络请求接口，学习该课程
+        magicIndicator.setVisibility(View.VISIBLE);
+        mViewPager.setVisibility(View.VISIBLE);
+        noStudyLayout.setVisibility(View.GONE);
+    }
+
     private CourseParticularsDelegateViewPagerAdapter mAdapter;
     GoodView goodView = null;
     private OrientationUtils orientationUtils;
     private String[] mDataList = {"简介", "章节", "评论"};
+    private CourseVoModel.DataBean receiveCourseData;
+
+    public static CourseParticularsDelegate newInstance(Bundle args) {
+        // 通过bundle传递数据
+        CourseParticularsDelegate courseParticularsDelegate = new CourseParticularsDelegate();
+        courseParticularsDelegate.setArguments(args);
+        return courseParticularsDelegate;
+    }
 
     public static CourseParticularsDelegate newInstance() {
         CourseParticularsDelegate courseParticularsDelegate = new CourseParticularsDelegate();
@@ -90,8 +122,9 @@ public class CourseParticularsDelegate extends OceanDelegate {
 
     @Override
     public void onEnterAnimationEnd(Bundle savedInstanceState) {
-        setVideoSource("http://pevcw8o7e.bkt.clouddn.com/caifang.mp4", "初始化加载标题", "http://pevcw8o7e.bkt.clouddn.com/om2.jpg");
+        // 动画加载完成后，渲染ui
     }
+
 
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
@@ -99,39 +132,39 @@ public class CourseParticularsDelegate extends OceanDelegate {
         initData();
     }
 
-    public void initNetData() {/**/
-        RestClient.builder().url("http://192.168.43.214:8088/home/getGuessLikeCourse").params("page", 0).params("size", 3).success(new ISuccess() {
-            @Override
-            public void onSuccess(String response) {
-                try {
-                    Log.e("jass", "onSuccess: " + response);
-                    JSONObject jsonObject = new JSONObject(response);
-                    JSONArray jsonArray = jsonObject.getJSONArray("data");
-                    JSONObject realData = jsonArray.getJSONObject(0);
-                    String videoUrl = realData.getString("videoUrl");
-                    String imgUrl = realData.getString("imgUrl");
-                    setVideoSource(videoUrl, "网络标题", imgUrl);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+    public void handleInitData(){
+        // 获取前面页面传递过来的数据
+        Bundle args = this.getArguments();
+        if (args != null){
+            receiveCourseData = (CourseVoModel.DataBean) args.getSerializable(OmConstant.BUNDLE_COURSE);
+            if (receiveCourseData != null){
+                courseNameTv.setText(receiveCourseData.getCourseName());
+                coursePriceTv.setText("$" + receiveCourseData.getPrice());
+                courseDescTv.setText(receiveCourseData.getCourseDesc());
+                setVideoSource(receiveCourseData.getVideoUrl(),receiveCourseData.getCourseName(),receiveCourseData.getImgUrl());
             }
-        }).failure(new IFailure() {
-            @Override
-            public void onFailure() {
-                Log.e("jass", "onFailure: " + "失败?");
-            }
-        }).build().post();
+        }
     }
 
-    public void initView(final View rootView) {/*        mImmersionBar.setStatusBarView(_mActivity,rootView.findViewById(R.id
-    .view_course_particulars_fill));*/
+    public void initView(final View rootView) {
+        mImmersionBar.setStatusBarView(_mActivity,rootView.findViewById(
+                R.id.view_course_particulars_fill
+        ));
         goodView = new GoodView(_mActivity);
         initGSYVideoView();
         initMagicIndicator();
     }
 
     public void initData() {
-        mAdapter = new CourseParticularsDelegateViewPagerAdapter(getChildFragmentManager(), mDataList);
+        // 处理接收bundle接收的数据
+        handleInitData();
+        final SupportFragment[] mFragments = new SupportFragment[3];
+        Bundle introArgs = new Bundle();
+        introArgs.putSerializable(OmConstant.BUNDLE_COURSE,receiveCourseData);
+        mFragments[0] = CourseIntroDelegate.newInstance(introArgs);
+        mFragments[1] = CourseSectionDelegate.newInstance();
+        mFragments[2] = CourseCommentDelegate.newInstance();
+        mAdapter = new CourseParticularsDelegateViewPagerAdapter(getChildFragmentManager(), mFragments);
         mViewPager.setAdapter(mAdapter);
         ViewPagerHelper.bind(magicIndicator, mViewPager);
     }
@@ -195,13 +228,14 @@ public class CourseParticularsDelegate extends OceanDelegate {
         standardGSYVideoPlayer.setShowFullAnimation(true);
     }
 
+    /* 接收点击章节后视频的更新*/
     public void setVideoSource(String videoUrl, String videoTitle, String imgUrl) {/*增加封面*/
         ImageView imageView = new ImageView(getActivity());
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         Glide.with(_mActivity).load(imgUrl).centerCrop().into(imageView);
         standardGSYVideoPlayer.setThumbImageView(imageView);
         standardGSYVideoPlayer.setUp(videoUrl, true, videoTitle);
-    }/* 接收点击章节后视频的更新*/
+    }
 
     @Override
     public void onMessageEvent(OceanMessageEvent event) {

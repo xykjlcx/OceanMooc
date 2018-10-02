@@ -21,4 +21,8 @@ package com.oceanli.oceanmooc.app;
             "/fill/I0ZGRkZGRg==/dissolve/70/gravity/SouthEast/dx/10/dy/10|imageslim";
     /* 是否登录*/
     public static boolean isLogin = false;
+
+    /* bundle跳转key */
+    public static final String BUNDLE_COURSE = "courseModel";
+
 }

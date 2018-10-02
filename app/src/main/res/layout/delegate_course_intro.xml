@@ -24,6 +24,7 @@
                 android:layout_margin="15dp"/>
 
             <TextView
+                android:id="@+id/tv_intro_course_desc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/course_desc_strings"
@@ -31,21 +32,7 @@
                 android:layout_marginHorizontal="15dp"
                 android:textColor="#333333"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:text="课程讲师"
-                android:textSize="20sp"
-                android:textColor="#333333"
-                android:layout_margin="15dp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/course_tearcher"
-                android:textSize="15sp"
-                android:layout_marginHorizontal="15dp"
-                android:textColor="#333333"/>
 
 
         </LinearLayout>

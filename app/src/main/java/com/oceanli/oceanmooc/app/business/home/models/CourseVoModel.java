@@ -1,11 +1,12 @@
 package com.oceanli.oceanmooc.app.business.home.models;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by ocean on 2018/9/26 Author :  ocean Email  :  348686686@qq.com
  */
-public class CourseVoModel {
+public class CourseVoModel implements Serializable {
     /**
      * code : 0 msg : 获取推荐好课成功 data : [{"id":1,"courseName":"css定位入门","courseDesc":"本课程，将带领大家了解一下定位的知识，教大家如何通过定位来进行布局。","classifyId":1,
      * "duration":"30:29","level":"初级","imgUrl":"https://www.skuimg.com/u/20180924/11215159.png","videoUrl":"http://pevcw8o7e.bkt.clouddn
@@ -46,7 +47,7 @@ public class CourseVoModel {
         this.data = data;
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable {
         /**
          * id : 1 courseName : css定位入门 courseDesc : 本课程，将带领大家了解一下定位的知识，教大家如何通过定位来进行布局。 classifyId : 1 duration : 30:29 level : 初级 imgUrl : https://www
          * .skuimg.com/u/20180924/11215159.png videoUrl : http://pevcw8o7e.bkt.clouddn.com/ec8e5f1a7b8b63aec9b7a01552fade5b.mp4 isFree : 0 price :

@@ -8,17 +8,19 @@ import com.oceanli.oceanmooc.app.business.course.ui.CourseCommentDelegate;
 import com.oceanli.oceanmooc.app.business.course.ui.CourseIntroDelegate;
 import com.oceanli.oceanmooc.app.business.course.ui.CourseSectionDelegate;
 
+import me.yokeyword.fragmentation.SupportFragment;
+
 /**
  * Created by ocean on 2018/9/28
  * Author :  ocean
  * Email  :  348686686@qq.com
  */
 public class CourseParticularsDelegateViewPagerAdapter extends FragmentPagerAdapter {
-    private String[] mtitles;
+    private SupportFragment[] mFragments;
 
-    public CourseParticularsDelegateViewPagerAdapter(FragmentManager fm, String[] mtitles) {
+    public CourseParticularsDelegateViewPagerAdapter(FragmentManager fm, SupportFragment[] fragments) {
         super(fm);
-        this.mtitles = mtitles;
+        this.mFragments = fragments;
     }
 
     public CourseParticularsDelegateViewPagerAdapter(FragmentManager fm) {
@@ -27,17 +29,18 @@ public class CourseParticularsDelegateViewPagerAdapter extends FragmentPagerAdap
 
     @Override
     public Fragment getItem(int position) {
-        if (position == 0) {
-            return CourseIntroDelegate.newInstance();
-        } else if (position == 1) {
-            return CourseSectionDelegate.newInstance();
-        } else {
-            return CourseCommentDelegate.newInstance();
-        }
+//        if (position == 0) {
+//            return CourseIntroDelegate.newInstance();
+//        } else if (position == 1) {
+//            return CourseSectionDelegate.newInstance();
+//        } else {
+//            return CourseCommentDelegate.newInstance();
+//        }
+        return mFragments[position];
     }
 
     @Override
     public int getCount() {
-        return mtitles.length;
+        return mFragments.length;
     }
 }
