@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.JsonObject;
 import com.gyf.barlibrary.ImmersionBar;
 import com.oceanli.ocean.core.delegates.OceanDelegate;
 import com.oceanli.ocean.core.net.RestClient;
@@ -25,6 +26,8 @@ import com.oceanli.oceanmooc.app.business.course.adapter.CourseParticularsDelega
 import com.oceanli.ocean.core.event.OceanMessageEvent;
 import com.oceanli.oceanmooc.app.business.home.models.CourseVoModel;
 import com.oceanli.oceanmooc.app.other.diy.ScaleTransitionPagerTitleView;
+import com.oceanli.oceanmooc.app.other.utils.OmUtil;
+import com.orhanobut.logger.Logger;
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
@@ -85,12 +88,42 @@ public class CourseParticularsDelegate extends OceanDelegate {
     }
 
     @OnClick(R.id.btn_particular_start_study)
-    public void startStudyBtnOnClick(View view){
-        // todo 网络请求接口，学习该课程
-        magicIndicator.setVisibility(View.VISIBLE);
-        mViewPager.setVisibility(View.VISIBLE);
-        noStudyLayout.setVisibility(View.GONE);
+    public void startStudyBtnOnClick(View view) {/* todo 网络请求接口，学习该课程*/
+       requestNetStudyCourse(1,receiveCourseData.getId());
     }
+
+    /**
+     * 用户学习新课程
+     * @param userId
+     * @param courseId
+     */
+    public void requestNetStudyCourse(int userId,int courseId){
+        RestClient.builder()
+                .url(OmConstant.BASE_URL + OmConstant.REQUEST_URL_POST_STUDY_COURSE)
+                .loader(_mActivity)
+                .params("userId",userId)
+                .params("courseId",courseId)
+                .params("sectionId",6)
+                .success(response -> {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        int code = jsonObject.getInt("code");
+                        if (code == OmConstant.SUCCESS_CODE){
+                            OmUtil.toastSuccess(_mActivity,"开始学习吧");
+                            magicIndicator.setVisibility(View.VISIBLE);
+                            mViewPager.setVisibility(View.VISIBLE);
+                            noStudyLayout.setVisibility(View.GONE);
+                        }else {
+                            OmUtil.toastError(_mActivity,"您暂时不能学习该课程");
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                })
+                .build()
+                .post();
+    }
+
 
     private CourseParticularsDelegateViewPagerAdapter mAdapter;
     GoodView goodView = null;
@@ -98,8 +131,7 @@ public class CourseParticularsDelegate extends OceanDelegate {
     private String[] mDataList = {"简介", "章节", "评论"};
     private CourseVoModel.DataBean receiveCourseData;
 
-    public static CourseParticularsDelegate newInstance(Bundle args) {
-        // 通过bundle传递数据
+    public static CourseParticularsDelegate newInstance(Bundle args) {/* 通过bundle传递数据*/
         CourseParticularsDelegate courseParticularsDelegate = new CourseParticularsDelegate();
         courseParticularsDelegate.setArguments(args);
         return courseParticularsDelegate;
@@ -121,10 +153,7 @@ public class CourseParticularsDelegate extends OceanDelegate {
     }
 
     @Override
-    public void onEnterAnimationEnd(Bundle savedInstanceState) {
-        // 动画加载完成后，渲染ui
-    }
-
+    public void onEnterAnimationEnd(Bundle savedInstanceState) {/* 动画加载完成后，渲染ui*/}
 
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
@@ -132,39 +161,39 @@ public class CourseParticularsDelegate extends OceanDelegate {
         initData();
     }
 
-    public void handleInitData(){
-        // 获取前面页面传递过来的数据
+    public void handleInitData() {/* 获取前面页面传递过来的数据*/
         Bundle args = this.getArguments();
-        if (args != null){
-            receiveCourseData = (CourseVoModel.DataBean) args.getSerializable(OmConstant.BUNDLE_COURSE);
-            if (receiveCourseData != null){
+        if (args != null) {
+            receiveCourseData = (CourseVoModel.DataBean) args.getSerializable(OmConstant
+                    .BUNDLE_COURSE);
+            if (receiveCourseData != null) {
                 courseNameTv.setText(receiveCourseData.getCourseName());
                 coursePriceTv.setText("$" + receiveCourseData.getPrice());
                 courseDescTv.setText(receiveCourseData.getCourseDesc());
-                setVideoSource(receiveCourseData.getVideoUrl(),receiveCourseData.getCourseName(),receiveCourseData.getImgUrl());
+                setVideoSource(receiveCourseData.getVideoUrl(), receiveCourseData.getCourseName()
+                        , receiveCourseData.getImgUrl());
             }
         }
     }
 
     public void initView(final View rootView) {
-        mImmersionBar.setStatusBarView(_mActivity,rootView.findViewById(
-                R.id.view_course_particulars_fill
-        ));
+        mImmersionBar.setStatusBarView(_mActivity, rootView.findViewById(R.id
+                .view_course_particulars_fill));
         goodView = new GoodView(_mActivity);
         initGSYVideoView();
         initMagicIndicator();
     }
 
-    public void initData() {
-        // 处理接收bundle接收的数据
+    public void initData() {/* 处理接收bundle接收的数据*/
         handleInitData();
         final SupportFragment[] mFragments = new SupportFragment[3];
         Bundle introArgs = new Bundle();
-        introArgs.putSerializable(OmConstant.BUNDLE_COURSE,receiveCourseData);
+        introArgs.putSerializable(OmConstant.BUNDLE_COURSE, receiveCourseData);
         mFragments[0] = CourseIntroDelegate.newInstance(introArgs);
         mFragments[1] = CourseSectionDelegate.newInstance();
         mFragments[2] = CourseCommentDelegate.newInstance();
-        mAdapter = new CourseParticularsDelegateViewPagerAdapter(getChildFragmentManager(), mFragments);
+        mAdapter = new CourseParticularsDelegateViewPagerAdapter(getChildFragmentManager(),
+                mFragments);
         mViewPager.setAdapter(mAdapter);
         ViewPagerHelper.bind(magicIndicator, mViewPager);
     }
@@ -181,7 +210,8 @@ public class CourseParticularsDelegate extends OceanDelegate {
 
             @Override
             public IPagerTitleView getTitleView(Context context, final int index) {
-                SimplePagerTitleView simplePagerTitleView = new ScaleTransitionPagerTitleView(context);
+                SimplePagerTitleView simplePagerTitleView = new ScaleTransitionPagerTitleView
+                        (context);
                 simplePagerTitleView.setText(mDataList[index]);
                 simplePagerTitleView.setTextSize(18);
                 simplePagerTitleView.setNormalColor(Color.parseColor("#616161"));
@@ -198,7 +228,8 @@ public class CourseParticularsDelegate extends OceanDelegate {
             @Override
             public IPagerIndicator getIndicator(Context context) {
                 BezierPagerIndicator indicator = new BezierPagerIndicator(context);
-                indicator.setColors(Color.parseColor("#0396FF"), Color.parseColor("#28C76F"), Color.parseColor("#F8D800"));
+                indicator.setColors(Color.parseColor("#0396FF"), Color.parseColor("#28C76F"),
+                        Color.parseColor("#F8D800"));
                 return indicator;
             }
 
@@ -214,8 +245,8 @@ public class CourseParticularsDelegate extends OceanDelegate {
 
     private void initGSYVideoView() {/*增加title*/
         standardGSYVideoPlayer.getTitleTextView().setVisibility(View.VISIBLE);
-        standardGSYVideoPlayer.getTitleTextView().setPadding(20, 60, 0, 0);/*设置旋转 orientationUtils = new OrientationUtils(_mActivity,
-        standardGSYVideoPlayer); 设置全屏按键功能*/
+        standardGSYVideoPlayer.getTitleTextView().setPadding(20, 60, 0, 0);/*设置旋转
+        orientationUtils = new OrientationUtils(_mActivity, standardGSYVideoPlayer); 设置全屏按键功能*/
         standardGSYVideoPlayer.getFullscreenButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -226,9 +257,8 @@ public class CourseParticularsDelegate extends OceanDelegate {
         standardGSYVideoPlayer.setIsTouchWiget(true);
         standardGSYVideoPlayer.setThumbPlay(true);
         standardGSYVideoPlayer.setShowFullAnimation(true);
-    }
+    } /* 接收点击章节后视频的更新*/
 
-    /* 接收点击章节后视频的更新*/
     public void setVideoSource(String videoUrl, String videoTitle, String imgUrl) {/*增加封面*/
         ImageView imageView = new ImageView(getActivity());
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -264,8 +294,7 @@ public class CourseParticularsDelegate extends OceanDelegate {
     }
 
     @Override
-    public boolean onBackPressedSupport() {// 通过获取返回事件的发出场景，判断是否继续向上传递事件 backFromWindowFull()方法若当前处于全屏播放，推出全屏 并返回ture 若不处于全屏，返回false
-        // onBackPressedSupport()返回true则不会将back事件继续向上传递(同理，从全屏触发的back，并不会向上传递back事件)
+    public boolean onBackPressedSupport() {/* 通过获取返回事件的发出场景，判断是否继续向上传递事件 backFromWindowFull()方法若当前处于全屏播放，推出全屏 并返回ture 若不处于全屏，返回false onBackPressedSupport()返回true则不会将back事件继续向上传递(同理，从全屏触发的back，并不会向上传递back事件)*/
         boolean isFull = GSYVideoManager.backFromWindowFull(_mActivity);
         return isFull;
     }

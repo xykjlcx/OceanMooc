@@ -144,6 +144,8 @@ public class CourseDelegate extends OceanDelegate {
             SIZE = 14;
             IS_BOTTOM = false;
             setCourseListData(true);
+            // 获取最新分类信息
+            getAllClassify();
             refreshLayout.finishRefresh();
         });
         mSmartRefreshLayout.setOnLoadMoreListener(refreshLayout -> {/* 上拉加载*/

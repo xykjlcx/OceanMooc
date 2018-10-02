@@ -13,6 +13,7 @@ package com.oceanli.oceanmooc.app;
     public static final String REQUEST_URL_POST_MY_COURSES = "/users/getStudyCourses";
     public static final String REQUEST_URL_POST_ALL_COURSES = "/courses/getAllCourseForPage";
     public static final String REQUEST_URL_GET_CLASSIFY = "/courses/getAllClassify";
+    public static final String REQUEST_URL_POST_STUDY_COURSE = "/users/addStudyCourse";
 
     /**
      * 七牛云图片处理拼接url
