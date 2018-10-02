@@ -1,5 +1,7 @@
 package com.oceanli.oceanmooc.app.business.course.ui;
 
+import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
@@ -16,8 +18,10 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.oceanli.ocean.core.delegates.OceanDelegate;
 import com.oceanli.ocean.core.net.RestClient;
 import com.oceanli.ocean.core.net.callback.ISuccess;
+import com.oceanli.ocean.core.util.storage.OceanPreferences;
 import com.oceanli.oceanmooc.app.OmConstant;
 import com.oceanli.oceanmooc.app.R;
+import com.oceanli.oceanmooc.app.business.course.models.CourseClassifyModel;
 import com.oceanli.oceanmooc.app.business.home.adapter.ChoicenessGridRecyclerViewAdapter;
 import com.oceanli.oceanmooc.app.business.home.models.CourseVoModel;
 import com.oceanli.oceanmooc.app.business.MainDelegate;
@@ -44,6 +48,7 @@ public class CourseDelegate extends OceanDelegate {
     RecyclerView mRecyclerView;
     @BindView(R.id.smart_refresh_course)
     SmartRefreshLayout mSmartRefreshLayout;
+    private OptionsPickerView optionsPickerView;
     /**
      * 当前请求页码 初始化为第0页
      */
@@ -56,8 +61,14 @@ public class CourseDelegate extends OceanDelegate {
      * 是否到底部，默认已经到最底
      */
     private static boolean IS_BOTTOM = false;
+    /**
+     * 默认分类ID 0 查询所有 规则：下拉刷新重置DEFAULT_CLASSIFY 上拉加载默认采用当前分类 分类选择器选择后为DEFAULT_CLASSIFY赋值 之后的请求都加上该字段
+     */
+    private static Integer DEFAULT_CLASSIFY = 0;
     private ChoicenessGridRecyclerViewAdapter mAdapter;
     private List<CourseVoModel.DataBean> mData;
+    private List<CourseClassifyModel.DataBean.OneLevelBean> oneLevelBeanList;
+    private List<List<CourseClassifyModel.DataBean.TwoLevelBean>> twoLevelBeanList;
 
     public static CourseDelegate newInstance() {
         Bundle bundle = new Bundle();
@@ -76,27 +87,36 @@ public class CourseDelegate extends OceanDelegate {
         initView(rootView);
     }
 
-    private String[] optionsone = {"前端", "后端", "移动端", "游戏开发", "运维"};
-    private String[][] optionsTwo = {{"HTML", "CSS", "Vue"}, {"Java", "Python", "PHP"}, {"Android", "IOS", "React Native"}, {"Unity", "Cocos2d",
-            "C++"}, {"Linux", "自动化运维", "Shell"}};
+//    private String[] optionsone = {"前端", "后端", "移动端", "游戏开发", "运维"};
+//    private String[][] optionsTwo = {{"HTML", "CSS", "Vue"}, {"Java", "Python", "PHP"},
+//            {"Android", "IOS", "React Native"}, {"Unity", "Cocos2d", "C++"}, {"Linux", "自动化运维",
+//            "Shell"}};
+    private List<String> optionsOne = new ArrayList<>();
+    private List<List<String>> optionsTwo = new ArrayList<>();
 
     public void initView(View rootView) {
-        mImmersionBar.setStatusBarView(_mActivity, rootView.findViewById(R.id.view_course_fill)); /* 分类选择框*/
-        final OptionsPickerView optionsPickerView = new OptionsPickerBuilder(_mActivity, (options1, options2, options3, v) -> Toast.makeText
-                (_mActivity, "op1:" + options1 + ",op2:" + options2 + ",op3:" + options3, Toast.LENGTH_SHORT).show()).build();/* 初始化分类数据(假数据)*/
-        List<List<String>> twoData = new ArrayList<>();
-        for (int i = 0; i < optionsTwo.length; i++) {
-            List<String> oneList = new ArrayList<>();
-            for (int j = 0; j < optionsTwo[i].length; j++) oneList.add(optionsTwo[i][j]);
-            twoData.add(oneList);
-        }
-        optionsPickerView.setPicker(Arrays.asList(optionsone), twoData);
-        selectIv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                optionsPickerView.show();
-            }
-        });
+        mImmersionBar.setStatusBarView(_mActivity, rootView.findViewById(R.id.view_course_fill));
+        /* 分类选择框*/
+        optionsPickerView = new OptionsPickerBuilder(_mActivity,
+                (options1, options2, options3, v) -> {
+                    // todo 选择分类、更新列表
+                    if (options1 == 0){
+                        // 一级分类不限
+                        DEFAULT_CLASSIFY = 0;
+                    }else {
+                        if (options2 == 0){
+                            // 二级分类不限
+                            DEFAULT_CLASSIFY = oneLevelBeanList.get(options1-1).getId();
+                        }else {
+                            DEFAULT_CLASSIFY = twoLevelBeanList.get(options1-1).get(options2-1).getId();
+                        }
+                    }
+                    setCourseListData(true);
+                })
+                .build();
+        // 获取最新分类信息
+        getAllClassify();
+        selectIv.setOnClickListener(v -> optionsPickerView.show());
         initRecycler();
         initRefresh();
     }
@@ -109,8 +129,8 @@ public class CourseDelegate extends OceanDelegate {
         mRecyclerView.setLayoutManager(gridLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
-        mAdapter.setOnItemClickListener((adapter, view, position) -> ((MainDelegate) getParentFragment()).startBrotherFragment
-                (CourseParticularsDelegate.newInstance()));
+        mAdapter.setOnItemClickListener((adapter, view, position) -> ((MainDelegate)
+                getParentFragment()).startBrotherFragment(CourseParticularsDelegate.newInstance()));
         setCourseListData(true);
     }
 
@@ -132,21 +152,58 @@ public class CourseDelegate extends OceanDelegate {
         });
     }
 
-    public void setCourseListData(boolean isFirst) {
-        RestClient.builder().url(OmConstant.BASE_URL + OmConstant.REQUEST_URL_POST_RECOMMEND).params("page", PAGE_NUM).params("size", SIZE).success(response -> {
+    public void setCourseListData(boolean isBeforeClear) {
+        RestClient.builder().url(OmConstant.BASE_URL + OmConstant.REQUEST_URL_POST_ALL_COURSES).params("page", PAGE_NUM).params("size", SIZE).params("classify", DEFAULT_CLASSIFY).success(response -> {
             CourseVoModel courseVoModel = OmUtil.getGson().fromJson(response, CourseVoModel.class);
             if (courseVoModel.getCode() == OmConstant.SUCCESS_CODE) {
                 int dataCount = 0;
                 if (courseVoModel.getData() != null) dataCount = courseVoModel.getData().size();
                 if (dataCount > 0) IS_BOTTOM = false;
-                if (isFirst) mData.clear();
+                if (isBeforeClear) mData.clear();
                 if (!IS_BOTTOM) {
-                    for (int i = 0; i < courseVoModel.getData().size(); i++) mData.add(courseVoModel.getData().get(i));
+                    for (int i = 0; i < courseVoModel.getData().size(); i++)
+                        mData.add(courseVoModel.getData().get(i));
                     mAdapter.notifyDataSetChanged();
                 } else {
                 }
                 if (dataCount < SIZE) IS_BOTTOM = true;
             }
         }).build().post();
+    }
+
+
+    @SuppressLint("NewApi")
+    public void getAllClassify(){
+        // TODO 增加数据库缓存
+        RestClient.builder()
+                .url(OmConstant.BASE_URL + OmConstant.REQUEST_URL_GET_CLASSIFY)
+                .success(response -> {
+//                    Toast.makeText(_mActivity, response, Toast.LENGTH_SHORT).show();
+                    CourseClassifyModel classifyModel = OmUtil.getGson().fromJson(response,CourseClassifyModel.class);
+                    if (classifyModel.getCode() == OmConstant.SUCCESS_CODE){
+                        optionsOne.clear();
+                        optionsTwo.clear();
+                        CourseClassifyModel.DataBean dataBean = classifyModel.getData();
+                        oneLevelBeanList = dataBean.getOneLevel();
+                        twoLevelBeanList = dataBean.getTwoLevel();
+                        /* 添加以及分类和二级分类不限 */
+                        optionsOne.add("所有");
+                        List<String> allTemp = new ArrayList<>();
+                        allTemp.add("");
+                        optionsTwo.add(allTemp);
+                        for (int i = 0; i < oneLevelBeanList.size(); i++) {
+                            optionsOne.add(oneLevelBeanList.get(i).getClassifyName());
+                            List<String> temp = new ArrayList<>();
+                            temp.add("不限");
+                            for (int i1 = 0; i1 < twoLevelBeanList.get(i).size(); i1++) {
+                                temp.add(twoLevelBeanList.get(i).get(i1).getClassifyName());
+                            }
+                            optionsTwo.add(temp);
+                        }
+                        optionsPickerView.setPicker(optionsOne,optionsTwo);
+                    }
+                })
+                .build()
+                .get();
     }
 }
