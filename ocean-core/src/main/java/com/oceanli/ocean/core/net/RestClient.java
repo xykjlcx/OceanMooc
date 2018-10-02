@@ -71,12 +71,7 @@ public final class RestClient {
             public void onResponse(Call<String> call, Response<String> response) {
                 String result = response.body().toString();
                 if (SUCCESS != null) SUCCESS.onSuccess(result);
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        OceanLoader.stopLoading();
-                    }
-                }, 500);
+                OceanLoader.stopLoading();
             }
 
             @Override

@@ -5,7 +5,7 @@ package com.oceanli.oceanmooc.app;
  */ /* 配置相关参数、常量...*/ public class OmConstant {
     public static final Integer SUCCESS_CODE = 0;
     public static final Integer ERROR_CODE = -1;
-    public static final String BASE_URL = "http://10.18.139.66:8088";
+    public static final String BASE_URL = "http://10.16.216.47:8088";
     public static final String REQUEST_URL_GET_BANNER = "/home/getBannerData";
     public static final String REQUEST_URL_GET_NOTICES = "/home/getNotice";
     public static final String REQUEST_URL_GET_CHOICENESS = "/home/getRecommendCourse";
@@ -14,6 +14,8 @@ package com.oceanli.oceanmooc.app;
     public static final String REQUEST_URL_POST_ALL_COURSES = "/courses/getAllCourseForPage";
     public static final String REQUEST_URL_GET_CLASSIFY = "/courses/getAllClassify";
     public static final String REQUEST_URL_POST_STUDY_COURSE = "/users/addStudyCourse";
+    public static final String REQUEST_URL_POST_IS_STUDIED = "/users/isStudyCourse";
+    public static final String REQUEST_URL_POST_COURSE_SECTIONS = "/courses/getCourseChapterAndSection";
 
     /**
      * 七牛云图片处理拼接url

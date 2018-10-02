@@ -110,11 +110,9 @@ public class CourseParticularsDelegate extends OceanDelegate {
                         int code = jsonObject.getInt("code");
                         if (code == OmConstant.SUCCESS_CODE){
                             OmUtil.toastSuccess(_mActivity,"开始学习吧");
-                            magicIndicator.setVisibility(View.VISIBLE);
-                            mViewPager.setVisibility(View.VISIBLE);
-                            noStudyLayout.setVisibility(View.GONE);
+                            showParticulars();
                         }else {
-                            OmUtil.toastError(_mActivity,"您暂时不能学习该课程");
+                            OmUtil.toastError(_mActivity,"休想学习");
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -124,6 +122,11 @@ public class CourseParticularsDelegate extends OceanDelegate {
                 .post();
     }
 
+    public void showParticulars(){
+        magicIndicator.setVisibility(View.VISIBLE);
+        mViewPager.setVisibility(View.VISIBLE);
+        noStudyLayout.setVisibility(View.GONE);
+    }
 
     private CourseParticularsDelegateViewPagerAdapter mAdapter;
     GoodView goodView = null;
@@ -153,12 +156,14 @@ public class CourseParticularsDelegate extends OceanDelegate {
     }
 
     @Override
-    public void onEnterAnimationEnd(Bundle savedInstanceState) {/* 动画加载完成后，渲染ui*/}
+    public void onEnterAnimationEnd(Bundle savedInstanceState) {
+        /* 动画加载完成后，渲染ui*/
+        initData();
+    }
 
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
         initView(rootView);
-        initData();
     }
 
     public void handleInitData() {/* 获取前面页面传递过来的数据*/
@@ -186,6 +191,7 @@ public class CourseParticularsDelegate extends OceanDelegate {
 
     public void initData() {/* 处理接收bundle接收的数据*/
         handleInitData();
+        requestIsStudiedCourse(1,receiveCourseData.getId());
         final SupportFragment[] mFragments = new SupportFragment[3];
         Bundle introArgs = new Bundle();
         introArgs.putSerializable(OmConstant.BUNDLE_COURSE, receiveCourseData);
@@ -267,6 +273,34 @@ public class CourseParticularsDelegate extends OceanDelegate {
         standardGSYVideoPlayer.setUp(videoUrl, true, videoTitle);
     }
 
+    public void requestIsStudiedCourse(int userId,int courseId){
+        RestClient.builder()
+                .url(OmConstant.BASE_URL + OmConstant.REQUEST_URL_POST_IS_STUDIED)
+                .params("userId",userId)
+                .params("courseId",courseId)
+                .success(response -> {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        if (jsonObject.getInt("code") == OmConstant.SUCCESS_CODE){
+                            boolean isStudied = jsonObject.getBoolean("data");
+                            if (isStudied){
+                                showParticulars();
+                            }else {
+                                // 没学习过
+                                noStudyLayout.setVisibility(View.VISIBLE);
+                            }
+                        }else {
+                            // 查询是否学习该课程失败
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                })
+                .loader(_mActivity)
+                .build()
+                .post();
+    }
+
     @Override
     public void onMessageEvent(OceanMessageEvent event) {
         super.onMessageEvent(event);
@@ -295,7 +329,6 @@ public class CourseParticularsDelegate extends OceanDelegate {
 
     @Override
     public boolean onBackPressedSupport() {/* 通过获取返回事件的发出场景，判断是否继续向上传递事件 backFromWindowFull()方法若当前处于全屏播放，推出全屏 并返回ture 若不处于全屏，返回false onBackPressedSupport()返回true则不会将back事件继续向上传递(同理，从全屏触发的back，并不会向上传递back事件)*/
-        boolean isFull = GSYVideoManager.backFromWindowFull(_mActivity);
-        return isFull;
+        return GSYVideoManager.backFromWindowFull(_mActivity);
     }
 }

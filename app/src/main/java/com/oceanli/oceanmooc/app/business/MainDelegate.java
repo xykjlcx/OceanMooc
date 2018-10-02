@@ -64,9 +64,10 @@ public class MainDelegate extends OceanDelegate {
             mFragments[COURSE] = CourseDelegate.newInstance();
             mFragments[USER] = UserDelegate.newInstance();
             loadMultipleRootFragment(R.id.layout_main_container, HOME, mFragments[HOME], mFragments[COURSE], mFragments[USER]);
-        } else {/** 如果存在，直接拿引用 */mFragments[HOME] = homeDelagate;
+        } else {/** 如果存在，直接拿引用 */
+            mFragments[HOME] = homeDelagate;
             mFragments[COURSE] = findChildFragment(CourseDelegate.class);
-            mFragments[HOME] = findChildFragment(UserDelegate.class);
+            mFragments[USER] = findChildFragment(UserDelegate.class);
         }
     }
 

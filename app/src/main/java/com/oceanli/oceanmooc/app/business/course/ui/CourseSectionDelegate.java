@@ -9,12 +9,16 @@ import android.widget.LinearLayout;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.oceanli.ocean.core.delegates.OceanDelegate;
+import com.oceanli.ocean.core.net.RestClient;
+import com.oceanli.oceanmooc.app.OmConstant;
 import com.oceanli.oceanmooc.app.R;
 import com.oceanli.oceanmooc.app.business.course.adapter.CourseSectionExpandableAdapter;
+import com.oceanli.oceanmooc.app.business.course.models.ChapterSectionModel;
 import com.oceanli.oceanmooc.app.callback.IOnCourseSectionChildOnclickCallBack;
 import com.oceanli.ocean.core.event.OceanMessageEvent;
 import com.oceanli.oceanmooc.app.business.course.models.SectionChildModel;
 import com.oceanli.oceanmooc.app.business.course.models.SectionGroupModel;
+import com.oceanli.oceanmooc.app.other.utils.OmUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -38,6 +42,11 @@ public class CourseSectionDelegate extends OceanDelegate {
     }
 
     @Override
+    public void onEnterAnimationEnd(Bundle savedInstanceState) {
+        initData();
+    }
+
+    @Override
     public Object setLayout() {
         return R.layout.delegate_course_section;
     }
@@ -45,7 +54,6 @@ public class CourseSectionDelegate extends OceanDelegate {
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
         initView(rootView);
-        initData();
     }
 
     public void initView(View rootView) {
@@ -66,6 +74,7 @@ public class CourseSectionDelegate extends OceanDelegate {
     }
 
     public void initData() {
+        requestAllChapterAndSection(1);
     }
 
     private ArrayList<MultiItemEntity> generateData() {
@@ -81,4 +90,38 @@ public class CourseSectionDelegate extends OceanDelegate {
         }
         return res;
     }
+
+    private List<ChapterSectionModel.DataBean.ChapterBean> chapterBeanList = null;
+    private List<List<ChapterSectionModel.DataBean.SectionBean>> sectionBeanList = null;
+
+    public void requestAllChapterAndSection(int courseId){
+        RestClient.builder()
+                .url(OmConstant.BASE_URL + OmConstant.REQUEST_URL_POST_COURSE_SECTIONS)
+                .params("courseId",courseId)
+                .loader(_mActivity)
+                .success(response -> {
+                    ChapterSectionModel chapterSectionModel = OmUtil.getGson().fromJson(response,ChapterSectionModel.class);
+                    if (chapterSectionModel.getCode() == OmConstant.SUCCESS_CODE){
+                         chapterBeanList = chapterSectionModel.getData().getChapter();
+                         sectionBeanList = chapterSectionModel.getData().getSection();
+                         mData.clear();
+                        for (int i = 0; i < chapterBeanList.size(); i++) {
+                            SectionGroupModel sectionGroupModel = new SectionGroupModel(chapterBeanList.get(i).getId(),
+                                    chapterBeanList.get(i).getSectionName());
+                            for (int i1 = 0; i1 < sectionBeanList.get(i).size(); i1++) {
+                                sectionGroupModel.addSubItem(new SectionChildModel(
+                                        sectionBeanList.get(i).get(i1).getId(),
+                                        sectionBeanList.get(i).get(i1).getSectionName()
+                                ));
+                            }
+                            mData.add(sectionGroupModel);
+                        }
+                        mExpandableAdapter.notifyDataSetChanged();
+                        mExpandableAdapter.expandAll();
+                    }
+                })
+                .build()
+                .post();
+    }
+
 }

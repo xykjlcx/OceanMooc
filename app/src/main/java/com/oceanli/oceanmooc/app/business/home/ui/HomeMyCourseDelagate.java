@@ -118,6 +118,8 @@ public class HomeMyCourseDelagate extends OceanDelegate {
                         dataBeanList.remove(0);
                         dataBeanList.forEach(bean -> mData.add(bean));
                         mMyCourseRecyclerViewAdapter.notifyDataSetChanged();
+                    } else if (myCourseModel.getCode() == OmConstant.ERROR_CODE) {
+                        OmUtil.toastError(_mActivity,"服务器正在开小差...");
                     }
                 })
                 .build()
