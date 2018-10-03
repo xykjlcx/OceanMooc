@@ -3,18 +3,68 @@ package com.oceanli.oceanmooc.app.business.user.ui;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.oceanli.ocean.core.delegates.OceanDelegate;
+import com.oceanli.ocean.core.net.RestClient;
+import com.oceanli.oceanmooc.app.OmConstant;
 import com.oceanli.oceanmooc.app.R;
+import com.oceanli.oceanmooc.app.business.user.models.NetUserModel;
+import com.oceanli.oceanmooc.app.other.utils.OmUtil;
+
+import butterknife.BindView;
+import butterknife.OnClick;
+import me.yokeyword.fragmentation.SupportFragment;
 
 /**
  * Created by ocean on 2018/9/29 Author :  ocean Email  :  348686686@qq.com
  */
 public class LoginDelegate extends OceanDelegate {
-    public static LoginDelegate newInstance() {
+    @BindView(R.id.et_login_account)
+    EditText accountEt;
+    @BindView(R.id.et_login_pwd)
+    EditText pwdEt;
+    @BindView(R.id.tv_login_login)
+    TextView loginTv;
+    @BindView(R.id.tv_login_register)
+    TextView registerTv;
+    @BindView(R.id.tv_login_forget)
+    TextView forgetTv;
+
+    /**
+     * 初始化完成后获取目标页面实例
+     * 登录成功后跳转
+     */
+    private SupportFragment targetSupportFragment = null;
+
+    @OnClick(R.id.tv_login_login)
+    public void loginOnClick(View view){
+        // todo login
+        String accountStr = accountEt.getText().toString();
+        String pwdStr = pwdEt.getText().toString();
+        pwdStr = OmUtil.md5(pwdStr);
+        requestLogin(accountStr,pwdStr);
+    }
+
+    @OnClick(R.id.tv_login_register)
+    public void registerOnClick(View view){
+        // todo register
+    }
+
+    @OnClick(R.id.tv_login_forget)
+    public void forgetOnClick(View view){
+        // todo forget
+    }
+
+    public static LoginDelegate newInstance(String targetName) {
+        Bundle args = new Bundle();
+        args.putString(OmConstant.BUNDLE_TARGET_NAME,targetName);
         LoginDelegate loginDelegate = new LoginDelegate();
+        loginDelegate.setArguments(args);
         return loginDelegate;
     }
+
 
     @Override
     public Object setLayout() {
@@ -29,5 +79,37 @@ public class LoginDelegate extends OceanDelegate {
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
         mImmersionBar.setStatusBarView(_mActivity, rootView.findViewById(R.id.view_login_fill));
+        handleReceiverData();
     }
+
+    public void handleReceiverData(){
+        Bundle arguments = getArguments();
+        if (arguments != null){
+            targetSupportFragment = OmUtil.getTargetFragment((String) arguments.get(OmConstant.BUNDLE_TARGET_NAME));
+        }
+    }
+
+    public void requestLogin(String account,String pwd){
+        RestClient.builder()
+                .url(OmConstant.BASE_URL + OmConstant.REQUEST_URL_POST_LOGIN)
+                .params("account",account)
+                .params("password",pwd)
+                .loader(_mActivity)
+                .success(response -> {
+                    NetUserModel userModel = OmUtil.getGson().fromJson(response,NetUserModel.class);
+                    if (userModel.getCode() == OmConstant.SUCCESS_CODE){
+                        NetUserModel.DataBean dataBean = userModel.getData();
+                        // todo 缓存用户信息
+                        OmConstant.isLogin = true;
+                        OmUtil.toastSuccess(_mActivity,userModel.getMsg());
+                        pop();
+                        start(targetSupportFragment);
+                    }else {
+                        OmUtil.toastError(_mActivity,userModel.getMsg());
+                    }
+                })
+                .build()
+                .post();
+    }
+
 }

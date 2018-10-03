@@ -133,6 +133,9 @@ public class CourseParticularsDelegate extends OceanDelegate {
     GoodView goodView = null;
     private OrientationUtils orientationUtils;
     private String[] mDataList = {"简介", "章节", "评论"};
+    /**
+     * 接收上一个页面的传值
+     */
     private CourseVoModel.DataBean receiveCourseData;
 
     public static CourseParticularsDelegate newInstance(Bundle args) {/* 通过bundle传递数据*/

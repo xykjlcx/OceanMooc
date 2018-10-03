@@ -1,5 +1,6 @@
 package com.oceanli.oceanmooc.app.business.home.models;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -113,7 +114,7 @@ public class MyCourseModel {
             this.lastStudyTime = lastStudyTime;
         }
 
-        public static class CourseVoBean {
+        public static class CourseVoBean implements Serializable {
             /**
              * id : 3 courseName : vue2.5入门 courseDesc :
              * 对于很多刚接触Vue的同学，最难做到的就是编程思路的切换，这门课程，我们将通过形象的例子给大家讲解Vue的基础语法及编程思路，带大家快速的上手Vue的基础开发，这门课也包含了关于组件话和vue-cli

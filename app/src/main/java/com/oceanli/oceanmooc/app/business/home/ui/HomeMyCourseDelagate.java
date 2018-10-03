@@ -18,6 +18,8 @@ import com.oceanli.ocean.core.net.RestClient;
 import com.oceanli.ocean.core.net.callback.ISuccess;
 import com.oceanli.oceanmooc.app.OmConstant;
 import com.oceanli.oceanmooc.app.R;
+import com.oceanli.oceanmooc.app.business.MainDelegate;
+import com.oceanli.oceanmooc.app.business.course.ui.CourseParticularsDelegate;
 import com.oceanli.oceanmooc.app.business.home.adapter.MyCourseRecyclerViewAdapter;
 import com.oceanli.oceanmooc.app.business.home.models.MyCourseModel;
 import com.oceanli.oceanmooc.app.other.utils.OmUtil;
@@ -85,6 +87,15 @@ public class HomeMyCourseDelagate extends OceanDelegate {
         mMyCourseRecyclerViewAdapter.bindToRecyclerView(mRecyclerView);
         mMyCourseRecyclerViewAdapter.setEmptyView(R.layout.layout_empty);
         mMyCourseRecyclerViewAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_LEFT);
+        mMyCourseRecyclerViewAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(OmConstant.BUNDLE_COURSE,mData.get(position).getCourseVo());
+                ((MainDelegate) getParentFragment().getParentFragment()).startBrotherFragment(OmUtil.isLoginSkip("course_particulars", CourseParticularsDelegate
+                        .newInstance()));
+            }
+        });
         setMyCourseRecyclerData(1);
     }
 

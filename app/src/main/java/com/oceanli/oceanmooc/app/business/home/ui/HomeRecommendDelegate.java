@@ -19,9 +19,7 @@ import com.oceanli.oceanmooc.app.R;
 import com.oceanli.oceanmooc.app.business.home.adapter.ChoicenessGridRecyclerViewAdapter;
 import com.oceanli.oceanmooc.app.business.home.adapter.RecommendRecyclerViewAdapter;
 import com.oceanli.oceanmooc.app.business.home.models.CourseVoModel;
-import com.oceanli.oceanmooc.app.business.home.models.HomeBannerVo;
 import com.oceanli.oceanmooc.app.business.home.models.HomeNoticesVo;
-import com.oceanli.oceanmooc.app.business.home.models.RecommendCourseModel;
 import com.oceanli.oceanmooc.app.other.GlideImageLoader;
 import com.oceanli.oceanmooc.app.other.models.OceanMarqueeItemModel;
 import com.oceanli.oceanmooc.app.other.OceanMarqueeViewMF;
@@ -66,7 +64,7 @@ public class HomeRecommendDelegate extends OceanDelegate {
     private ChoicenessGridRecyclerViewAdapter mChoicenessGridRecyclerViewAdapter;
     private List<CourseVoModel.DataBean> mChoicenessCourseModelList;
     private RecommendRecyclerViewAdapter mRecommendRecyclerViewAdapter;
-    private List<RecommendCourseModel.DataBean> mRecommendData;
+    private List<CourseVoModel.DataBean> mRecommendData;
     /**
      * 当前请求页码 初始化为第0页
      */
@@ -151,8 +149,11 @@ public class HomeRecommendDelegate extends OceanDelegate {
         mBanner.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
-                ((MainDelegate) getParentFragment().getParentFragment()).startBrotherFragment(OmUtil.isLoginSkip(CourseParticularsDelegate
-                        .newInstance()));
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(OmConstant.BUNDLE_COURSE,mBannerCourseData.get(position));
+                Logger.e("jass:" + mBannerCourseData.get(position));
+                ((MainDelegate) getParentFragment().getParentFragment()).startBrotherFragment(OmUtil.isLoginSkip("course_particulars",CourseParticularsDelegate
+                        .newInstance(bundle)));
             }
         });
         setBannerData();
@@ -190,8 +191,10 @@ public class HomeRecommendDelegate extends OceanDelegate {
         mRecommendRecyclerViewAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {/* 猜你喜欢课程item点击*/
-                ((MainDelegate) getParentFragment().getParentFragment()).startBrotherFragment(OmUtil.isLoginSkip(CourseParticularsDelegate
-                        .newInstance()));
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(OmConstant.BUNDLE_COURSE,mRecommendData.get(position));
+                ((MainDelegate) getParentFragment().getParentFragment()).startBrotherFragment(OmUtil.isLoginSkip("course_particulars",CourseParticularsDelegate
+                        .newInstance(bundle)));
             }
         });
         setRecommendRecyclerData(PAGE_NUM, SIZE, true);
@@ -210,42 +213,41 @@ public class HomeRecommendDelegate extends OceanDelegate {
         mChoicenessGridRecyclerViewAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {/* 精选课程item点击*/
-                ((MainDelegate) getParentFragment().getParentFragment()).startBrotherFragment(OmUtil.isLoginSkip(CourseParticularsDelegate
-                        .newInstance()));
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(OmConstant.BUNDLE_COURSE,mChoicenessCourseModelList.get(position));
+                ((MainDelegate) getParentFragment().getParentFragment()).startBrotherFragment(OmUtil.isLoginSkip("course_particulars",CourseParticularsDelegate
+                        .newInstance(bundle)));
             }
         });
         setChoicenessData();
     }
 
-    public List<CourseVoModel.DataBean> mockChoicenessRecyclerData() {
-        List<CourseVoModel.DataBean> list = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            CourseVoModel.DataBean dataBean = new CourseVoModel.DataBean();
-            dataBean.setId(i);
-            dataBean.setCourseName("");
-            dataBean.setCourseDesc("");
-            dataBean.setPrice(0);
-            dataBean.setImgUrl("https://img.mukewang.com/5b6a947e00013edb09360316.jpg");
-            list.add(dataBean);
-        }
-        return list;
-    }
+
+    private List<CourseVoModel.DataBean> mBannerCourseData = new ArrayList<>();
 
     public void setBannerData() {
         final List<String> bannerImgUrls = new ArrayList<>();
         RestClient.builder().url(OmConstant.BASE_URL + OmConstant.REQUEST_URL_GET_BANNER).success(new ISuccess() {
             @Override
             public void onSuccess(String response) {
-                HomeBannerVo bannerModel = OmUtil.getGson().fromJson(response, HomeBannerVo.class);
-                if (bannerModel.getCode() == OmConstant.SUCCESS_CODE) {
-                    bannerImgUrls.clear();
-                    mBannerTitles.clear();
-                    for (int i = 0; i < bannerModel.getData().size(); i++) {
-                        HomeBannerVo.DataBean dataBean = bannerModel.getData().get(i);
-                        bannerImgUrls.add(dataBean.getBannerPreviewImg() + OmConstant.IMG_COMPRESS_URL);
-                        mBannerTitles.add(dataBean.getBannerText());
+                CourseVoModel courseVoModel = OmUtil.getGson().fromJson(response, CourseVoModel.class);
+                if (courseVoModel.getCode() == OmConstant.SUCCESS_CODE) {
+                    List<CourseVoModel.DataBean> dataBeanList = courseVoModel.getData();
+                    if (dataBeanList != null
+                            && !dataBeanList.isEmpty()){
+                        bannerImgUrls.clear();
+                        mBannerTitles.clear();
+                        mBannerCourseData.clear();
+                        for (int i = 0; i < dataBeanList.size(); i++) {
+                            CourseVoModel.DataBean dataBean = dataBeanList.get(i);
+                            mBannerCourseData.add(dataBean);
+                            bannerImgUrls.add(dataBean.getImgUrl() + OmConstant.IMG_COMPRESS_URL);
+                            mBannerTitles.add(dataBean.getCourseName());
+                        }
+                        mBanner.update(bannerImgUrls, mBannerTitles);
+                    }else {
+                        // 获取不到轮播数据
                     }
-                    mBanner.update(bannerImgUrls, mBannerTitles);
                 }
             }
         }).build().get();
@@ -292,34 +294,20 @@ public class HomeRecommendDelegate extends OceanDelegate {
         }).build().get();
     }
 
-    public List<RecommendCourseModel.DataBean> getRecommentData() {
-        List<RecommendCourseModel.DataBean> list = new ArrayList<>();
-        final String[] courseNames = {"乔布斯的设计艺术", "Spring Boot开发入门", "Spark大数据处理", "Python机器学习"};
-        final String desc = "本课程是年度最佳课程，采用模块化讲解，循序渐进的输出知识，为了让学生更好的接收";
-        for (int i = 0; i < 8; i++) {
-            RecommendCourseModel.DataBean dataBean = new RecommendCourseModel.DataBean();
-            dataBean.setCourseName(courseNames[i % 4]);
-            dataBean.setCourseDesc(desc);
-            dataBean.setPrice(0);
-            dataBean.setImgUrl("http://pevcw8o7e.bkt.clouddn.com/134032655.jpg");
-            list.add(dataBean);
-        }
-        return list;
-    }
 
     public void setRecommendRecyclerData(int page, int size, final boolean isFirst) {
         RestClient.builder().url(OmConstant.BASE_URL + OmConstant.REQUEST_URL_POST_RECOMMEND).loader(_mActivity).success(new ISuccess() {
             @Override
             public void onSuccess(String response) {
-                RecommendCourseModel recommendCourseModel = OmUtil.getGson().fromJson(response, RecommendCourseModel.class);
-                if (recommendCourseModel.getCode() == OmConstant.SUCCESS_CODE) {
+                CourseVoModel courseVoModel = OmUtil.getGson().fromJson(response, CourseVoModel.class);
+                if (courseVoModel.getCode() == OmConstant.SUCCESS_CODE) {
                     int dataCount = 0;
-                    if (recommendCourseModel.getData() != null) dataCount = recommendCourseModel.getData().size();
+                    if (courseVoModel.getData() != null) dataCount = courseVoModel.getData().size();
                     if (dataCount > 0) IS_BOTTOM = false;
                     if (isFirst) mRecommendData.clear();
                     if (!IS_BOTTOM) {
-                        for (int i = 0; i < recommendCourseModel.getData().size(); i++) {/*                                    if (isFirst){ mRecommendData.set(i,recommendCourseModel.getData().get(i)); }else { mRecommendData.add(recommendCourseModel.getData().get(i)); }*/
-                            mRecommendData.add(recommendCourseModel.getData().get(i));
+                        for (int i = 0; i < courseVoModel.getData().size(); i++) {/*                                    if (isFirst){ mRecommendData.set(i,recommendCourseModel.getData().get(i)); }else { mRecommendData.add(recommendCourseModel.getData().get(i)); }*/
+                            mRecommendData.add(courseVoModel.getData().get(i));
                         }
                         mRecommendRecyclerViewAdapter.notifyDataSetChanged();
                     } else {

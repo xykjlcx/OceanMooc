@@ -49,12 +49,13 @@
                 android:layout_centerVertical="true"/>
 
             <EditText
-                android:id="@+id/iv_login_temp2"
+                android:id="@+id/et_login_account"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:background="@null"
                 android:paddingLeft="10dp"
                 android:hint="Account"
+                android:singleLine="true"
                 android:inputType="text"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/iv_login_temp1"/>
@@ -65,7 +66,7 @@
                 android:background="#d2d2d2"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="3dp"
-                android:layout_below="@+id/iv_login_temp2"/>
+                android:layout_below="@+id/et_login_account"/>
 
 
         </RelativeLayout>
@@ -86,12 +87,13 @@
                 android:layout_centerVertical="true"/>
 
             <EditText
-                android:id="@+id/iv_login_temp4"
+                android:id="@+id/et_login_pwd"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:background="@null"
                 android:paddingLeft="10dp"
                 android:hint="Password"
+                android:singleLine="true"
                 android:inputType="textPassword"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/iv_login_temp3"/>
@@ -108,8 +110,9 @@
         </RelativeLayout>
 
         <TextView
+            android:id="@+id/tv_login_login"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="45dp"
             android:layout_marginHorizontal="60dp"
             android:text="登录"
             android:textColor="@android:color/white"
@@ -127,7 +130,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="注册"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="80dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="30dp"
         android:textSize="17sp"/>

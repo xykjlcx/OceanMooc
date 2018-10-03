@@ -9,7 +9,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.oceanli.oceanmooc.app.OmConstant;
 import com.oceanli.oceanmooc.app.R;
-import com.oceanli.oceanmooc.app.business.home.models.RecommendCourseModel;
+import com.oceanli.oceanmooc.app.business.home.models.CourseVoModel;
 
 import java.util.List;
 import java.util.Random;
@@ -19,16 +19,16 @@ import java.util.Random;
  * Author :  ocean
  * Email  :  348686686@qq.com
  */
-public class RecommendRecyclerViewAdapter extends BaseQuickAdapter<RecommendCourseModel.DataBean,BaseViewHolder> {
+public class RecommendRecyclerViewAdapter extends BaseQuickAdapter<CourseVoModel.DataBean,BaseViewHolder> {
 
-    public RecommendRecyclerViewAdapter(int layoutResId, @Nullable List<RecommendCourseModel.DataBean> data) {
+    public RecommendRecyclerViewAdapter(int layoutResId, @Nullable List<CourseVoModel.DataBean> data) {
         super(layoutResId, data);
     }
 
     private Random random = new Random();
 
     @Override
-    protected void convert(BaseViewHolder helper, RecommendCourseModel.DataBean item) {
+    protected void convert(BaseViewHolder helper, CourseVoModel.DataBean item) {
         helper.setText(R.id.tv_recommend_title,item.getCourseName())
                 .setText(R.id.tv_recommend_content,item.getCourseDesc())
                 .setText(R.id.tv_recommend_price,"￥" + item.getPrice())
