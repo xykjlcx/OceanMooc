@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <View
+        android:id="@+id/view_register_fill"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"/>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_login_cancel"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@mipmap/cancelicon"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"/>
+
+
+        <TextView
+            android:id="@+id/tv_register_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColorLink="#00ff00"
+            android:gravity="center"
+            android:layout_marginTop="30dp"
+            android:padding="40dp"
+            android:textStyle="bold"
+            android:text="用户注册"/>
+
+
+        <RelativeLayout
+            android:id="@+id/layout_login_temp1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_register_label"
+            android:focusableInTouchMode="true"
+            android:focusable="true"
+            android:layout_marginHorizontal="50dp">
+
+            <ImageView
+                android:id="@+id/iv_login_temp1"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/loginicon"
+                android:layout_centerVertical="true"/>
+
+            <EditText
+                android:id="@+id/et_register_account"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@null"
+                android:paddingLeft="10dp"
+                android:hint="请输入账号"
+                android:singleLine="true"
+                android:inputType="text"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/iv_login_temp1"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5sp"
+                android:background="#d2d2d2"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="3dp"
+                android:layout_below="@+id/et_register_account"/>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_login_temp2"
+            android:layout_below="@+id/layout_login_temp1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginHorizontal="50dp">
+
+            <ImageView
+                android:id="@+id/iv_login_temp3"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/pwdicon"
+                android:layout_centerVertical="true"/>
+
+            <EditText
+                android:id="@+id/et_register_pwd"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@null"
+                android:paddingLeft="10dp"
+                android:hint="请输入密码"
+                android:singleLine="true"
+                android:inputType="textPassword"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/iv_login_temp3"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5sp"
+                android:background="#d2d2d2"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="3dp"
+                android:layout_below="@+id/iv_login_temp3"/>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_register_layout3"
+            android:layout_below="@+id/layout_login_temp2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginHorizontal="50dp">
+
+            <ImageView
+                android:id="@+id/iv_register_icon3"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/emailicon"
+                android:layout_centerVertical="true"/>
+
+            <EditText
+                android:id="@+id/et_register_email"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@null"
+                android:paddingLeft="10dp"
+                android:hint="输入注册邮箱"
+                android:singleLine="true"
+                android:inputType="textEmailAddress"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/iv_register_icon3"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5sp"
+                android:background="#d2d2d2"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="3dp"
+                android:layout_below="@+id/et_register_email"/>
+
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_register_register"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginHorizontal="60dp"
+            android:text="注册"
+            android:textColor="@android:color/white"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:background="@drawable/shape_circular_login"
+            android:layout_below="@id/layout_register_layout3"
+            android:layout_marginTop="40dp"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_register_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="已有账号？去登录"
+        android:layout_marginTop="80dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="30dp"
+        android:textSize="17sp"/>
+
+
+</LinearLayout>

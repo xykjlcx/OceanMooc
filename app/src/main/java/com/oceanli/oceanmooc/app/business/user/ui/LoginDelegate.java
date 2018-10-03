@@ -58,6 +58,7 @@ public class LoginDelegate extends OceanDelegate {
     @OnClick(R.id.tv_login_register)
     public void registerOnClick(View view){
         // todo register
+        startWithPop(RegisterDelegate.newInstance());
     }
 
     @OnClick(R.id.tv_login_forget)
@@ -70,6 +71,11 @@ public class LoginDelegate extends OceanDelegate {
         args.putString(OmConstant.BUNDLE_TARGET_NAME,targetName);
         LoginDelegate loginDelegate = new LoginDelegate();
         loginDelegate.setArguments(args);
+        return loginDelegate;
+    }
+
+    public static LoginDelegate newInstance() {
+        LoginDelegate loginDelegate = new LoginDelegate();
         return loginDelegate;
     }
 
@@ -110,8 +116,12 @@ public class LoginDelegate extends OceanDelegate {
                         // todo 缓存用户信息
                         OmUtil.cacheUserData(dataBean);
                         OmUtil.toastSuccess(_mActivity,userModel.getMsg());
-                        pop();
-                        start(targetSupportFragment);
+                        if (targetSupportFragment != null){
+                            startWithPop(targetSupportFragment);
+                        }else {
+                            // 非拦截页面导致的登录，成功登录后pop this
+                            pop();
+                        }
                     }else {
                         OmUtil.toastError(_mActivity,userModel.getMsg());
                     }
