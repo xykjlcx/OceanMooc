@@ -9,6 +9,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -21,6 +23,7 @@ import com.oceanli.oceanmooc.app.R;
 import com.oceanli.oceanmooc.app.business.MainDelegate;
 import com.oceanli.oceanmooc.app.business.course.ui.CourseParticularsDelegate;
 import com.oceanli.oceanmooc.app.business.home.adapter.MyCourseRecyclerViewAdapter;
+import com.oceanli.oceanmooc.app.business.home.models.CourseVoModel;
 import com.oceanli.oceanmooc.app.business.home.models.MyCourseModel;
 import com.oceanli.oceanmooc.app.other.utils.OmUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -32,6 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Created by ocean on 2018/9/25
@@ -50,6 +54,20 @@ public class HomeMyCourseDelagate extends OceanDelegate {
     TextView latelyCourseNameTv;
     @BindView(R.id.tv_my_course_lately_lasttime)
     TextView latelyLasteTimeTv;
+    @BindView(R.id.layout_my_course)
+    RelativeLayout firstCourseLayout;
+
+    private CourseVoModel.DataBean mFirstCourse = null;
+
+    @OnClick(R.id.layout_my_course)
+    public void firstCourseOnClick(){
+        if (mFirstCourse != null){
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(OmConstant.BUNDLE_COURSE,mFirstCourse);
+            ((MainDelegate) getParentFragment().getParentFragment()).startBrotherFragment(OmUtil.isLoginSkip("course_particulars", CourseParticularsDelegate
+                    .newInstance(bundle)));
+        }
+    }
 
     private MyCourseRecyclerViewAdapter mMyCourseRecyclerViewAdapter;
     private List<MyCourseModel.DataBean> mData;
@@ -91,9 +109,10 @@ public class HomeMyCourseDelagate extends OceanDelegate {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Bundle bundle = new Bundle();
-                bundle.putSerializable(OmConstant.BUNDLE_COURSE,mData.get(position).getCourseVo());
+                CourseVoModel.DataBean dataBean = mData.get(position).getCourseVo();
+                bundle.putSerializable(OmConstant.BUNDLE_COURSE,dataBean);
                 ((MainDelegate) getParentFragment().getParentFragment()).startBrotherFragment(OmUtil.isLoginSkip("course_particulars", CourseParticularsDelegate
-                        .newInstance()));
+                        .newInstance(bundle)));
             }
         });
         setMyCourseRecyclerData(1);
@@ -124,8 +143,10 @@ public class HomeMyCourseDelagate extends OceanDelegate {
                         List<MyCourseModel.DataBean> dataBeanList = myCourseModel.getData();
                         latelyCourseNameTv.setText(dataBeanList.get(0).getCourseVo().getCourseName());
                         latelyLasteTimeTv.setText("最后学习时间： " + dataBeanList.get(0).getLastStudyTime());
+                        // 获取第一个课程(最近一次学习)
+                        mFirstCourse = dataBeanList.get(0).getCourseVo();
                         Glide.with(_mActivity)
-                                .load(dataBeanList.get(0).getCourseVo().getImgUrl())
+                                .load(mFirstCourse.getImgUrl())
                                 .centerCrop()
                                 .into(latelyImg);
                         dataBeanList.remove(0);

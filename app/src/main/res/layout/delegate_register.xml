@@ -15,7 +15,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/iv_login_cancel"
+            android:id="@+id/iv_register_cancel"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@mipmap/cancelicon"

@@ -5,5 +5,91 @@
     android:layout_height="match_parent">
 
 
+    <View
+        android:id="@+id/view_forget_fill"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_forget_cancel"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/backicon"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"/>
+
+        <TextView
+            android:id="@+id/tv_forget_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColorLink="#00ff00"
+            android:gravity="center"
+            android:layout_marginTop="30dp"
+            android:padding="40dp"
+            android:textStyle="bold"
+            android:text="找回密码"/>
+
+        <RelativeLayout
+            android:id="@+id/layout_forget_layout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_forget_label"
+            android:focusableInTouchMode="true"
+            android:focusable="true"
+            android:layout_marginHorizontal="50dp">
+
+            <ImageView
+                android:id="@+id/iv_login_temp1"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/emailicon"
+                android:layout_centerVertical="true"/>
+
+            <EditText
+                android:id="@+id/et_forget_email"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@null"
+                android:paddingLeft="10dp"
+                android:hint="请输入邮箱"
+                android:singleLine="true"
+                android:inputType="textEmailAddress"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/iv_login_temp1"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5sp"
+                android:background="#d2d2d2"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="3dp"
+                android:layout_below="@+id/et_forget_email"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_register_register"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginHorizontal="60dp"
+            android:text="确定"
+            android:textColor="@android:color/white"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:background="@drawable/shape_circular_login"
+            android:layout_below="@id/layout_forget_layout1"
+            android:layout_marginTop="40dp"/>
+
+
+
+    </RelativeLayout>
 
 </LinearLayout>

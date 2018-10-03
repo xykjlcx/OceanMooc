@@ -60,7 +60,7 @@ public class MyCourseModel {
          * sectionId : 3 sectionName : 章3 firstStudyTime : 2018-10-01T06:23:41.000+0000 lastStudyTime : 2018-10-01T06:23:45.000+0000
          */
         private int id;
-        private CourseVoBean courseVo;
+        private CourseVoModel.DataBean courseVo;
         private int sectionId;
         private String sectionName;
         private String firstStudyTime;
@@ -74,11 +74,11 @@ public class MyCourseModel {
             this.id = id;
         }
 
-        public CourseVoBean getCourseVo() {
+        public CourseVoModel.DataBean getCourseVo() {
             return courseVo;
         }
 
-        public void setCourseVo(CourseVoBean courseVo) {
+        public void setCourseVo(CourseVoModel.DataBean courseVo) {
             this.courseVo = courseVo;
         }
 

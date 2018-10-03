@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.oceanli.ocean.core.delegates.OceanDelegate;
@@ -34,6 +35,13 @@ public class LoginDelegate extends OceanDelegate {
     TextView registerTv;
     @BindView(R.id.tv_login_forget)
     TextView forgetTv;
+    @BindView(R.id.iv_login_cancel)
+    ImageView cancleImg;
+
+    @OnClick(R.id.iv_login_cancel)
+    public void loginCancleOnClick(){
+        pop();
+    }
 
     /**
      * 初始化完成后获取目标页面实例
@@ -64,6 +72,7 @@ public class LoginDelegate extends OceanDelegate {
     @OnClick(R.id.tv_login_forget)
     public void forgetOnClick(View view){
         // todo forget
+        start(ForgetDelegate.newInstance());
     }
 
     public static LoginDelegate newInstance(String targetName) {

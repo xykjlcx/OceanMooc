@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.oceanli.ocean.core.delegates.OceanDelegate;
@@ -29,6 +30,13 @@ public class RegisterDelegate extends OceanDelegate {
     TextView registerTv;
     @BindView(R.id.tv_register_login)
     TextView skipLoginTv;
+    @BindView(R.id.iv_register_cancel)
+    ImageView cancleImg;
+
+    @OnClick(R.id.iv_register_cancel)
+    public void registerCancleOnClick(){
+        pop();
+    }
 
     @OnClick(R.id.tv_register_register)
     public void registerTvOnClick(View view){
@@ -54,6 +62,11 @@ public class RegisterDelegate extends OceanDelegate {
     public static RegisterDelegate newInstance(){
         RegisterDelegate registerDelegate = new RegisterDelegate();
         return registerDelegate;
+    }
+
+    @Override
+    public boolean isSwip() {
+        return true;
     }
 
     @Override

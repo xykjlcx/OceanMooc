@@ -109,9 +109,8 @@ public class HomeDelagate extends OceanDelegate {
                 BezierPagerIndicator indicator = new BezierPagerIndicator(context);
 //                indicator.setColors(Color.parseColor("#ff4a42"), Color.parseColor("#fcde64"), Color.parseColor("#73e8f4"), Color.parseColor("#76b0ff"), Color.parseColor("#c683fe"));
                 indicator.setColors(
-                        Color.parseColor("#0396FF"),
-                        Color.parseColor("#28C76F"),
-                        Color.parseColor("#F8D800")
+                        Color.parseColor("#5EFCE8"),
+                        Color.parseColor("#736EFE")
                 );
                 return indicator;
             }

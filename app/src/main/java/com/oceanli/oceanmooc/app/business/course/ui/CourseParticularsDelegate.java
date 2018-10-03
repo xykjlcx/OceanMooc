@@ -239,8 +239,8 @@ public class CourseParticularsDelegate extends OceanDelegate {
             @Override
             public IPagerIndicator getIndicator(Context context) {
                 BezierPagerIndicator indicator = new BezierPagerIndicator(context);
-                indicator.setColors(Color.parseColor("#0396FF"), Color.parseColor("#28C76F"),
-                        Color.parseColor("#F8D800"));
+                indicator.setColors(Color.parseColor("#736EFE"), Color.parseColor("#28C76F"),
+                        Color.parseColor("#5EFCE8"));
                 return indicator;
             }
 
