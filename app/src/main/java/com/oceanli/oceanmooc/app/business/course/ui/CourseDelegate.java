@@ -160,7 +160,7 @@ public class CourseDelegate extends OceanDelegate {
     }
 
     public void setCourseListData(boolean isBeforeClear) {
-        RestClient.builder().url(OmConstant.BASE_URL + OmConstant.REQUEST_URL_POST_ALL_COURSES).params("page", PAGE_NUM).params("size", SIZE).params("classify", DEFAULT_CLASSIFY).success(response -> {
+        RestClient.builder().url(OmConstant.BASE_URL + OmConstant.REQUEST_URL_POST_ALL_COURSES).loader(_mActivity).params("page", PAGE_NUM).params("size", SIZE).params("classify", DEFAULT_CLASSIFY).success(response -> {
             CourseVoModel courseVoModel = OmUtil.getGson().fromJson(response, CourseVoModel.class);
             if (courseVoModel.getCode() == OmConstant.SUCCESS_CODE) {
                 int dataCount = 0;
@@ -174,6 +174,8 @@ public class CourseDelegate extends OceanDelegate {
                 } else {
                 }
                 if (dataCount < SIZE) IS_BOTTOM = true;
+            }else {
+                OmUtil.toastError(_mActivity,"该分类下暂无课程！");
             }
         }).build().post();
     }

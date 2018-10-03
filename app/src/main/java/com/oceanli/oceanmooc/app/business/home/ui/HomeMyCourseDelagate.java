@@ -84,7 +84,7 @@ public class HomeMyCourseDelagate extends OceanDelegate {
         mRecyclerView.setAdapter(mMyCourseRecyclerViewAdapter);
         mMyCourseRecyclerViewAdapter.bindToRecyclerView(mRecyclerView);
         mMyCourseRecyclerViewAdapter.setEmptyView(R.layout.layout_empty);
-        mMyCourseRecyclerViewAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
+        mMyCourseRecyclerViewAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_LEFT);
         setMyCourseRecyclerData(1);
     }
 

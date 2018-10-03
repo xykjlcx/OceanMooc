@@ -29,6 +29,7 @@ import com.oceanli.oceanmooc.app.other.diy.ScaleTransitionPagerTitleView;
 import com.oceanli.oceanmooc.app.other.utils.OmUtil;
 import com.orhanobut.logger.Logger;
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
+import com.shuyu.gsyvideoplayer.utils.GSYVideoType;
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
 import com.wx.goodview.GoodView;
