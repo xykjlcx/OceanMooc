@@ -111,6 +111,11 @@ public class CourseDelegate extends OceanDelegate {
                             DEFAULT_CLASSIFY = twoLevelBeanList.get(options1-1).get(options2-1).getId();
                         }
                     }
+                    /**
+                     * 每次筛选都将重新将页码置为1
+                     * 每次筛选都会回到顶部
+                     */
+                    PAGE_NUM = 0;
                     setCourseListData(true);
                 })
                 .build();
@@ -173,10 +178,11 @@ public class CourseDelegate extends OceanDelegate {
                         mData.add(courseVoModel.getData().get(i));
                     mAdapter.notifyDataSetChanged();
                 } else {
+
                 }
                 if (dataCount < SIZE) IS_BOTTOM = true;
             }else {
-                OmUtil.toastError(_mActivity,"该分类下暂无课程！");
+                OmUtil.toastError(_mActivity,"服务器开小差了...");
             }
         }).build().post();
     }
