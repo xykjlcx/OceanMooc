@@ -1,10 +1,13 @@
 package com.oceanli.oceanmooc.app.other.utils;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.oceanli.ocean.core.util.storage.OceanPreferences;
 import com.oceanli.oceanmooc.app.OmConstant;
+import com.oceanli.oceanmooc.app.business.user.models.NetUserModel;
 import com.oceanli.oceanmooc.app.business.user.ui.LoginDelegate;
 
 import java.security.MessageDigest;
@@ -84,6 +87,22 @@ public class OmUtil {
             e.printStackTrace();
         }
         return "";
+    }
+
+    public static void cacheUserData(NetUserModel.DataBean dataBean){
+        SharedPreferences sharedPreferences = OceanPreferences.getSharedPreferences(OmConstant.SHARED_NAME_USER_INFO);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(OmConstant.UserInfoKey.ID,dataBean.getId());
+        editor.putString(OmConstant.UserInfoKey.ACCOUNT,dataBean.getAccount());
+        editor.putString(OmConstant.UserInfoKey.EMAIL,dataBean.getEmail());
+        editor.putString(OmConstant.UserInfoKey.REAL_NAME,dataBean.getRealName());
+        editor.putString(OmConstant.UserInfoKey.SIGNATURE,dataBean.getSignature());
+        editor.putString(OmConstant.UserInfoKey.PHONE,dataBean.getPhone());
+        editor.putString(OmConstant.UserInfoKey.HEAM_IMG_URL,dataBean.getHeadImg());
+        editor.putBoolean(OmConstant.UserInfoKey.IS_LOGIN,true);
+        OmConstant.isLogin = true;
+        editor.commit();
+//        Logger.e("jass:" + sharedPreferences.getString(OmConstant.UserInfoKey.ACCOUNT,""));
     }
 
 }

@@ -32,4 +32,20 @@ package com.oceanli.oceanmooc.app;
     public static final String BUNDLE_COURSE = "courseModel";
     public static final String BUNDLE_TARGET_NAME = "targetName";
 
+    public static final String SHARED_NAME_USER_INFO = "userInfo";
+
+    /**
+     * 用户数据缓存key
+     */
+    public static class UserInfoKey{
+        public static final String ID = "userId";
+        public static final String ACCOUNT = "account";
+        public static final String EMAIL = "userEmail";
+        public static final String REAL_NAME = "realName";
+        public static final String SIGNATURE = "signature";
+        public static final String PHONE = "phone";
+        public static final String HEAM_IMG_URL = "headImgUrl";
+        public static final String IS_LOGIN = "isLogin";
+    }
+
 }

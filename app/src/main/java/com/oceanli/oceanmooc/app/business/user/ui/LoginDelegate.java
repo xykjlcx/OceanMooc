@@ -1,5 +1,6 @@
 package com.oceanli.oceanmooc.app.business.user.ui;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -8,10 +9,12 @@ import android.widget.TextView;
 
 import com.oceanli.ocean.core.delegates.OceanDelegate;
 import com.oceanli.ocean.core.net.RestClient;
+import com.oceanli.ocean.core.util.storage.OceanPreferences;
 import com.oceanli.oceanmooc.app.OmConstant;
 import com.oceanli.oceanmooc.app.R;
 import com.oceanli.oceanmooc.app.business.user.models.NetUserModel;
 import com.oceanli.oceanmooc.app.other.utils.OmUtil;
+import com.orhanobut.logger.Logger;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -43,6 +46,11 @@ public class LoginDelegate extends OceanDelegate {
         // todo login
         String accountStr = accountEt.getText().toString();
         String pwdStr = pwdEt.getText().toString();
+        if (accountStr.equals("")
+                || pwdStr.equals("")){
+            OmUtil.toastWarning(_mActivity,"请完整输入！");
+            return;
+        }
         pwdStr = OmUtil.md5(pwdStr);
         requestLogin(accountStr,pwdStr);
     }
@@ -100,7 +108,7 @@ public class LoginDelegate extends OceanDelegate {
                     if (userModel.getCode() == OmConstant.SUCCESS_CODE){
                         NetUserModel.DataBean dataBean = userModel.getData();
                         // todo 缓存用户信息
-                        OmConstant.isLogin = true;
+                        OmUtil.cacheUserData(dataBean);
                         OmUtil.toastSuccess(_mActivity,userModel.getMsg());
                         pop();
                         start(targetSupportFragment);
@@ -111,5 +119,6 @@ public class LoginDelegate extends OceanDelegate {
                 .build()
                 .post();
     }
+
 
 }

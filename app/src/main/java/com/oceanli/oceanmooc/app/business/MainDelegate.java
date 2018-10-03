@@ -1,5 +1,6 @@
 package com.oceanli.oceanmooc.app.business;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
@@ -7,6 +8,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.oceanli.ocean.core.delegates.OceanDelegate;
+import com.oceanli.ocean.core.util.storage.OceanPreferences;
+import com.oceanli.oceanmooc.app.OmConstant;
 import com.oceanli.oceanmooc.app.R;
 import com.oceanli.oceanmooc.app.business.course.ui.CourseDelegate;
 import com.oceanli.oceanmooc.app.business.home.ui.HomeDelagate;
@@ -54,6 +57,7 @@ public class MainDelegate extends OceanDelegate {
     public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
         initView(rootView);
     }
+
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
