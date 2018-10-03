@@ -98,7 +98,6 @@ public class CourseSectionDelegate extends OceanDelegate {
         RestClient.builder()
                 .url(OmConstant.BASE_URL + OmConstant.REQUEST_URL_POST_COURSE_SECTIONS)
                 .params("courseId",courseId)
-                .loader(_mActivity)
                 .success(response -> {
                     ChapterSectionModel chapterSectionModel = OmUtil.getGson().fromJson(response,ChapterSectionModel.class);
                     if (chapterSectionModel.getCode() == OmConstant.SUCCESS_CODE){

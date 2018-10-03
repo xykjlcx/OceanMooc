@@ -8,15 +8,9 @@ import java.sql.Timestamp;
 public class SectionCommentModel {
     private Integer id;
     private String headImgUrl;
+    private String userName;
     private String content;
-    private Timestamp time;
-
-    public SectionCommentModel(Integer id, String headImgUrl, String content, Timestamp time) {
-        this.id = id;
-        this.headImgUrl = headImgUrl;
-        this.content = content;
-        this.time = time;
-    }
+    private String time;
 
     public SectionCommentModel() {
     }
@@ -37,6 +31,14 @@ public class SectionCommentModel {
         this.headImgUrl = headImgUrl;
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
     public String getContent() {
         return content;
     }
@@ -45,16 +47,22 @@ public class SectionCommentModel {
         this.content = content;
     }
 
-    public Timestamp getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(Timestamp time) {
+    public void setTime(String time) {
         this.time = time;
     }
 
     @Override
     public String toString() {
-        return "SectionCommentModel{id=" + id + ", headImgUrl='" + headImgUrl + '\'' + ", content='" + content + '\'' + ", time=" + time + '}';
+        return "SectionCommentModel{" +
+                "id=" + id +
+                ", headImgUrl='" + headImgUrl + '\'' +
+                ", userName='" + userName + '\'' +
+                ", content='" + content + '\'' +
+                ", time='" + time + '\'' +
+                '}';
     }
 }

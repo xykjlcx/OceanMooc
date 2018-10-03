@@ -11,6 +11,7 @@
         android:layout_margin="@dimen/global_default_margin_size"/>
 
     <TextView
+        android:id="@+id/tv_comment_user_name"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:layout_margin="@dimen/global_default_margin_size"
@@ -20,6 +21,7 @@
         android:textSize="15sp"/>
 
     <TextView
+        android:id="@+id/tv_comment_time"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:layout_margin="@dimen/global_default_margin_size"
@@ -27,10 +29,10 @@
         android:layout_alignParentRight="true"
         android:paddingRight="20dp"
         android:gravity="center_vertical"
-        android:textSize="15sp"/>
+        android:textSize="10sp"/>
 
     <TextView
-        android:id="@+id/iv_comment_content"
+        android:id="@+id/tv_comment_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/iv_comment_head"
@@ -43,8 +45,9 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="0.5sp"
-        android:layout_below="@+id/iv_comment_content"
-        android:background="#c2c4c2"/>
+        android:layout_height="0.3sp"
+        android:layout_below="@+id/tv_comment_content"
+        android:layout_marginHorizontal="10dp"
+        android:background="#d6d9d6"/>
 
 </RelativeLayout>

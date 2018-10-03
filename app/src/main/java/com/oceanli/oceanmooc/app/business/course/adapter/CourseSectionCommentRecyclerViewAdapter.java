@@ -24,6 +24,9 @@ public class CourseSectionCommentRecyclerViewAdapter extends BaseQuickAdapter<Se
 
     @Override
     protected void convert(BaseViewHolder helper, SectionCommentModel item) {
+        helper.setText(R.id.tv_comment_user_name,item.getUserName())
+                .setText(R.id.tv_comment_time,item.getTime())
+                .setText(R.id.tv_comment_content,item.getContent());
         Glide.with(mContext)
                 .load(R.drawable.head)
                 .centerCrop()
