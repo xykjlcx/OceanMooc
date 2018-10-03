@@ -170,6 +170,8 @@ public class HomeRecommendDelegate extends OceanDelegate {
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecommendRecycler.setLayoutManager(layoutManager);
         mRecommendRecycler.setAdapter(mRecommendRecyclerViewAdapter);
+        mRecommendRecyclerViewAdapter.bindToRecyclerView(mRecommendRecycler);
+        mRecommendRecyclerViewAdapter.setEmptyView(R.layout.layout_empty);
         mRecommendRecyclerViewAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
         mRecommendRecyclerViewAdapter.isFirstOnly(false);
         mRecommendRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -199,7 +201,8 @@ public class HomeRecommendDelegate extends OceanDelegate {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(_mActivity, 2);
         gridLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mChoicenessGridRecycler.setLayoutManager(gridLayoutManager);
-        mChoicenessCourseModelList = mockChoicenessRecyclerData();
+//        mChoicenessCourseModelList = mockChoicenessRecyclerData();    // 假数据
+        mChoicenessCourseModelList = new ArrayList<>();
         mChoicenessGridRecyclerViewAdapter = new ChoicenessGridRecyclerViewAdapter(R.layout.item_recycler_choiceness, mChoicenessCourseModelList);
         mChoicenessGridRecycler.setAdapter(mChoicenessGridRecyclerViewAdapter);
         mChoicenessGridRecyclerViewAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
@@ -280,8 +283,9 @@ public class HomeRecommendDelegate extends OceanDelegate {
             public void onSuccess(String response) {
                 CourseVoModel choicenessCourseModel = OmUtil.getGson().fromJson(response, CourseVoModel.class);
                 if (choicenessCourseModel.getCode() == OmConstant.SUCCESS_CODE) {
+                    mChoicenessCourseModelList.clear();
                     for (int i = 0; i < choicenessCourseModel.getData().size(); i++)
-                        mChoicenessCourseModelList.set(i, choicenessCourseModel.getData().get(i));
+                        mChoicenessCourseModelList.add(choicenessCourseModel.getData().get(i));
                     mChoicenessGridRecyclerViewAdapter.notifyDataSetChanged();
                 }
             }

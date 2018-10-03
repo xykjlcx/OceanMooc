@@ -28,7 +28,7 @@ public class CourseSectionCommentRecyclerViewAdapter extends BaseQuickAdapter<Se
                 .setText(R.id.tv_comment_time,item.getTime())
                 .setText(R.id.tv_comment_content,item.getContent());
         Glide.with(mContext)
-                .load(R.drawable.head)
+                .load(item.getHeadImgUrl())
                 .centerCrop()
                 .into((ImageView) helper.getView(R.id.iv_comment_head));
     }

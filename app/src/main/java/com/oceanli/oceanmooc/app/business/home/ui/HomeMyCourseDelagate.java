@@ -82,6 +82,8 @@ public class HomeMyCourseDelagate extends OceanDelegate {
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(linearLayoutManager);
         mRecyclerView.setAdapter(mMyCourseRecyclerViewAdapter);
+        mMyCourseRecyclerViewAdapter.bindToRecyclerView(mRecyclerView);
+        mMyCourseRecyclerViewAdapter.setEmptyView(R.layout.layout_empty);
         mMyCourseRecyclerViewAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
         setMyCourseRecyclerData(1);
     }

@@ -17,6 +17,7 @@ package com.oceanli.oceanmooc.app;
     public static final String REQUEST_URL_POST_IS_STUDIED = "/users/isStudyCourse";
     public static final String REQUEST_URL_POST_COURSE_SECTIONS = "/courses/getCourseChapterAndSection";
     public static final String REQUEST_URL_POST_COMMENTS = "/courses/getCourseComments";
+    public static final String REQUEST_URL_POST_ADD_COMMENTS = "/courses/addComment";
 
     /**
      * 七牛云图片处理拼接url

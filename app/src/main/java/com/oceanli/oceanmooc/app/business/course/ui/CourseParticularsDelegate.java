@@ -201,6 +201,7 @@ public class CourseParticularsDelegate extends OceanDelegate {
         mAdapter = new CourseParticularsDelegateViewPagerAdapter(getChildFragmentManager(),
                 mFragments);
         mViewPager.setAdapter(mAdapter);
+        mViewPager.setOffscreenPageLimit(2);
         ViewPagerHelper.bind(magicIndicator, mViewPager);
     }
 
