@@ -8,8 +8,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.oceanli.ocean.core.delegates.OceanDelegate;
+import com.oceanli.ocean.core.net.RestClient;
+import com.oceanli.oceanmooc.app.OmConstant;
 import com.oceanli.oceanmooc.app.R;
 import com.oceanli.oceanmooc.app.other.utils.OmUtil;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -50,7 +55,37 @@ public class RegisterDelegate extends OceanDelegate {
             OmUtil.toastWarning(_mActivity,"请完整填写注册信息!");
             return;
         }
+        if (!OmUtil.isEmail(emailStr)){
+            OmUtil.toastWarning(_mActivity,"邮箱格式不正确");
+            return;
+        }
         // 调用注册接口
+        requestRegister(accountStr,pwdStr,emailStr);
+    }
+
+    public void requestRegister(String account,String password,String email){
+        password = OmUtil.md5(password);
+        RestClient.builder()
+                .url(OmConstant.BASE_URL + OmConstant.REQUEST_URL_POST_REGISTER)
+                .loader(_mActivity)
+                .params("account",account)
+                .params("password",password)
+                .params("email",email)
+                .success(response -> {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        if (jsonObject.getInt("code") == OmConstant.SUCCESS_CODE){
+                            OmUtil.toastSuccess(_mActivity,"注册成功，稍后请接收邮件激活账户");
+                            startWithPop(LoginDelegate.newInstance());
+                        }else {
+                            OmUtil.toastError(_mActivity,jsonObject.getString("msg"));
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                })
+                .build()
+                .post();
     }
 
     @OnClick(R.id.tv_register_login)

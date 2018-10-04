@@ -14,6 +14,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import es.dmoral.toasty.Toasty;
 import me.yokeyword.fragmentation.SupportFragment;
@@ -103,6 +105,14 @@ public class OmUtil {
         OmConstant.isLogin = true;
         editor.commit();
 //        Logger.e("jass:" + sharedPreferences.getString(OmConstant.UserInfoKey.ACCOUNT,""));
+    }
+
+    //判断email格式是否正确
+    public static boolean isEmail(String email) {
+        final String str = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$";
+        Pattern p = Pattern.compile(str);
+        Matcher m = p.matcher(email);
+        return m.matches();
     }
 
 }
