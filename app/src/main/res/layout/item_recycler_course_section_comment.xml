@@ -2,13 +2,22 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="5dp">
 
-    <ImageView
-        android:id="@+id/iv_comment_head"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_margin="@dimen/global_default_margin_size"/>
+    <com.gcssloop.widget.RCRelativeLayout
+        android:id="@+id/iv_comment_head_cicle_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:round_as_circle="true"
+        android:layout_margin="@dimen/global_default_margin_size">
+
+        <ImageView
+            android:id="@+id/iv_comment_head"
+            android:layout_width="30dp"
+            android:layout_height="30dp" />
+
+    </com.gcssloop.widget.RCRelativeLayout>
 
     <TextView
         android:id="@+id/tv_comment_user_name"
@@ -16,7 +25,7 @@
         android:layout_height="30dp"
         android:layout_margin="@dimen/global_default_margin_size"
         android:text="热心网友李先生"
-        android:layout_toRightOf="@+id/iv_comment_head"
+        android:layout_toRightOf="@+id/iv_comment_head_cicle_layout"
         android:gravity="center_vertical"
         android:textSize="15sp"/>
 
@@ -35,7 +44,7 @@
         android:id="@+id/tv_comment_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/iv_comment_head"
+        android:layout_below="@+id/iv_comment_head_cicle_layout"
         android:layout_marginLeft="40dp"
         android:gravity="center_vertical"
         android:text="课程很不错，讲的也非常容易听懂，期待老师的后续课程,加油！真好"

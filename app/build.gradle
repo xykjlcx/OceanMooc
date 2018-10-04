@@ -74,7 +74,7 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     // toast
     implementation 'com.github.GrenderG:Toasty:1.3.0'
-    // 日志框架
-    implementation 'com.orhanobut:logger:2.2.0'
+    // 通用圆角布局
+    implementation 'com.gcssloop.widget:rclayout:1.6.0'
 
 }

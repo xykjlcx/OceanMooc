@@ -16,6 +16,7 @@
             android:layout_height="match_parent">
 
             <RelativeLayout
+                android:visibility="gone"
                 android:id="@+id/layout_user_nologin"
                 android:layout_width="match_parent"
                 android:layout_height="260dp">
@@ -46,7 +47,6 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:visibility="gone"
                 android:id="@+id/layout_user_login"
                 android:layout_width="match_parent"
                 android:layout_height="260dp">
@@ -60,12 +60,21 @@
                     android:layout_height="match_parent">
                 </com.scwang.wave.MultiWaveHeader>
 
-                <ImageView
-                    android:id="@+id/iv_user_img"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                <com.gcssloop.widget.RCRelativeLayout
+                    android:id="@+id/iv_user_img_cicle_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:scaleType="centerCrop"/>
+                    app:round_as_circle="true">
+
+                    <ImageView
+                        android:id="@+id/iv_user_img"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_centerInParent="true"
+                        android:scaleType="centerCrop"/>
+
+                </com.gcssloop.widget.RCRelativeLayout>
 
                 <TextView
                     android:id="@+id/tv_user_signature"
@@ -81,7 +90,7 @@
                     android:layout_marginBottom="@dimen/global_default_margin_size"
                     android:textColor="@android:color/white"
                     android:text="这家伙很懒，什么都没有留下！"
-                    android:layout_below="@+id/iv_user_img"/>
+                    android:layout_below="@+id/iv_user_img_cicle_layout"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
