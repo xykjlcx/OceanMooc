@@ -21,6 +21,7 @@ package com.oceanli.oceanmooc.app;
     public static final String REQUEST_URL_POST_LOGIN = "/auth/login";
     public static final String REQUEST_URL_POST_REGISTER = "/auth/register";
     public static final String REQUEST_URL_POST_FORGET = "/auth/forget";
+    public static final String REQUEST_URL_POST_GET_USER_INFO = "/auth/getUserInfo";
 
     /**
      * 七牛云图片处理拼接url

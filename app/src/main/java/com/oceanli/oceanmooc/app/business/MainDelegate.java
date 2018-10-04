@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.oceanli.ocean.core.delegates.OceanDelegate;
+import com.oceanli.ocean.core.event.OceanMessageEvent;
 import com.oceanli.ocean.core.util.storage.OceanPreferences;
 import com.oceanli.oceanmooc.app.OmConstant;
 import com.oceanli.oceanmooc.app.R;
@@ -16,6 +17,8 @@ import com.oceanli.oceanmooc.app.business.home.ui.HomeDelagate;
 import com.oceanli.oceanmooc.app.business.user.ui.UserDelegate;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import me.yokeyword.fragmentation.SupportFragment;
@@ -99,8 +102,24 @@ public class MainDelegate extends OceanDelegate {
      */
     public void startBrotherFragment(SupportFragment targetFragment) {
         start(targetFragment);/*        startActivity(new Intent(_mActivity,TestActivity.class));*/
-    }/* 再点一次退出程序时间设置*/
+    }
 
+    public void startBrotherFragmentForResult(SupportFragment targetFragment,int requestCode) {
+        startForResult(targetFragment,requestCode);/*        startActivity(new Intent(_mActivity,TestActivity.class));*/
+    }
+
+    @Override
+    public void onFragmentResult(int requestCode, int resultCode, Bundle data) {
+        super.onFragmentResult(requestCode, resultCode, data);
+        if (requestCode == UserDelegate.REQUEST_CODE) {
+            // 从登录页回到用户页
+//            Toast.makeText(_mActivity, "从登录页回来了", Toast.LENGTH_SHORT).show();
+            EventBus.getDefault().post(new OceanMessageEvent("updateUserInfo"));
+        }
+    }
+
+
+    /* 再点一次退出程序时间设置*/
     private static final long WAIT_TIME = 2000L;
     private long TOUCH_TIME = 0;
 

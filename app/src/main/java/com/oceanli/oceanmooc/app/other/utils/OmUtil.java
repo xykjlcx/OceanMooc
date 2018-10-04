@@ -95,7 +95,7 @@ public class OmUtil {
         return "";
     }
 
-    public static void cacheUserData(NetUserModel.DataBean dataBean){
+    public static void cacheUserData(NetUserModel.DataBean dataBean,boolean cacheLogin){
         SharedPreferences sharedPreferences = OceanPreferences.getSharedPreferences(OmConstant.SHARED_NAME_USER_INFO);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt(OmConstant.UserInfoKey.ID,dataBean.getId());
@@ -105,8 +105,10 @@ public class OmUtil {
         editor.putString(OmConstant.UserInfoKey.SIGNATURE,dataBean.getSignature());
         editor.putString(OmConstant.UserInfoKey.PHONE,dataBean.getPhone());
         editor.putString(OmConstant.UserInfoKey.HEAM_IMG_URL,dataBean.getHeadImg());
-        editor.putBoolean(OmConstant.UserInfoKey.IS_LOGIN,true);
-        OmConstant.isLogin = true;
+        if (cacheLogin){
+            editor.putBoolean(OmConstant.UserInfoKey.IS_LOGIN,true);
+            OmConstant.isLogin = true;
+        }
         editor.commit();
 //        Logger.e("jass:" + sharedPreferences.getString(OmConstant.UserInfoKey.ACCOUNT,""));
     }

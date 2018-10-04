@@ -123,7 +123,7 @@ public class LoginDelegate extends OceanDelegate {
                     if (userModel.getCode() == OmConstant.SUCCESS_CODE){
                         NetUserModel.DataBean dataBean = userModel.getData();
                         // todo 缓存用户信息
-                        OmUtil.cacheUserData(dataBean);
+                        OmUtil.cacheUserData(dataBean,true);
                         OmUtil.toastSuccess(_mActivity,userModel.getMsg());
                         if (targetSupportFragment != null){
                             startWithPop(targetSupportFragment);

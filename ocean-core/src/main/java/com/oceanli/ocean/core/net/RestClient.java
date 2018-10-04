@@ -69,7 +69,11 @@ public final class RestClient {
         if (call != null) call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
-                String result = response.body().toString();
+                Log.e(TAG, "onResponse: " + response );
+                String result = "";
+                if (response.body() != null){
+                    result = response.body().toString();
+                }
                 if (SUCCESS != null) SUCCESS.onSuccess(result);
                 handler.postDelayed(new Runnable() {
                     @Override
