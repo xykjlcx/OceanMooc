@@ -54,6 +54,10 @@ public class OmUtil {
         Toasty.success(context, content, Toast.LENGTH_SHORT).show();
     }
 
+    public static void toastSuccess(Context context, String content,int duration) {
+        Toasty.success(context, content, duration).show();
+    }
+
     public static void toastError(Context context, String content) {
         Toasty.error(context, content, Toast.LENGTH_SHORT).show();
     }

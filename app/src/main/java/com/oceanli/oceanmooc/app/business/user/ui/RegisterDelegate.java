@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.oceanli.ocean.core.delegates.OceanDelegate;
 import com.oceanli.ocean.core.net.RestClient;
@@ -75,7 +76,7 @@ public class RegisterDelegate extends OceanDelegate {
                     try {
                         JSONObject jsonObject = new JSONObject(response);
                         if (jsonObject.getInt("code") == OmConstant.SUCCESS_CODE){
-                            OmUtil.toastSuccess(_mActivity,"注册成功，稍后请接收邮件激活账户");
+                            OmUtil.toastSuccess(_mActivity,jsonObject.getString("msg"), Toast.LENGTH_LONG);
                             startWithPop(LoginDelegate.newInstance());
                         }else {
                             OmUtil.toastError(_mActivity,jsonObject.getString("msg"));

@@ -35,6 +35,8 @@
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:padding="5dp"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:textColor="@android:color/white"
             android:layout_below="@id/tv_choiceness_item_course_name"
             android:text="这是课程描述"/>

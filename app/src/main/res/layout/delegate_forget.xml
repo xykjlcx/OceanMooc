@@ -22,7 +22,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginTop="20dp"
-            android:layout_marginLeft="10dp"/>
+            android:layout_marginLeft="20dp"/>
 
         <TextView
             android:id="@+id/tv_forget_label"
@@ -75,7 +75,7 @@
         </RelativeLayout>
 
         <TextView
-            android:id="@+id/tv_register_register"
+            android:id="@+id/tv_forget_ok"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginHorizontal="60dp"
