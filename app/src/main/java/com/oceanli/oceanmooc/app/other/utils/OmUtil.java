@@ -95,6 +95,11 @@ public class OmUtil {
         return "";
     }
 
+    /**
+     * 缓存用户信息
+     * @param dataBean
+     * @param cacheLogin
+     */
     public static void cacheUserData(NetUserModel.DataBean dataBean,boolean cacheLogin){
         SharedPreferences sharedPreferences = OceanPreferences.getSharedPreferences(OmConstant.SHARED_NAME_USER_INFO);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -105,12 +110,36 @@ public class OmUtil {
         editor.putString(OmConstant.UserInfoKey.SIGNATURE,dataBean.getSignature());
         editor.putString(OmConstant.UserInfoKey.PHONE,dataBean.getPhone());
         editor.putString(OmConstant.UserInfoKey.HEAM_IMG_URL,dataBean.getHeadImg());
+        editor.putInt(OmConstant.UserInfoKey.EDUCATION,dataBean.getEducation());
+        editor.putInt(OmConstant.UserInfoKey.GENDER,dataBean.getGender());
+        editor.putString(OmConstant.UserInfoKey.LAST_LOGIN_TIME,dataBean.getLastLoginTime());
         if (cacheLogin){
             editor.putBoolean(OmConstant.UserInfoKey.IS_LOGIN,true);
             OmConstant.isLogin = true;
         }
         editor.commit();
 //        Logger.e("jass:" + sharedPreferences.getString(OmConstant.UserInfoKey.ACCOUNT,""));
+    }
+
+    public static NetUserModel.DataBean getCacheUserInfo(){
+        SharedPreferences sharedPreferences = OceanPreferences.getSharedPreferences(OmConstant.SHARED_NAME_USER_INFO);
+        NetUserModel.DataBean userDataBean = new NetUserModel.DataBean();
+        boolean isLogin = sharedPreferences.getBoolean(OmConstant.UserInfoKey.IS_LOGIN,false);
+        if (isLogin){
+            userDataBean.setId(sharedPreferences.getInt(OmConstant.UserInfoKey.ID,-1));
+            userDataBean.setAccount(sharedPreferences.getString(OmConstant.UserInfoKey.ACCOUNT,""));
+            userDataBean.setEmail(sharedPreferences.getString(OmConstant.UserInfoKey.EMAIL,""));
+            userDataBean.setRealName(sharedPreferences.getString(OmConstant.UserInfoKey.REAL_NAME,""));
+            userDataBean.setSignature(sharedPreferences.getString(OmConstant.UserInfoKey.SIGNATURE,""));
+            userDataBean.setPhone(sharedPreferences.getString(OmConstant.UserInfoKey.PHONE,""));
+            userDataBean.setHeadImg(sharedPreferences.getString(OmConstant.UserInfoKey.HEAM_IMG_URL,""));
+            userDataBean.setEducation(sharedPreferences.getInt(OmConstant.UserInfoKey.EDUCATION,-1));
+            userDataBean.setGender(sharedPreferences.getInt(OmConstant.UserInfoKey.GENDER,-1));
+            userDataBean.setLastLoginTime(sharedPreferences.getString(OmConstant.UserInfoKey.LAST_LOGIN_TIME,""));
+            return userDataBean;
+        }else {
+            return null;
+        }
     }
 
     //判断email格式是否正确

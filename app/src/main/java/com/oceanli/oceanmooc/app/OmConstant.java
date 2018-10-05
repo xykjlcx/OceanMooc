@@ -22,6 +22,8 @@ package com.oceanli.oceanmooc.app;
     public static final String REQUEST_URL_POST_REGISTER = "/auth/register";
     public static final String REQUEST_URL_POST_FORGET = "/auth/forget";
     public static final String REQUEST_URL_POST_GET_USER_INFO = "/auth/getUserInfo";
+    public static final String REQUEST_URL_POST_ADD_COLLECT_COURSE = "/users/addCollectCourse";
+    public static final String REQUEST_URL_POST_IS_COLLECT = "/users/isCollect";
 
     /**
      * 七牛云图片处理拼接url
@@ -49,6 +51,9 @@ package com.oceanli.oceanmooc.app;
         public static final String PHONE = "phone";
         public static final String HEAM_IMG_URL = "headImgUrl";
         public static final String IS_LOGIN = "isLogin";
+        public static final String EDUCATION = "education";
+        public static final String GENDER = "gender";
+        public static final String LAST_LOGIN_TIME = "lastLoginTime";
     }
 
 }

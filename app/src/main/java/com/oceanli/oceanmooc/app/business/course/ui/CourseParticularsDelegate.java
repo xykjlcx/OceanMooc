@@ -1,7 +1,9 @@
 package com.oceanli.oceanmooc.app.business.course.ui;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
@@ -25,6 +27,7 @@ import com.oceanli.oceanmooc.app.R;
 import com.oceanli.oceanmooc.app.business.course.adapter.CourseParticularsDelegateViewPagerAdapter;
 import com.oceanli.ocean.core.event.OceanMessageEvent;
 import com.oceanli.oceanmooc.app.business.home.models.CourseVoModel;
+import com.oceanli.oceanmooc.app.business.user.models.NetUserModel;
 import com.oceanli.oceanmooc.app.other.diy.ScaleTransitionPagerTitleView;
 import com.oceanli.oceanmooc.app.other.utils.OmUtil;
 import com.orhanobut.logger.Logger;
@@ -76,6 +79,9 @@ public class CourseParticularsDelegate extends OceanDelegate {
     @BindView(R.id.nested_scroll_particular_no_study_layout)
     NestedScrollView noStudyLayout;
 
+    private NetUserModel.DataBean userDataBean;
+    private boolean isCollected = false;
+
     @OnClick(R.id.iv_course_particulars_back)
     public void backOnClick() {
         pop();
@@ -83,9 +89,64 @@ public class CourseParticularsDelegate extends OceanDelegate {
 
     @OnClick(R.id.iv_course_particulars_collect)
     public void collectonClick(View view) {
-        goodView.setImage(R.mipmap.shoucanged);
-        goodView.show(view);
-        collectImg.setImageResource(R.mipmap.shoucanged);
+        if (userDataBean != null){
+            requestAddCollect(userDataBean.getId(),receiveCourseData.getId());
+        }
+    }
+
+    public void requestIsCollected(int userId,int courseId){
+        RestClient.builder()
+                .url(OmConstant.BASE_URL + OmConstant.REQUEST_URL_POST_IS_COLLECT)
+                .params("userId",userId)
+                .params("courseId",courseId)
+                .success(response -> {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        if (jsonObject.getInt("code") == OmConstant.SUCCESS_CODE){
+                            isCollected = jsonObject.getBoolean("data");
+                        }else {
+                            // 判断失败
+                        }
+                        if (isCollected){
+                            collectImg.setImageResource(R.mipmap.shoucanged);
+                        }else {
+                            collectImg.setImageResource(R.mipmap.shoucang);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                })
+                .build()
+                .post();
+    }
+
+
+    // 添加课程收藏
+    public void requestAddCollect(int userId,int courseId){
+        RestClient.builder()
+                .url(OmConstant.BASE_URL + OmConstant.REQUEST_URL_POST_ADD_COLLECT_COURSE)
+                .loader(_mActivity)
+                .params("userId",userId)
+                .params("courseId",courseId)
+                .success(response -> {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        if (jsonObject.getInt("code") == OmConstant.SUCCESS_CODE){
+                            goodView.setImage(R.mipmap.shoucanged);
+                            goodView.show(collectImg);
+                            collectImg.setImageResource(R.mipmap.shoucanged);
+                            OmUtil.toastSuccess(_mActivity,jsonObject.getString("msg"));
+                        }else {
+//                            goodView.dismiss();
+//                            collectImg.setImageResource(R.mipmap.shoucang);
+                            OmUtil.toastError(_mActivity,jsonObject.getString("msg"));
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                })
+                .build()
+                .post();
     }
 
     @OnClick(R.id.btn_particular_start_study)
@@ -163,11 +224,17 @@ public class CourseParticularsDelegate extends OceanDelegate {
     public void onEnterAnimationEnd(Bundle savedInstanceState) {
         /* 动画加载完成后，渲染ui*/
         initData();
+        // 判断是否学习过该课程
+        if (userDataBean != null
+                && receiveCourseData != null) {
+            requestIsCollected(userDataBean.getId(),receiveCourseData.getId());
+        }
     }
 
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
         initView(rootView);
+        userDataBean = OmUtil.getCacheUserInfo();
     }
 
     public void handleInitData() {/* 获取前面页面传递过来的数据*/
