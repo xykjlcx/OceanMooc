@@ -62,7 +62,7 @@
                 android:paddingLeft="10dp"
                 android:hint="请输入账号"
                 android:singleLine="true"
-                android:inputType="text"
+                android:digits="0123456789qwertyuioplkjhgfdsazxcvbnm"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/iv_login_temp1"/>
 

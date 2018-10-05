@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.oceanli.ocean.core.delegates.OceanDelegate;
+import com.oceanli.ocean.core.event.OceanMessageEvent;
 import com.oceanli.ocean.core.net.RestClient;
 import com.oceanli.ocean.core.util.storage.OceanPreferences;
 import com.oceanli.oceanmooc.app.OmConstant;
@@ -16,6 +17,8 @@ import com.oceanli.oceanmooc.app.R;
 import com.oceanli.oceanmooc.app.business.user.models.NetUserModel;
 import com.oceanli.oceanmooc.app.other.utils.OmUtil;
 import com.orhanobut.logger.Logger;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -131,6 +134,8 @@ public class LoginDelegate extends OceanDelegate {
                             // 非拦截页面导致的登录，成功登录后pop this
                             pop();
                         }
+                        EventBus.getDefault().post(new OceanMessageEvent("updateUserInfo"));
+
                     }else {
                         OmUtil.toastError(_mActivity,userModel.getMsg());
                     }

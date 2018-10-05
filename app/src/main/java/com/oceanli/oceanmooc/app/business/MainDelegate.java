@@ -114,7 +114,7 @@ public class MainDelegate extends OceanDelegate {
         if (requestCode == UserDelegate.REQUEST_CODE) {
             // 从登录页回到用户页
 //            Toast.makeText(_mActivity, "从登录页回来了", Toast.LENGTH_SHORT).show();
-            EventBus.getDefault().post(new OceanMessageEvent("updateUserInfo"));
+//            EventBus.getDefault().post(new OceanMessageEvent("updateUserInfo"));
         }
     }
 

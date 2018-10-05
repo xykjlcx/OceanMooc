@@ -32,6 +32,8 @@ public class UserDelegate extends OceanDelegate {
     View view;
     @BindView(R.id.iv_user_img)
     ImageView headIv;
+    @BindView(R.id.tv_user_name)
+    TextView userNameTv;
     @BindView(R.id.tv_user_signature)
     TextView signatureTv;
     @BindView(R.id.layout_user_nologin)
@@ -124,6 +126,7 @@ public class UserDelegate extends OceanDelegate {
         if (sharedPreferences != null){
             String headImgUrl = sharedPreferences.getString(OmConstant.UserInfoKey.HEAM_IMG_URL,"");
             String signature = sharedPreferences.getString(OmConstant.UserInfoKey.SIGNATURE,"");
+            String username = sharedPreferences.getString(OmConstant.UserInfoKey.ACCOUNT,"");
             isLogin = sharedPreferences.getBoolean(OmConstant.UserInfoKey.IS_LOGIN,false);
             if (isLogin){
                 // 已经登录
@@ -136,6 +139,7 @@ public class UserDelegate extends OceanDelegate {
                         .dontAnimate()
                         .into(headIv);
                 signatureTv.setText(signature);
+                userNameTv.setText(username);
             }else {
                 // 显示登录布局
                 noLoginLayout.setVisibility(View.VISIBLE);
