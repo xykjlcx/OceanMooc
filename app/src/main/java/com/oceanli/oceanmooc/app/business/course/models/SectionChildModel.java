@@ -11,6 +11,15 @@ import com.oceanli.oceanmooc.app.business.course.adapter.CourseSectionExpandable
 public class SectionChildModel implements MultiItemEntity {
     private Integer id;
     private String sectionName;
+    private boolean isSelected;
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
 
     public SectionChildModel() {
     }

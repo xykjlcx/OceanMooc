@@ -2,12 +2,324 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <View
+        android:id="@+id/view_userinfo_fill"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"/>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:text="个人信息"/>
+        android:layout_margin="10dp"
+        android:text="个人资料"
+        android:gravity="center_vertical"
+        android:textColor="@android:color/black"
+        android:textSize="23sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:background="#f3f4f3"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#f3f4f3"
+        android:text="基本资料"
+        android:textSize="15sp"
+        android:paddingLeft="20dp"
+        android:paddingVertical="@dimen/global_default_margin_size"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#f3f4f3">
+
+        <RelativeLayout
+            android:id="@+id/layout_userinfo_one"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="#ffffff"
+            android:paddingRight="20dp">
+
+            <TextView
+                android:id="@+id/tv_userinfo_account_lable"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:text="注册账户"
+                android:textSize="15sp"
+                android:gravity="center_vertical"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:layout_alignParentLeft="true"/>
+
+            <TextView
+                android:id="@+id/tv_userinfo_account"
+                android:textSize="16sp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_toRightOf="@+id/tv_userinfo_account_lable"
+                android:layout_centerVertical="true"
+                android:text="xykjlcx"
+                android:paddingLeft="30dp"
+                android:gravity="center_vertical"/>
+
+        </RelativeLayout>
+
+        <include layout="@layout/include_view_line"/>
+
+        <RelativeLayout
+            android:id="@+id/layout_userinfo_two"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="#ffffff"
+            android:paddingRight="20dp">
+
+            <TextView
+                android:id="@+id/tv_userinfo_realname_lable"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:text="真实姓名"
+                android:textSize="15sp"
+                android:gravity="center_vertical"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:layout_alignParentLeft="true"/>
+
+            <EditText
+                android:id="@+id/et_userinfo_realname"
+                android:background="@null"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:inputType="text"
+                android:textSize="16sp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_toRightOf="@+id/tv_userinfo_realname_lable"
+                android:layout_centerVertical="true"
+                android:text="李长昕"
+                android:textColor="@android:color/black"
+                android:paddingLeft="30dp"
+                android:gravity="center_vertical"/>
+
+        </RelativeLayout>
+
+        <include layout="@layout/include_view_line"/>
+
+        <RelativeLayout
+            android:id="@+id/layout_userinfo_three"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="#ffffff"
+            android:paddingRight="20dp">
+
+            <TextView
+                android:id="@+id/tv_userinfo_signature_lable"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:text="个性签名"
+                android:textSize="15sp"
+                android:gravity="center_vertical"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:layout_alignParentLeft="true"/>
+
+            <EditText
+                android:id="@+id/et_userinfo_signature"
+                android:background="@null"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:inputType="text"
+                android:textSize="16sp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_toRightOf="@+id/tv_userinfo_signature_lable"
+                android:layout_centerVertical="true"
+                android:text="当你在穿山越岭的另一边"
+                android:textColor="@android:color/black"
+                android:paddingLeft="30dp"
+                android:gravity="center_vertical"/>
+
+        </RelativeLayout>
+
+        <include layout="@layout/include_view_line"/>
+
+        <RelativeLayout
+            android:id="@+id/layout_userinfo_four"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="#ffffff"
+            android:paddingRight="20dp">
+
+            <TextView
+                android:id="@+id/tv_userinfo_education_lable"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:text="学历"
+                android:textSize="15sp"
+                android:gravity="center_vertical"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:layout_alignParentLeft="true"/>
+
+            <Spinner
+                android:id="@+id/spn_userinfo_education"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingLeft="15dp"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/tv_userinfo_education_lable"
+                android:gravity="center_vertical">
+            </Spinner>
+
+        </RelativeLayout>
+
+        <include layout="@layout/include_view_line"/>
+
+        <RelativeLayout
+            android:id="@+id/layout_userinfo_five"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="#ffffff"
+            android:paddingRight="20dp">
+
+            <TextView
+                android:id="@+id/tv_userinfo_gender_lable"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:text="性别"
+                android:textSize="15sp"
+                android:gravity="center_vertical"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:layout_alignParentLeft="true"/>
+
+            <Spinner
+                android:id="@+id/spn_userinfo_gender"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingLeft="15dp"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/tv_userinfo_gender_lable"
+                android:gravity="center_vertical">
+            </Spinner>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="15dp"
+            android:background="#f3f4f3"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#f3f4f3"
+            android:text="安全信息"
+            android:textSize="15sp"
+            android:paddingLeft="20dp"
+            android:paddingVertical="@dimen/global_default_margin_size"/>
+
+        <RelativeLayout
+            android:id="@+id/layout_userinfo_six"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="#ffffff"
+            android:paddingRight="20dp">
+
+            <TextView
+                android:id="@+id/tv_userinfo_email_lable"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:text="绑定邮箱"
+                android:textSize="15sp"
+                android:gravity="center_vertical"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:layout_alignParentLeft="true"/>
+
+            <EditText
+                android:id="@+id/et_userinfo_email"
+                android:background="@null"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:inputType="textEmailAddress"
+                android:textSize="16sp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_toRightOf="@+id/tv_userinfo_email_lable"
+                android:layout_centerVertical="true"
+                android:text="348686686@qq.com"
+                android:textColor="@android:color/black"
+                android:paddingLeft="30dp"
+                android:gravity="center_vertical"/>
+
+        </RelativeLayout>
+
+        <include layout="@layout/include_view_line"/>
+
+        <RelativeLayout
+            android:id="@+id/layout_userinfo_seven"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="#ffffff"
+            android:paddingRight="20dp">
+
+            <TextView
+                android:id="@+id/tv_userinfo_status_lable"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:text="账户状态"
+                android:textSize="15sp"
+                android:gravity="center_vertical"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:layout_alignParentLeft="true"/>
+
+            <TextView
+                android:id="@+id/tv_userinfo_status"
+                android:textSize="16sp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_toRightOf="@+id/tv_userinfo_status_lable"
+                android:layout_centerVertical="true"
+                android:text="已激活"
+                android:textColor="#22d72b"
+                android:paddingLeft="30dp"
+                android:gravity="center_vertical"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="15dp"
+            android:background="#f3f4f3"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#f3f4f3"
+            android:text="出于安全考虑，注册账户不允许更改！"
+            android:textSize="15sp"
+            android:paddingLeft="20dp"
+            android:paddingVertical="@dimen/global_default_margin_size"/>
+
+        <TextView
+            android:id="@+id/tv_userinfo_update"
+            android:layout_width="match_parent"
+            android:layout_marginVertical="50dp"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="10dp"
+            android:background="@drawable/shape_logout_tv"
+            android:text="更新资料"
+            android:textSize="15sp"
+            android:textColor="#ec3734"
+            android:gravity="center"/>
+
+    </LinearLayout>
 
 </LinearLayout>

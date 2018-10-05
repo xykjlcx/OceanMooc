@@ -26,6 +26,8 @@ package com.oceanli.oceanmooc.app;
     public static final String REQUEST_URL_POST_IS_COLLECT = "/users/isCollect";
     public static final String REQUEST_URL_POST_ALL_COLLECT_COURSE = "/users/getCollectCourses";
     public static final String REQUEST_URL_POST_DELETE_COLLECT = "/users/deleteCollectCourse";
+    public static final String REQUEST_URL_POST_UPDATE_USER_INFO = "/auth/updateUserInfo";
+    public static final String REQUEST_URL_POST_MODIFY_PASSWORD = "/auth/modifyUserPwd";
 
     /**
      * 七牛云图片处理拼接url

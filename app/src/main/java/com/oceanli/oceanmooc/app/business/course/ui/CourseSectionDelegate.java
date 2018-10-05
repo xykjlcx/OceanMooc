@@ -41,6 +41,12 @@ public class CourseSectionDelegate extends OceanDelegate {
         return courseSectionDelegate;
     }
 
+    public static CourseSectionDelegate newInstance(Bundle bundle) {
+        CourseSectionDelegate courseSectionDelegate = new CourseSectionDelegate();
+        courseSectionDelegate.setArguments(bundle);
+        return courseSectionDelegate;
+    }
+
     @Override
     public void onEnterAnimationEnd(Bundle savedInstanceState) {
         initData();
@@ -68,7 +74,10 @@ public class CourseSectionDelegate extends OceanDelegate {
             @Override
             public void onSectionChildClick(int adapterPos, int displayPos, SectionChildModel childModel) {/*                Toast.makeText
             (_mActivity, "callback出来了：" + adapterPos, Toast.LENGTH_SHORT).show();*/
-                EventBus.getDefault().post(new OceanMessageEvent("jass"));
+                OceanMessageEvent event = new OceanMessageEvent();
+                event.setMsg("skipSection");
+                event.setData(childModel);
+                EventBus.getDefault().post(event);
             }
         });
     }
@@ -94,6 +103,7 @@ public class CourseSectionDelegate extends OceanDelegate {
     private List<ChapterSectionModel.DataBean.ChapterBean> chapterBeanList = null;
     private List<List<ChapterSectionModel.DataBean.SectionBean>> sectionBeanList = null;
 
+    // 获取所有课程章节
     public void requestAllChapterAndSection(int courseId){
         RestClient.builder()
                 .url(OmConstant.BASE_URL + OmConstant.REQUEST_URL_POST_COURSE_SECTIONS)

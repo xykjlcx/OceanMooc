@@ -98,6 +98,9 @@ public class MyCollectDelegate extends OceanDelegate {
         mAdapter.isFirstOnly(false);
         mAdapter.setOnItemClickListener((adapter, view, position) -> {
             // todo 跳转课程详情页
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(OmConstant.BUNDLE_COURSE,mData.get(position));
+            start(CourseParticularsDelegate.newInstance(bundle));
         });
         mAdapter.setOnCancleCollectCourseOnClickCallBack((position,item) -> {
             // 取消收藏点击

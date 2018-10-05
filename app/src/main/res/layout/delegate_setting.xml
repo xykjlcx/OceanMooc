@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
 
     <View
         android:id="@+id/view_setting_fill"
@@ -18,12 +19,16 @@
         android:textColor="@android:color/black"
         android:textSize="23sp" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:background="#f3f4f3"/>
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#f3f4f3"
-        android:layout_marginTop="15dp"
         android:orientation="vertical">
 
         <RelativeLayout

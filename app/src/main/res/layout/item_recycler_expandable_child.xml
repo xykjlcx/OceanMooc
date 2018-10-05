@@ -20,6 +20,7 @@
         android:text="这是节"
         android:layout_toRightOf="@+id/iconT"
         android:textSize="15sp"
+        android:textColor="#8f8f8f"
         android:layout_marginBottom="3dp"
         android:gravity="center_vertical"
         android:paddingLeft="8dp"/>

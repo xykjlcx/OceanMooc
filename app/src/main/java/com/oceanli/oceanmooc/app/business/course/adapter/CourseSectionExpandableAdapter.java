@@ -1,6 +1,8 @@
 package com.oceanli.oceanmooc.app.business.course.adapter;
 
+import android.graphics.Color;
 import android.view.View;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -64,11 +66,21 @@ public class CourseSectionExpandableAdapter extends BaseMultiItemQuickAdapter<Mu
                     @Override
                     public void onClick(View v) {
 //                        Toast.makeText(mContext, "点击了子项:" + ((SectionChildModel) item).getSectionName() + "pos:" + helper.getAdapterPosition(), Toast.LENGTH_SHORT).show();
-                        if (IOnCourseSectionChildOnclickCallBack != null)
+                        if (IOnCourseSectionChildOnclickCallBack != null){
+                            if (beforeTv != null){
+                                beforeTv.setTextColor(Color.parseColor("#8f8f8f"));
+                            }
+                            beforeTv = helper.getView(R.id.tv_course_section_item_child);
+                            beforeTv.setTextColor(Color.parseColor("#35b0f2"));
                             IOnCourseSectionChildOnclickCallBack.onSectionChildClick(adapterPosition,displayPosition,childModel);
+                        }
                     }
                 });
                 break;
         }
     }
+
+    private TextView beforeTv = null;
+
+
 }

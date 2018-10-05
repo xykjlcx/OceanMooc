@@ -26,6 +26,7 @@ import com.oceanli.oceanmooc.app.OmConstant;
 import com.oceanli.oceanmooc.app.R;
 import com.oceanli.oceanmooc.app.business.course.adapter.CourseParticularsDelegateViewPagerAdapter;
 import com.oceanli.ocean.core.event.OceanMessageEvent;
+import com.oceanli.oceanmooc.app.business.course.models.SectionChildModel;
 import com.oceanli.oceanmooc.app.business.home.models.CourseVoModel;
 import com.oceanli.oceanmooc.app.business.user.models.NetUserModel;
 import com.oceanli.oceanmooc.app.other.diy.ScaleTransitionPagerTitleView;
@@ -79,8 +80,8 @@ public class CourseParticularsDelegate extends OceanDelegate {
     @BindView(R.id.nested_scroll_particular_no_study_layout)
     NestedScrollView noStudyLayout;
 
-    private NetUserModel.DataBean userDataBean;
     private boolean isCollected = false;
+    private NetUserModel.DataBean userDataBean;
 
     @OnClick(R.id.iv_course_particulars_back)
     public void backOnClick() {
@@ -151,7 +152,9 @@ public class CourseParticularsDelegate extends OceanDelegate {
 
     @OnClick(R.id.btn_particular_start_study)
     public void startStudyBtnOnClick(View view) {/* todo 网络请求接口，学习该课程*/
-       requestNetStudyCourse(1,receiveCourseData.getId());
+        if (userDataBean != null){
+            requestNetStudyCourse(userDataBean.getId(),receiveCourseData.getId());
+        }
     }
 
     /**
@@ -264,11 +267,11 @@ public class CourseParticularsDelegate extends OceanDelegate {
         handleInitData();
         requestIsStudiedCourse(1,receiveCourseData.getId());
         final SupportFragment[] mFragments = new SupportFragment[3];
-        Bundle introArgs = new Bundle();
-        introArgs.putSerializable(OmConstant.BUNDLE_COURSE, receiveCourseData);
-        mFragments[0] = CourseIntroDelegate.newInstance(introArgs);
-        mFragments[1] = CourseSectionDelegate.newInstance();
-        mFragments[2] = CourseCommentDelegate.newInstance();
+        Bundle args = new Bundle();
+        args.putSerializable(OmConstant.BUNDLE_COURSE, receiveCourseData);
+        mFragments[0] = CourseIntroDelegate.newInstance(args);
+        mFragments[1] = CourseSectionDelegate.newInstance(args);
+        mFragments[2] = CourseCommentDelegate.newInstance(args);
         mAdapter = new CourseParticularsDelegateViewPagerAdapter(getChildFragmentManager(),
                 mFragments);
         mViewPager.setAdapter(mAdapter);
@@ -376,8 +379,10 @@ public class CourseParticularsDelegate extends OceanDelegate {
     @Override
     public void onMessageEvent(OceanMessageEvent event) {
         super.onMessageEvent(event);
-        Toast.makeText(_mActivity, "接收到消息了" + event.getMsg(), Toast.LENGTH_SHORT).show();
-        setVideoSource("http://pevcw8o7e.bkt.clouddn.com/caipai.mp4", "接收的新视频", "");
+        if (event.getMsg().equals("skipSection")){
+            Toast.makeText(_mActivity, "章节被点击" + ((SectionChildModel)event.getData()).getSectionName(), Toast.LENGTH_SHORT).show();
+            setVideoSource("http://pevcw8o7e.bkt.clouddn.com/caipai.mp4", "接收的新视频", "");
+        }
     }
 
     @Override

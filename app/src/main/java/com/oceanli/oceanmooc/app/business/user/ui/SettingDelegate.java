@@ -69,6 +69,13 @@ public class SettingDelegate extends OceanDelegate {
     }
 
     @Override
+    public void onMessageEvent(OceanMessageEvent event) {
+        if (event.getMsg().equals("modifyPwd")){
+            startWithPop(LoginDelegate.newInstance());
+        }
+    }
+
+    @Override
     public Object setLayout() {
         return R.layout.delegate_setting;
     }
