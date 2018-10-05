@@ -24,6 +24,8 @@ package com.oceanli.oceanmooc.app;
     public static final String REQUEST_URL_POST_GET_USER_INFO = "/auth/getUserInfo";
     public static final String REQUEST_URL_POST_ADD_COLLECT_COURSE = "/users/addCollectCourse";
     public static final String REQUEST_URL_POST_IS_COLLECT = "/users/isCollect";
+    public static final String REQUEST_URL_POST_ALL_COLLECT_COURSE = "/users/getCollectCourses";
+    public static final String REQUEST_URL_POST_DELETE_COLLECT = "/users/deleteCollectCourse";
 
     /**
      * 七牛云图片处理拼接url
@@ -55,5 +57,9 @@ package com.oceanli.oceanmooc.app;
         public static final String GENDER = "gender";
         public static final String LAST_LOGIN_TIME = "lastLoginTime";
     }
+
+    // 登录页转跳页面key
+    public static final String SKIP_PARTICULARS = "course_particulars";
+    public static final String SKIP_MY_COLLECT = "course_collect";
 
 }

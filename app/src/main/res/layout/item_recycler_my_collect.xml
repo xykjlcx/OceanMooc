@@ -1,8 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardUseCompatPadding="true"
+        app:cardCornerRadius="2dp"
+        android:layout_margin="10dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardElevation="3dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
 
+            <TextView
+                android:id="@+id/tv_collect_level"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:textSize="16sp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginVertical="5dp"
+                android:text="初级课程"/>
+
+            <View
+                android:id="@+id/line1"
+                android:layout_width="match_parent"
+                android:layout_height="0.5sp"
+                android:background="#ecedec"
+                android:layout_margin="5dp"
+                android:layout_below="@+id/tv_collect_level"/>
+
+            <com.gcssloop.widget.RCRelativeLayout
+                android:id="@+id/iv_collect_item_course_img_layout"
+                android:layout_width="120dp"
+                android:layout_height="80dp"
+                android:layout_marginRight="10dp"
+                android:layout_below="@id/line1"
+                app:round_corner="5dp"
+                android:layout_marginLeft="10dp">
+
+                <ImageView
+                    android:id="@+id/iv_collect_item_course_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/a2"/>
+
+            </com.gcssloop.widget.RCRelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_collect_course_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginHorizontal="10dp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:layout_alignTop="@+id/iv_collect_item_course_img_layout"
+                android:layout_toRightOf="@+id/iv_collect_item_course_img_layout"
+                android:text="乔布斯的魅力演讲"
+                android:textColor="#313131"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_collect_course_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_collect_course_name"
+                android:layout_margin="10dp"
+                android:textColor="#9fa19f"
+                android:maxLines="3"
+                android:ellipsize="end"
+                android:layout_toRightOf="@id/iv_collect_item_course_img_layout"
+                android:text="讲述演讲所用的技巧，让你妙趣横生；口才得到长足进步" />
+
+            <View
+                android:id="@+id/line2"
+                android:layout_width="match_parent"
+                android:layout_height="0.5sp"
+                android:background="#ecedec"
+                android:layout_margin="10dp"
+                android:layout_below="@+id/iv_collect_item_course_img_layout"/>
+
+
+            <TextView
+                android:id="@+id/tv_collect_course_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/line2"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:text="￥99"
+                android:textColor="#f11b7b"
+                android:textSize="16sp"
+                />
+
+            <TextView
+                android:id="@+id/tv_collect_cancle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/line2"
+                android:layout_margin="6dp"
+                android:layout_alignParentRight="true"
+                android:padding="4dp"
+                android:text="取消收藏"/>
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
 
 </RelativeLayout>

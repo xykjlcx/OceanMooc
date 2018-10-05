@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/refresh_my_collect"
         android:layout_width="match_parent"
@@ -13,6 +14,19 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <View
+                android:id="@+id/view_collect_fill"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="我的收藏"
+                android:gravity="center_vertical"
+                android:textColor="@android:color/black"
+                android:textSize="23sp" />
             <!-- content部分 -->
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_my_collect"

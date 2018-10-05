@@ -152,7 +152,7 @@ public class HomeRecommendDelegate extends OceanDelegate {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(OmConstant.BUNDLE_COURSE,mBannerCourseData.get(position));
                 Logger.e("jass:" + mBannerCourseData.get(position));
-                ((MainDelegate) getParentFragment().getParentFragment()).startBrotherFragment(OmUtil.isLoginSkip("course_particulars",CourseParticularsDelegate
+                ((MainDelegate) getParentFragment().getParentFragment()).startBrotherFragment(OmUtil.isLoginSkip(OmConstant.SKIP_PARTICULARS,CourseParticularsDelegate
                         .newInstance(bundle)));
             }
         });
@@ -193,7 +193,7 @@ public class HomeRecommendDelegate extends OceanDelegate {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {/* 猜你喜欢课程item点击*/
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(OmConstant.BUNDLE_COURSE,mRecommendData.get(position));
-                ((MainDelegate) getParentFragment().getParentFragment()).startBrotherFragment(OmUtil.isLoginSkip("course_particulars",CourseParticularsDelegate
+                ((MainDelegate) getParentFragment().getParentFragment()).startBrotherFragment(OmUtil.isLoginSkip(OmConstant.SKIP_PARTICULARS,CourseParticularsDelegate
                         .newInstance(bundle)));
             }
         });
@@ -215,7 +215,7 @@ public class HomeRecommendDelegate extends OceanDelegate {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {/* 精选课程item点击*/
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(OmConstant.BUNDLE_COURSE,mChoicenessCourseModelList.get(position));
-                ((MainDelegate) getParentFragment().getParentFragment()).startBrotherFragment(OmUtil.isLoginSkip("course_particulars",CourseParticularsDelegate
+                ((MainDelegate) getParentFragment().getParentFragment()).startBrotherFragment(OmUtil.isLoginSkip(OmConstant.SKIP_PARTICULARS,CourseParticularsDelegate
                         .newInstance(bundle)));
             }
         });

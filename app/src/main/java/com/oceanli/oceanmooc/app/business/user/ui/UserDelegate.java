@@ -44,6 +44,16 @@ public class UserDelegate extends OceanDelegate {
     TextView skipLoginTv;
     @BindView(R.id.refresh_user)
     SmartRefreshLayout mRefreshLayout;
+    @BindView(R.id.layout_user_skip_collect)
+    RelativeLayout skipCollect;
+
+    /**
+     * 跳转我的收藏页
+     */
+    @OnClick(R.id.layout_user_skip_collect)
+    public void skipCollect(){
+        ((MainDelegate)getParentFragment()).startBrotherFragment(OmUtil.isLoginSkip(OmConstant.SKIP_MY_COLLECT,MyCollectDelegate.newInstance()));
+    }
 
     private SharedPreferences sharedPreferences;
     private boolean isLogin = false;

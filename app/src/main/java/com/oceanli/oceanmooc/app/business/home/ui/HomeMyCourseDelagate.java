@@ -64,7 +64,7 @@ public class HomeMyCourseDelagate extends OceanDelegate {
         if (mFirstCourse != null){
             Bundle bundle = new Bundle();
             bundle.putSerializable(OmConstant.BUNDLE_COURSE,mFirstCourse);
-            ((MainDelegate) getParentFragment().getParentFragment()).startBrotherFragment(OmUtil.isLoginSkip("course_particulars", CourseParticularsDelegate
+            ((MainDelegate) getParentFragment().getParentFragment()).startBrotherFragment(OmUtil.isLoginSkip(OmConstant.SKIP_PARTICULARS, CourseParticularsDelegate
                     .newInstance(bundle)));
         }
     }
@@ -111,7 +111,7 @@ public class HomeMyCourseDelagate extends OceanDelegate {
                 Bundle bundle = new Bundle();
                 CourseVoModel.DataBean dataBean = mData.get(position).getCourseVo();
                 bundle.putSerializable(OmConstant.BUNDLE_COURSE,dataBean);
-                ((MainDelegate) getParentFragment().getParentFragment()).startBrotherFragment(OmUtil.isLoginSkip("course_particulars", CourseParticularsDelegate
+                ((MainDelegate) getParentFragment().getParentFragment()).startBrotherFragment(OmUtil.isLoginSkip(OmConstant.SKIP_PARTICULARS, CourseParticularsDelegate
                         .newInstance(bundle)));
             }
         });

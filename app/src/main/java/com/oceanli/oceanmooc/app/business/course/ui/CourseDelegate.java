@@ -139,7 +139,7 @@ public class CourseDelegate extends OceanDelegate {
         mAdapter.setOnItemClickListener((adapter, view, position) -> {
             Bundle bundle = new Bundle();
             bundle.putSerializable(OmConstant.BUNDLE_COURSE,mData.get(position));
-            ((MainDelegate) getParentFragment()).startBrotherFragment(OmUtil.isLoginSkip("course_particulars",CourseParticularsDelegate
+            ((MainDelegate) getParentFragment()).startBrotherFragment(OmUtil.isLoginSkip(OmConstant.SKIP_PARTICULARS,CourseParticularsDelegate
                     .newInstance(bundle)));
         });
         setCourseListData(true);
