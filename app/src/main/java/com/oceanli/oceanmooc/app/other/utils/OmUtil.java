@@ -142,6 +142,18 @@ public class OmUtil {
         }
     }
 
+    public static void clearUserInfoCache(){
+        clearCache(OmConstant.SHARED_NAME_USER_INFO);
+        OmConstant.isLogin = false;
+    }
+
+    public static void clearCache(String sharedpreferencesName){
+        SharedPreferences sharedPreferences = OceanPreferences.getSharedPreferences(sharedpreferencesName);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.commit();
+    }
+
     //判断email格式是否正确
     public static boolean isEmail(String email) {
         final String str = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$";

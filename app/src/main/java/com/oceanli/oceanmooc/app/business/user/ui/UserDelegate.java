@@ -46,23 +46,31 @@ public class UserDelegate extends OceanDelegate {
     SmartRefreshLayout mRefreshLayout;
     @BindView(R.id.layout_user_skip_collect)
     RelativeLayout skipCollect;
+    @BindView(R.id.tv_user_setting_four)
+    TextView skipSetting;
 
     /**
      * 跳转我的收藏页
      */
     @OnClick(R.id.layout_user_skip_collect)
-    public void skipCollect(){
+    public void skipCollectOnClick(){
         ((MainDelegate)getParentFragment()).startBrotherFragment(OmUtil.isLoginSkip(OmConstant.SKIP_MY_COLLECT,MyCollectDelegate.newInstance()));
     }
 
-    private SharedPreferences sharedPreferences;
-    private boolean isLogin = false;
-    private static Integer userId = -1;
+    /**
+     * 跳转设置页
+     */
+    @OnClick(R.id.tv_user_setting_four)
+    public void skipSettingOnClick(){
+        ((MainDelegate)getParentFragment()).startBrotherFragment(OmUtil.isLoginSkip(OmConstant.SKIP_SETTING,SettingDelegate.newInstance()));
+    }
+
     public static final Integer REQUEST_CODE = 3486;
+    private NetUserModel.DataBean userDataBean;
 
     @OnClick(R.id.tv_user_login_and_register)
     public void skipLoginOnClick(){
-        if (!isLogin){
+        if (userDataBean == null){
             ((MainDelegate)getParentFragment()).startBrotherFragmentForResult(LoginDelegate.newInstance(),REQUEST_CODE);
         }
     }
@@ -70,6 +78,7 @@ public class UserDelegate extends OceanDelegate {
     @Override
     public void onMessageEvent(OceanMessageEvent event) {
         if (event.getMsg().equals("updateUserInfo")){
+            userDataBean = OmUtil.getCacheUserInfo();
             getCacheUserInfoUpdateUI();
         }
     }
@@ -90,10 +99,9 @@ public class UserDelegate extends OceanDelegate {
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
         initView(rootView);
-        sharedPreferences = OceanPreferences.getSharedPreferences(OmConstant.SHARED_NAME_USER_INFO);
-        userId = sharedPreferences.getInt(OmConstant.UserInfoKey.ID,-1);
-        if (userId != -1){
-            requestUserInfo(userId);
+        userDataBean = OmUtil.getCacheUserInfo();
+        if (userDataBean != null){
+            requestUserInfo(userDataBean.getId());
         }else {
             getCacheUserInfoUpdateUI();
         }
@@ -106,7 +114,9 @@ public class UserDelegate extends OceanDelegate {
 
     public void initRefresh(){
         mRefreshLayout.setOnRefreshListener(refreshLayout -> {
-            requestUserInfo(userId);
+            if (userDataBean != null){
+                requestUserInfo(userDataBean.getId());
+            }
            refreshLayout.finishRefresh();
         });
     }
@@ -121,6 +131,8 @@ public class UserDelegate extends OceanDelegate {
                         // 更新userinfo缓存
                         NetUserModel.DataBean dataBean = userModel.getData();
                         OmUtil.cacheUserData(dataBean,false);
+                        // 应用内更新
+                        userDataBean = dataBean;
                     }else {
                         // 获取用户信息失败
                     }
@@ -132,30 +144,24 @@ public class UserDelegate extends OceanDelegate {
     }
 
     public void getCacheUserInfoUpdateUI(){
-        SharedPreferences sharedPreferences = OceanPreferences.getSharedPreferences(OmConstant.SHARED_NAME_USER_INFO);
-        if (sharedPreferences != null){
-            String headImgUrl = sharedPreferences.getString(OmConstant.UserInfoKey.HEAM_IMG_URL,"");
-            String signature = sharedPreferences.getString(OmConstant.UserInfoKey.SIGNATURE,"");
-            String username = sharedPreferences.getString(OmConstant.UserInfoKey.ACCOUNT,"");
-            isLogin = sharedPreferences.getBoolean(OmConstant.UserInfoKey.IS_LOGIN,false);
-            if (isLogin){
-                // 已经登录
-                // 隐藏未登录布局、显示头像、签名...
-                noLoginLayout.setVisibility(View.GONE);
-                loginedLayout.setVisibility(View.VISIBLE);
-                Glide.with(_mActivity)
-                        .load(headImgUrl)
-                        .centerCrop()
-                        .dontAnimate()
-                        .into(headIv);
-                signatureTv.setText(signature);
-                userNameTv.setText(username);
-            }else {
-                // 显示登录布局
-                noLoginLayout.setVisibility(View.VISIBLE);
-                loginedLayout.setVisibility(View.GONE);
-            }
+        if (userDataBean != null){
+            // 已经登录
+            // 隐藏未登录布局、显示头像、签名...
+            noLoginLayout.setVisibility(View.GONE);
+            loginedLayout.setVisibility(View.VISIBLE);
+            Glide.with(_mActivity)
+                    .load(userDataBean.getHeadImg())
+                    .centerCrop()
+                    .dontAnimate()
+                    .into(headIv);
+            signatureTv.setText(userDataBean.getSignature());
+            userNameTv.setText(userDataBean.getAccount());
+        }else {
+            // 显示登录布局
+            noLoginLayout.setVisibility(View.VISIBLE);
+            loginedLayout.setVisibility(View.GONE);
         }
+
     }
 
 }

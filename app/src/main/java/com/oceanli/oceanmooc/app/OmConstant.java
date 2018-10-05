@@ -61,5 +61,6 @@ package com.oceanli.oceanmooc.app;
     // 登录页转跳页面key
     public static final String SKIP_PARTICULARS = "course_particulars";
     public static final String SKIP_MY_COLLECT = "course_collect";
+    public static final String SKIP_SETTING = "setting";
 
 }
