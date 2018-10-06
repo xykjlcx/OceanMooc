@@ -249,6 +249,7 @@
                     </RelativeLayout>
 
                     <RelativeLayout
+                        android:id="@+id/layout_user_skip_comment"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:paddingRight="20dp">
@@ -284,6 +285,7 @@
                     </RelativeLayout>
 
                     <RelativeLayout
+                        android:id="@+id/layout_user_skip_idea_back"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:paddingRight="20dp">
@@ -338,6 +340,7 @@
                     android:orientation="vertical">
 
                     <RelativeLayout
+                        android:id="@+id/layout_user_skip_setting"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:paddingRight="20dp">

@@ -26,6 +26,6 @@ public class AboutDelegate extends OceanDelegate {
 
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
-
+        mImmersionBar.setStatusBarView(_mActivity, rootView.findViewById(R.id.view_about_fill));
     }
 }

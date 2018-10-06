@@ -46,24 +46,32 @@ public class UserDelegate extends OceanDelegate {
     SmartRefreshLayout mRefreshLayout;
     @BindView(R.id.layout_user_skip_collect)
     RelativeLayout skipCollect;
-    @BindView(R.id.tv_user_setting_four)
-    TextView skipSetting;
+    @BindView(R.id.layout_user_skip_setting)
+    RelativeLayout skipSetting;
 
     /**
      * 跳转我的收藏页
      */
-    @OnClick(R.id.layout_user_skip_collect)
-    public void skipCollectOnClick(){
-        ((MainDelegate)getParentFragment()).startBrotherFragment(OmUtil.isLoginSkip(OmConstant.SKIP_MY_COLLECT,MyCollectDelegate.newInstance()));
+    @OnClick({R.id.layout_user_skip_collect,R.id.layout_user_skip_comment,R.id.layout_user_skip_idea_back,R.id.layout_user_skip_setting})
+    public void skipOnClick(View view){
+        switch (view.getId()){
+            case R.id.layout_user_skip_collect:
+                ((MainDelegate)getParentFragment()).startBrotherFragment(OmUtil.isLoginSkip(OmConstant.SKIP_MY_COLLECT,MyCollectDelegate.newInstance()));
+                break;
+            case R.id.layout_user_skip_comment:
+                ((MainDelegate)getParentFragment()).startBrotherFragment(OmUtil.isLoginSkip(OmConstant.SKIP_MY_COMMENT,MyCommentDelegate.newInstance()));
+                break;
+            case R.id.layout_user_skip_idea_back:
+                ((MainDelegate)getParentFragment()).startBrotherFragment(OmUtil.isLoginSkip(OmConstant.SKIP_IDEA_BACK,IdeaBackDelegate.newInstance()));
+                break;
+            case R.id.layout_user_skip_setting:
+                ((MainDelegate)getParentFragment()).startBrotherFragment(OmUtil.isLoginSkip(OmConstant.SKIP_SETTING,SettingDelegate.newInstance()));
+                break;
+            default:
+                break;
+        }
     }
 
-    /**
-     * 跳转设置页
-     */
-    @OnClick(R.id.tv_user_setting_four)
-    public void skipSettingOnClick(){
-        ((MainDelegate)getParentFragment()).startBrotherFragment(OmUtil.isLoginSkip(OmConstant.SKIP_SETTING,SettingDelegate.newInstance()));
-    }
 
     public static final Integer REQUEST_CODE = 3486;
     private NetUserModel.DataBean userDataBean;

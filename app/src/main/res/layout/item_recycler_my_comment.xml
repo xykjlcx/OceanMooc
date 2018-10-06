@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardUseCompatPadding="true"
+        app:cardCornerRadius="5dp"
+        android:layout_marginVertical="5dp"
+        android:layout_marginHorizontal="10dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardElevation="5dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:padding="@dimen/global_default_margin_size"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/icon_pl"
+                android:layout_width="40dp"
+                android:layout_height="30dp"
+                android:layout_margin="@dimen/global_default_margin_size"
+                android:src="@mipmap/plicon"/>
+
+            <TextView
+                android:id="@+id/tv_my_comment_time"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_margin="@dimen/global_default_margin_size"
+                android:text="2018.09.29"
+                android:layout_alignParentRight="true"
+                android:paddingRight="30dp"
+                android:gravity="center_vertical"
+                android:textSize="12sp"/>
+
+            <TextView
+                android:id="@+id/tv_my_comment_label_one"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_below="@id/icon_pl"
+                android:gravity="center_vertical"
+                android:padding="@dimen/global_default_margin_size"
+                android:text="您在"/>
+
+            <TextView
+                android:id="@+id/tv_my_comment_course_name"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_below="@id/icon_pl"
+                android:padding="@dimen/global_default_margin_size"
+                android:layout_toRightOf="@id/tv_my_comment_label_one"
+                android:text="css高级"
+                android:gravity="center_vertical"
+                android:textSize="16sp"
+                android:textColor="#8e4ff2"/>
+
+            <TextView
+                android:id="@+id/tv_my_comment_label_two"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:gravity="center_vertical"
+                android:layout_below="@id/icon_pl"
+                android:padding="@dimen/global_default_margin_size"
+                android:layout_toRightOf="@id/tv_my_comment_course_name"
+                android:text="课程下说："/>
+
+            <TextView
+                android:id="@+id/tv_my_comment_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_my_comment_label_one"
+                android:paddingVertical="5dp"
+                android:paddingHorizontal="15dp"
+                android:text="您说：当你的眼睛眯着笑当你的眼睛眯着笑当你的眼睛眯着笑"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:enabled="true" />
+
+            <com.gcssloop.widget.RCRelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                app:round_corner_top_left="5dp"
+                android:layout_margin="@dimen/global_default_margin_size"
+                app:round_corner_top_right="5dp"
+                app:round_corner_bottom_left="5dp"
+                app:round_corner_bottom_right="5dp"
+                android:layout_below="@+id/tv_my_comment_content">
+
+                <ImageView
+                    android:id="@+id/iv_my_comment_course_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/launch1"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="点击进入课程"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"/>
+
+            </com.gcssloop.widget.RCRelativeLayout>
+
+
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>

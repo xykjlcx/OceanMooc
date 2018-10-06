@@ -2,12 +2,47 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@mipmap/launch1">
+
+    <View
+        android:id="@+id/view_about_fill"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"/>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:text="关于我们"/>
+        android:layout_margin="10dp"
+        android:text="关于我们"
+        android:gravity="center_vertical"
+        android:textColor="@android:color/black"
+        android:textSize="23sp" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/tv_about_xykj"
+            android:layout_centerHorizontal="true"
+            android:text="人生的大不同，从珍惜碎片化的小时间开始！"
+            android:layout_marginBottom="20dp"/>
+
+        <TextView
+            android:id="@+id/tv_about_xykj"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="50dp"
+            android:text="by 昕越科技"/>
+
+    </RelativeLayout>
+
+
 
 </LinearLayout>
