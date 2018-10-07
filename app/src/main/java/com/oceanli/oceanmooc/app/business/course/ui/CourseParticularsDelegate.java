@@ -98,6 +98,13 @@ public class CourseParticularsDelegate extends OceanDelegate {
         }
     }
 
+
+    /**
+     * particulars和comment各存在一个DEF_SECTION_ID变量，初始值为-1
+     * 当接收到eventbus的章节点击事件后，更新该值
+     */
+    public Integer DEF_SECTION_ID = -1;
+
     public void requestIsCollected(int userId,int courseId){
         RestClient.builder()
                 .url(OmConstant.BASE_URL + OmConstant.REQUEST_URL_POST_IS_COLLECT)
@@ -155,7 +162,8 @@ public class CourseParticularsDelegate extends OceanDelegate {
 
     @OnClick(R.id.btn_particular_start_study)
     public void startStudyBtnOnClick(View view) {/* todo 网络请求接口，学习该课程*/
-        if (userDataBean != null){
+        if (userDataBean != null
+                && receiveCourseData != null){
             requestNetStudyCourse(userDataBean.getId(),receiveCourseData.getId());
         }
     }
@@ -171,7 +179,7 @@ public class CourseParticularsDelegate extends OceanDelegate {
                 .loader(_mActivity)
                 .params("userId",userId)
                 .params("courseId",courseId)
-                .params("sectionId",6)
+                .params("sectionId",DEF_SECTION_ID)
                 .success(response -> {
                     try {
                         JSONObject jsonObject = new JSONObject(response);
@@ -194,6 +202,10 @@ public class CourseParticularsDelegate extends OceanDelegate {
                 .post();
     }
 
+    /**
+     * 获取该课程的学习人数
+     * @param courseId
+     */
     public void requestStudyCount(int courseId){
         RestClient.builder()
                 .url(OmConstant.BASE_URL + OmConstant.REQUEST_URL_POST_QUERY_STUDY_COUNT)
@@ -290,7 +302,7 @@ public class CourseParticularsDelegate extends OceanDelegate {
     }
 
     public void initView(final View rootView) {
-        mImmersionBar.setStatusBarView(_mActivity, rootView.findViewById(R.id
+        ImmersionBar.setStatusBarView(_mActivity, rootView.findViewById(R.id
                 .view_course_particulars_fill));
         goodView = new GoodView(_mActivity);
         initGSYVideoView();
@@ -352,9 +364,14 @@ public class CourseParticularsDelegate extends OceanDelegate {
 
             @Override
             public float getTitleWeight(Context context, int index) {/* 指示器横向评价分配宽度*/
-                if (index == 0) return 1.0f;
-                else if (index == 1) return 1.0f;
-                else return 1.0f;
+                switch (index) {
+                    case 0:
+                        return 1.0f;
+                    case 1:
+                        return 1.0f;
+                    default:
+                        return 1.0f;
+                }
             }
         });
         magicIndicator.setNavigator(commonNavigator);
@@ -416,8 +433,18 @@ public class CourseParticularsDelegate extends OceanDelegate {
     public void onMessageEvent(OceanMessageEvent event) {
         super.onMessageEvent(event);
         if (event.getMsg().equals("skipSection")){
-            Toast.makeText(_mActivity, "章节被点击" + ((SectionChildModel)event.getData()).getSectionName(), Toast.LENGTH_SHORT).show();
-            setVideoSource("http://pevcw8o7e.bkt.clouddn.com/caipai.mp4", "接收的新视频", "");
+            // 接收章节被点击事件
+            SectionChildModel sectionChildModel = ((SectionChildModel)event.getData());
+            if (sectionChildModel != null
+                    && receiveCourseData != null){
+                DEF_SECTION_ID = sectionChildModel.getId();
+                setVideoSource(sectionChildModel.getVideoUrl(), sectionChildModel.getSectionName(), receiveCourseData.getImgUrl());
+                // 更新章节后，重新更新服务器的学习记录
+                if (userDataBean != null
+                        && receiveCourseData != null){
+                    requestNetStudyCourse(userDataBean.getId(),receiveCourseData.getId());
+                }
+            }
         }
     }
 

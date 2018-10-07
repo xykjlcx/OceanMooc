@@ -81,9 +81,9 @@ public class CourseSearchDelegate extends OceanDelegate {
                         if (thisDataCount < size){
                             IS_BOTTOM = true;
                         }
-                        dataBeanList.forEach(dataBean -> {
-                            mData.add(dataBean);
-                        });
+                        for (int i = 0; i < dataBeanList.size(); i++) {
+                            mData.add(dataBeanList.get(i));
+                        }
                     }else {
                         // 没有搜索到课程
                         OmUtil.toastWarning(_mActivity,"没有匹配课程");

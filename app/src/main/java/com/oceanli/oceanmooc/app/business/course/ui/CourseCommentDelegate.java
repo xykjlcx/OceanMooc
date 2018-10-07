@@ -18,6 +18,7 @@ import com.oceanli.oceanmooc.app.OmConstant;
 import com.oceanli.oceanmooc.app.R;
 import com.oceanli.oceanmooc.app.business.course.adapter.CourseSectionCommentRecyclerViewAdapter;
 import com.oceanli.oceanmooc.app.business.course.models.NetCommentModel;
+import com.oceanli.oceanmooc.app.business.course.models.SectionChildModel;
 import com.oceanli.oceanmooc.app.business.course.models.SectionCommentModel;
 import com.oceanli.oceanmooc.app.business.home.models.CourseVoModel;
 import com.oceanli.oceanmooc.app.business.user.models.NetUserModel;
@@ -52,7 +53,8 @@ public class CourseCommentDelegate extends OceanDelegate {
 
     private static Integer PAGE_NUM = 0;
     private static Integer SIZE = 10;
-
+    // 默认sectionId
+    private Integer DEF_SECTION_ID = -1;
 
     /**
      * 发送评论
@@ -64,7 +66,7 @@ public class CourseCommentDelegate extends OceanDelegate {
         // todo 读取用户id、获取课程id、章节id
         if (userDataBean != null){
             // todo 这里的sectionId未来要改为particulars当前正在播放章节的id
-            requestAddComment(userDataBean.getId(),receiverCourseData.getId(),1,content);
+            requestAddComment(userDataBean.getId(),receiverCourseData.getId(),DEF_SECTION_ID,content);
         }
     }
 
@@ -91,8 +93,10 @@ public class CourseCommentDelegate extends OceanDelegate {
 
     @Override
     public void onMessageEvent(OceanMessageEvent event) {
-        if (event.getMsg().equals("")){
+        if (event.getMsg().equals("skipSection")){
             // todo 接收到当前正在播放的章节
+            SectionChildModel childModel = (SectionChildModel) event.getData();
+            DEF_SECTION_ID = childModel.getId();
         }
     }
 
@@ -153,7 +157,9 @@ public class CourseCommentDelegate extends OceanDelegate {
                                 || dataBeanList.isEmpty()){
                             // 评论列表为空
                         }else {
-                            dataBeanList.forEach(dataBean -> {
+                           // 不支持lamba表达式 更换为普通for循环
+                            for (int i = 0; i < dataBeanList.size(); i++) {
+                                NetCommentModel.DataBean dataBean = dataBeanList.get(i);
                                 SectionCommentModel sectionCommentModel = new SectionCommentModel();
                                 sectionCommentModel.setId(dataBean.getId());
                                 sectionCommentModel.setHeadImgUrl(dataBean.getUserHeadImgUrl());
@@ -161,7 +167,7 @@ public class CourseCommentDelegate extends OceanDelegate {
                                 sectionCommentModel.setContent(dataBean.getCommentContent());
                                 sectionCommentModel.setTime(dataBean.getCommentTime());
                                 mData.add(sectionCommentModel);
-                            });
+                            }
                         }
                         mCommentRecyclerViewAdapter.notifyDataSetChanged();
                     }else {
@@ -188,7 +194,8 @@ public class CourseCommentDelegate extends OceanDelegate {
                             OmUtil.toastSuccess(_mActivity,"评论成功");
                             commentContentEt.setText("");
                         }else {
-                            OmUtil.toastError(_mActivity,jsonObject.getString("msg"));
+                            // 未发表任何评论？
+                            OmUtil.toastWarning(_mActivity,jsonObject.getString("msg"));
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

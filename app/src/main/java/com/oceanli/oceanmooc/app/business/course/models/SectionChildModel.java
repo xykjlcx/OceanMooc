@@ -10,8 +10,44 @@ import com.oceanli.oceanmooc.app.business.course.adapter.CourseSectionExpandable
  */
 public class SectionChildModel implements MultiItemEntity {
     private Integer id;
-    private String sectionName;
     private boolean isSelected;
+    private int courseId;
+    private int parentId;
+    private String sectionName;
+    private String duration;
+    private String videoUrl;
+
+    public int getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(int courseId) {
+        this.courseId = courseId;
+    }
+
+    public int getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(int parentId) {
+        this.parentId = parentId;
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
+
+    public String getVideoUrl() {
+        return videoUrl;
+    }
+
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
+    }
 
     public boolean isSelected() {
         return isSelected;
@@ -24,10 +60,6 @@ public class SectionChildModel implements MultiItemEntity {
     public SectionChildModel() {
     }
 
-    public SectionChildModel(Integer id, String sectionName) {
-        this.id = id;
-        this.sectionName = sectionName;
-    }
 
     public Integer getId() {
         return id;

@@ -4,6 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <include layout="@layout/layout_empty"
+        android:id="@+id/layout_course_section_empty"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_course_section"
         android:layout_width="match_parent"
