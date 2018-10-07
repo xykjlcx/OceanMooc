@@ -29,6 +29,7 @@ package com.oceanli.oceanmooc.app;
     public static final String REQUEST_URL_POST_UPDATE_USER_INFO = "/auth/updateUserInfo";
     public static final String REQUEST_URL_POST_MODIFY_PASSWORD = "/auth/modifyUserPwd";
     public static final String REQUEST_URL_POST_MY_COMMENTS = "/users/getMyComments";
+    public static final String REQUEST_URL_POST_COMMIT_IDEA_BACK = "/users/addIdeaBack";
 
     /**
      * 七牛云图片处理拼接url

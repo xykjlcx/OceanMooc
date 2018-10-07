@@ -22,6 +22,7 @@ import com.oceanli.oceanmooc.app.business.course.models.SectionCommentModel;
 import com.oceanli.oceanmooc.app.business.home.models.CourseVoModel;
 import com.oceanli.oceanmooc.app.business.user.models.NetUserModel;
 import com.oceanli.oceanmooc.app.other.utils.OmUtil;
+import com.orhanobut.logger.Logger;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
@@ -109,6 +110,8 @@ public class CourseCommentDelegate extends OceanDelegate {
             @Override
             public void onRefresh(RefreshLayout refreshLayout) {
                 if (receiverCourseData != null){
+                    PAGE_NUM = 0;
+                    SIZE = 10;
                     requestNetComments(receiverCourseData.getId(),PAGE_NUM,SIZE);
                 }
                 refreshLayout.finishRefresh();
@@ -127,13 +130,14 @@ public class CourseCommentDelegate extends OceanDelegate {
         mCommentRecyclerViewAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
         mCommentRecyclerViewAdapter.bindToRecyclerView(recyclerView);
         mCommentRecyclerViewAdapter.setEmptyView(R.layout.layout_empty);
-        if (userDataBean != null){
-            requestNetComments(userDataBean.getId(),PAGE_NUM,SIZE);
+        if (receiverCourseData != null){
+            requestNetComments(receiverCourseData.getId(),PAGE_NUM,SIZE);
         }
     }
 
     @SuppressLint("NewApi")
     public void requestNetComments(int courseId, int page, int size){
+        Logger.e("请求前查看page：" + page + "，size:" + size);
         RestClient.builder()
                 .url(OmConstant.BASE_URL + OmConstant.REQUEST_URL_POST_COMMENTS)
                 .params("courseId",courseId)
@@ -160,6 +164,8 @@ public class CourseCommentDelegate extends OceanDelegate {
                             });
                         }
                         mCommentRecyclerViewAdapter.notifyDataSetChanged();
+                    }else {
+//                        OmUtil.toastWarning(_mActivity,commentModel.getMsg());
                     }
                 })
                 .build()
@@ -182,7 +188,7 @@ public class CourseCommentDelegate extends OceanDelegate {
                             OmUtil.toastSuccess(_mActivity,"评论成功");
                             commentContentEt.setText("");
                         }else {
-                            OmUtil.toastError(_mActivity,"评论失败");
+                            OmUtil.toastError(_mActivity,jsonObject.getString("msg"));
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

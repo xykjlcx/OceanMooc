@@ -8,10 +8,16 @@
 
 
     <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/coorlayout_my_studyed"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <include layout="@layout/layout_empty"
+            android:id="@+id/include_empty_my_study"/>
+
+
         <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar_my_studyed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true"

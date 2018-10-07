@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.oceanli.ocean.core.delegates.OceanDelegate;
+import com.oceanli.ocean.core.event.OceanMessageEvent;
 import com.oceanli.ocean.core.net.RestClient;
 import com.oceanli.ocean.core.net.callback.ISuccess;
 import com.oceanli.oceanmooc.app.OmConstant;
@@ -25,6 +27,7 @@ import com.oceanli.oceanmooc.app.business.course.ui.CourseParticularsDelegate;
 import com.oceanli.oceanmooc.app.business.home.adapter.MyCourseRecyclerViewAdapter;
 import com.oceanli.oceanmooc.app.business.home.models.CourseVoModel;
 import com.oceanli.oceanmooc.app.business.home.models.MyCourseModel;
+import com.oceanli.oceanmooc.app.business.user.models.NetUserModel;
 import com.oceanli.oceanmooc.app.other.utils.OmUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -56,8 +59,26 @@ public class HomeMyCourseDelagate extends OceanDelegate {
     TextView latelyLasteTimeTv;
     @BindView(R.id.layout_my_course)
     RelativeLayout firstCourseLayout;
+    @BindView(R.id.include_empty_my_study)
+    RelativeLayout emptyLayout;
+    @BindView(R.id.appbar_my_studyed)
+    AppBarLayout appBarLayout;
+
+    // 设置空布局
+    public void isShow(boolean isHaveData){
+        if (isHaveData){
+            emptyLayout.setVisibility(View.GONE);
+            appBarLayout.setVisibility(View.VISIBLE);
+            mRecyclerView.setVisibility(View.VISIBLE);
+        }else {
+            emptyLayout.setVisibility(View.VISIBLE);
+            appBarLayout.setVisibility(View.GONE);
+            mRecyclerView.setVisibility(View.GONE);
+        }
+    }
 
     private CourseVoModel.DataBean mFirstCourse = null;
+    private NetUserModel.DataBean userDataBean = null;
 
     @OnClick(R.id.layout_my_course)
     public void firstCourseOnClick(){
@@ -86,12 +107,14 @@ public class HomeMyCourseDelagate extends OceanDelegate {
 
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
+        userDataBean = OmUtil.getCacheUserInfo();
         initView(rootView);
     }
 
     public void initView(View rootView){
         initRefresh();
         initRecycler(rootView);
+        isShow(false);
     }
 
 
@@ -115,7 +138,9 @@ public class HomeMyCourseDelagate extends OceanDelegate {
                         .newInstance(bundle)));
             }
         });
-        setMyCourseRecyclerData(1);
+        if (userDataBean != null){
+            setMyCourseRecyclerData(userDataBean.getId());
+        }
     }
 
     public void initRefresh(){
@@ -125,7 +150,9 @@ public class HomeMyCourseDelagate extends OceanDelegate {
         mSmartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshLayout) {
-                setMyCourseRecyclerData(1);
+                if (userDataBean != null ){
+                    setMyCourseRecyclerData(userDataBean.getId());
+                }
                 mSmartRefreshLayout.finishRefresh();
             }
         });
@@ -140,6 +167,7 @@ public class HomeMyCourseDelagate extends OceanDelegate {
                     mData.clear();
                     MyCourseModel myCourseModel = OmUtil.getGson().fromJson(response,MyCourseModel.class);
                     if (myCourseModel.getCode() == OmConstant.SUCCESS_CODE){
+                        isShow(true);
                         List<MyCourseModel.DataBean> dataBeanList = myCourseModel.getData();
                         latelyCourseNameTv.setText(dataBeanList.get(0).getCourseVo().getCourseName());
                         latelyLasteTimeTv.setText("最后学习时间： " + dataBeanList.get(0).getLastStudyTime());
@@ -153,11 +181,21 @@ public class HomeMyCourseDelagate extends OceanDelegate {
                         dataBeanList.forEach(bean -> mData.add(bean));
                         mMyCourseRecyclerViewAdapter.notifyDataSetChanged();
                     } else if (myCourseModel.getCode() == OmConstant.ERROR_CODE) {
-                        OmUtil.toastError(_mActivity,"服务器正在开小差...");
+                        // todo 未学习任何课程设置空布局
+                        isShow(false);
+//                        OmUtil.toastWarning(_mActivity,myCourseModel.getMsg());
                     }
                 })
                 .build()
                 .post();
     }
 
+    @Override
+    public void onMessageEvent(OceanMessageEvent event) {
+        if (event.getMsg().equals("studyNewCourse")){
+            if (userDataBean != null){
+                setMyCourseRecyclerData(userDataBean.getId());
+            }
+        }
+    }
 }

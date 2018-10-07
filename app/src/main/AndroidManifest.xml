@@ -3,6 +3,7 @@
     package="com.oceanli.oceanmooc.app">
 
     <!-- if you want to load images from the internet -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <!-- if you want to load images from a file OR from the internet -->

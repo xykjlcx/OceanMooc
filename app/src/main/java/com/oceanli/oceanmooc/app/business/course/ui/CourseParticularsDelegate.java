@@ -47,6 +47,7 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTit
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.BezierPagerIndicator;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.SimplePagerTitleView;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -176,6 +177,8 @@ public class CourseParticularsDelegate extends OceanDelegate {
                         if (code == OmConstant.SUCCESS_CODE){
                             OmUtil.toastSuccess(_mActivity,"开始学习吧");
                             showParticulars();
+                            // 发送event，让我的课程更新
+                            EventBus.getDefault().post(new OceanMessageEvent("studyNewCourse"));
                         }else {
                             OmUtil.toastError(_mActivity,"休想学习");
                         }
@@ -227,9 +230,10 @@ public class CourseParticularsDelegate extends OceanDelegate {
     public void onEnterAnimationEnd(Bundle savedInstanceState) {
         /* 动画加载完成后，渲染ui*/
         initData();
-        // 判断是否学习过该课程
+        // 判断是否学习/收藏过该课程
         if (userDataBean != null
                 && receiveCourseData != null) {
+            requestIsStudiedCourse(userDataBean.getId(),receiveCourseData.getId());
             requestIsCollected(userDataBean.getId(),receiveCourseData.getId());
         }
     }
@@ -265,7 +269,9 @@ public class CourseParticularsDelegate extends OceanDelegate {
 
     public void initData() {/* 处理接收bundle接收的数据*/
         handleInitData();
-        requestIsStudiedCourse(1,receiveCourseData.getId());
+        if (userDataBean != null){
+            requestIsStudiedCourse(userDataBean.getId(),receiveCourseData.getId());
+        }
         final SupportFragment[] mFragments = new SupportFragment[3];
         Bundle args = new Bundle();
         args.putSerializable(OmConstant.BUNDLE_COURSE, receiveCourseData);

@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
 
     <View
         android:id="@+id/view_my_idea_back_fill"
@@ -17,5 +18,138 @@
         android:gravity="center_vertical"
         android:textColor="@android:color/black"
         android:textSize="23sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:background="#f3f4f3"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#f3f4f3"
+        android:text="反馈内容"
+        android:textSize="15sp"
+        android:paddingLeft="20dp"
+        android:paddingVertical="@dimen/global_default_margin_size"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#f3f4f3">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:padding="20dp"
+            android:background="@android:color/white"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/et_idea_back_content"
+                android:layout_width="match_parent"
+                android:background="@drawable/shape_idea_back_input"
+                android:hint="请填写具体内容，帮助我们进一步改进"
+                android:gravity="top"
+                android:padding="10dp"
+                android:layout_height="200dp" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="15dp"
+            android:background="#f3f4f3"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#f3f4f3"
+            android:text="联系方式"
+            android:textSize="15sp"
+            android:paddingLeft="20dp"
+            android:paddingVertical="@dimen/global_default_margin_size"/>
+
+        <RelativeLayout
+            android:id="@+id/layout_userinfo_two"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="#ffffff"
+            android:paddingRight="20dp">
+
+            <TextView
+                android:id="@+id/tv_userinfo_realname_lable"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:text="手机/邮箱"
+                android:textSize="15sp"
+                android:gravity="center_vertical"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:layout_alignParentLeft="true"/>
+
+            <EditText
+                android:id="@+id/et_idea_back_contact"
+                android:background="@null"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:inputType="text"
+                android:textSize="16sp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_toRightOf="@+id/tv_userinfo_realname_lable"
+                android:layout_centerVertical="true"
+                android:hint="请留下真实的联系方式"
+                android:textColor="@android:color/black"
+                android:paddingLeft="30dp"
+                android:gravity="center_vertical"/>
+
+        </RelativeLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="15dp"
+            android:background="#f3f4f3"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#f3f4f3"
+            android:text="您的IP地址"
+            android:textSize="15sp"
+            android:paddingLeft="20dp"
+            android:paddingVertical="@dimen/global_default_margin_size"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="#ffffff"
+            android:paddingRight="20dp">
+
+            <TextView
+                android:id="@+id/tv_idea_back_ip"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:textSize="15sp"
+                android:text="192.168.1.1"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_idea_back_commit"
+            android:layout_width="match_parent"
+            android:layout_marginVertical="50dp"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="10dp"
+            android:background="@drawable/shape_idea_back_commit"
+            android:text="提交"
+            android:textSize="15sp"
+            android:textColor="@android:color/white"
+            android:gravity="center"/>
+
+    </LinearLayout>
 
 </LinearLayout>

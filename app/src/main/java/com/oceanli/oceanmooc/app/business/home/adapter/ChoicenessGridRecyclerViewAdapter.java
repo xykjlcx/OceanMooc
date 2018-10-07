@@ -30,6 +30,9 @@ public class ChoicenessGridRecyclerViewAdapter extends BaseQuickAdapter<CourseVo
                 .setText(R.id.tv_choiceness_item_course_price,"￥" + (Integer)item.getPrice());
         Glide.with(mContext)
                 .load(item.getImgUrl() + OmConstant.IMG_COMPRESS_URL)
+                .error(R.mipmap.b4)         // 加载出错时
+                .fallback(R.mipmap.b1)      // 加载url为空时
+                .placeholder(R.mipmap.b2)   // 加载图片前默认
                 .centerCrop()
                 .dontAnimate()
                 .into((ImageView) helper.getView(R.id.iv_choiceness_img));
