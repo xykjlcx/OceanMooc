@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
@@ -37,6 +38,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Created by ocean on 2018/9/25 Author :  ocean Email  :  348686686@qq.com
@@ -48,6 +50,14 @@ public class CourseDelegate extends OceanDelegate {
     RecyclerView mRecyclerView;
     @BindView(R.id.smart_refresh_course)
     SmartRefreshLayout mSmartRefreshLayout;
+    @BindView(R.id.layout_course_skip_search)
+    RelativeLayout skipSearchLayout;
+
+    @OnClick(R.id.layout_course_skip_search)
+    public void skipSearchOnClick(){
+        ((MainDelegate) getParentFragment()).startBrotherFragment(CourseSearchDelegate.newInstance());
+    }
+
     private OptionsPickerView optionsPickerView;
     /**
      * 当前请求页码 初始化为第0页
@@ -146,7 +156,7 @@ public class CourseDelegate extends OceanDelegate {
     }
 
     public void initRefresh() {
-        mSmartRefreshLayout.setRefreshHeader(new PhoenixHeader(_mActivity));
+//        mSmartRefreshLayout.setRefreshHeader(new PhoenixHeader(_mActivity));
         mSmartRefreshLayout.setOnRefreshListener(refreshLayout -> {
             PAGE_NUM = 0;
             SIZE = 14;

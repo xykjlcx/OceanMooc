@@ -41,6 +41,7 @@
            app:cardPreventCornerOverlap="true"
            app:cardElevation="1.5dp">
            <RelativeLayout
+               android:id="@+id/layout_course_skip_search"
                android:layout_width="match_parent"
                android:layout_height="match_parent"
                android:paddingRight="10dp">

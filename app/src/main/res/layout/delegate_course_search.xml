@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <View
+        android:id="@+id/view_course_search_fill"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_fill_height"/>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="10dp"
+                android:text="课程搜索"
+                android:gravity="center_vertical"
+                android:textColor="@android:color/black"
+                app:layout_scrollFlags="scroll"
+                android:textSize="23sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_scrollFlags="snap"
+                android:layout_margin="@dimen/global_default_margin_size"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="@dimen/global_default_margin_size"
+                    android:layout_height="55dp"
+                    app:cardUseCompatPadding="true"
+                    app:cardCornerRadius="5dp"
+                    app:cardPreventCornerOverlap="true"
+                    app:cardElevation="1dp">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingRight="10dp">
+                        <EditText
+                            android:id="@+id/et_search_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_centerVertical="true"
+                            android:hint="请输入要搜索的课程名称"
+                            android:textColor="#d0d1d0"
+                            android:singleLine="true"
+                            android:imeOptions="actionSend"
+                            android:maxLines="1"
+                            android:ellipsize="end"
+                            android:layout_toLeftOf="@+id/iv_search_ok"
+                            android:textSize="15sp"
+                            android:background="@null"
+                            android:paddingLeft="20dp"/>
+
+                        <ImageView
+                            android:id="@+id/iv_search_ok"
+                            android:layout_width="35dp"
+                            android:layout_margin="@dimen/global_default_margin_size"
+                            android:src="@drawable/searchicon"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_height="35dp" />
+                    </RelativeLayout>
+                </android.support.v7.widget.CardView>
+            </LinearLayout>
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refresh_search"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_search"
+            android:layout_marginTop="@dimen/global_default_margin_size"
+            android:layout_marginHorizontal="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+</LinearLayout>

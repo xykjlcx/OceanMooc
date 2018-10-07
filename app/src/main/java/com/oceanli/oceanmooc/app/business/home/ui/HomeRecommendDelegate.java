@@ -306,7 +306,8 @@ public class HomeRecommendDelegate extends OceanDelegate {
                     if (dataCount > 0) IS_BOTTOM = false;
                     if (isFirst) mRecommendData.clear();
                     if (!IS_BOTTOM) {
-                        for (int i = 0; i < courseVoModel.getData().size(); i++) {/*                                    if (isFirst){ mRecommendData.set(i,recommendCourseModel.getData().get(i)); }else { mRecommendData.add(recommendCourseModel.getData().get(i)); }*/
+                        for (int i = 0; i < courseVoModel.getData().size(); i++) {
+                            /*                                    if (isFirst){ mRecommendData.set(i,recommendCourseModel.getData().get(i)); }else { mRecommendData.add(recommendCourseModel.getData().get(i)); }*/
                             mRecommendData.add(courseVoModel.getData().get(i));
                         }
                         mRecommendRecyclerViewAdapter.notifyDataSetChanged();

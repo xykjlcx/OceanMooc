@@ -80,6 +80,8 @@ public class CourseParticularsDelegate extends OceanDelegate {
     Button startStudyBtn;
     @BindView(R.id.nested_scroll_particular_no_study_layout)
     NestedScrollView noStudyLayout;
+    @BindView(R.id.tv_course_particulars_study_count)
+    TextView studyCountTv;
 
     private boolean isCollected = false;
     private NetUserModel.DataBean userDataBean;
@@ -176,11 +178,34 @@ public class CourseParticularsDelegate extends OceanDelegate {
                         int code = jsonObject.getInt("code");
                         if (code == OmConstant.SUCCESS_CODE){
                             OmUtil.toastSuccess(_mActivity,"开始学习吧");
+                            // 更细学习该课程的人数
+                            requestStudyCount(courseId);
                             showParticulars();
                             // 发送event，让我的课程更新
                             EventBus.getDefault().post(new OceanMessageEvent("studyNewCourse"));
                         }else {
                             OmUtil.toastError(_mActivity,"休想学习");
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                })
+                .build()
+                .post();
+    }
+
+    public void requestStudyCount(int courseId){
+        RestClient.builder()
+                .url(OmConstant.BASE_URL + OmConstant.REQUEST_URL_POST_QUERY_STUDY_COUNT)
+                .params("courseId",courseId)
+                .success(response -> {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        if (jsonObject.getInt("code") == OmConstant.SUCCESS_CODE){
+                            int studyCount = jsonObject.getInt("data");
+                            studyCountTv.setText(studyCount + "人学过");
+                        }else {
+                            studyCountTv.setText(receiveCourseData.getCount() + "人学过");
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -233,8 +258,12 @@ public class CourseParticularsDelegate extends OceanDelegate {
         // 判断是否学习/收藏过该课程
         if (userDataBean != null
                 && receiveCourseData != null) {
+            // 判断是否学习过该课程
             requestIsStudiedCourse(userDataBean.getId(),receiveCourseData.getId());
+            // 判断是否收藏过该课程
             requestIsCollected(userDataBean.getId(),receiveCourseData.getId());
+            // 获取学习人数
+            requestStudyCount(receiveCourseData.getId());
         }
     }
 
@@ -253,6 +282,7 @@ public class CourseParticularsDelegate extends OceanDelegate {
                 courseNameTv.setText(receiveCourseData.getCourseName());
                 coursePriceTv.setText("$" + receiveCourseData.getPrice());
                 courseDescTv.setText(receiveCourseData.getCourseDesc());
+                studyCountTv.setText(receiveCourseData.getCount() + "人学过");
                 setVideoSource(receiveCourseData.getVideoUrl(), receiveCourseData.getCourseName()
                         , receiveCourseData.getImgUrl());
             }

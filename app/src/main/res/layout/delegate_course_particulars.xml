@@ -98,6 +98,7 @@
                     app:layout_scrollFlags="scroll" />
 
                 <TextView
+                    android:id="@+id/tv_course_particulars_study_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"

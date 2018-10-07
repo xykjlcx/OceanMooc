@@ -25,14 +25,12 @@ public class RecommendRecyclerViewAdapter extends BaseQuickAdapter<CourseVoModel
         super(layoutResId, data);
     }
 
-    private Random random = new Random();
-
     @Override
     protected void convert(BaseViewHolder helper, CourseVoModel.DataBean item) {
         helper.setText(R.id.tv_recommend_title,item.getCourseName())
                 .setText(R.id.tv_recommend_content,item.getCourseDesc())
                 .setText(R.id.tv_recommend_price,"￥" + item.getPrice())
-                .setText(R.id.tv_recommend_study_count,random.nextInt(200) + "人学过");
+                .setText(R.id.tv_recommend_study_count,item.getCount() + "人学过");
         Glide.with(mContext)
                 .load(item.getImgUrl() + OmConstant.IMG_COMPRESS_URL)
                 .centerCrop()
