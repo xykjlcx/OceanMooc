@@ -115,13 +115,16 @@ public class CourseParticularsDelegate extends OceanDelegate {
                         JSONObject jsonObject = new JSONObject(response);
                         if (jsonObject.getInt("code") == OmConstant.SUCCESS_CODE){
                             isCollected = jsonObject.getBoolean("data");
+                            // 判断是否收藏后，点亮图标
+                            if (isCollected){
+                                collectImg.setImageResource(R.mipmap.shoucanged);
+                            }else {
+                                collectImg.setImageResource(R.mipmap.shoucang);
+                            }
                         }else {
                             // 判断失败
-                        }
-                        if (isCollected){
-                            collectImg.setImageResource(R.mipmap.shoucanged);
-                        }else {
-                            collectImg.setImageResource(R.mipmap.shoucang);
+                            OmUtil.toastError(_mActivity,jsonObject.getString("msg"));
+                            pop();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -419,6 +422,7 @@ public class CourseParticularsDelegate extends OceanDelegate {
                             }
                         }else {
                             // 查询是否学习该课程失败
+                            //OmUtil.toastError(_mActivity,jsonObject.getString("msg"));
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -194,6 +195,13 @@ public class HomeMyCourseDelagate extends OceanDelegate {
     public void onMessageEvent(OceanMessageEvent event) {
         if (event.getMsg().equals("studyNewCourse")){
             if (userDataBean != null){
+                setMyCourseRecyclerData(userDataBean.getId());
+            }
+        }else if (event.getMsg().equals("updateUserInfo")){
+            userDataBean = OmUtil.getCacheUserInfo();
+            if (userDataBean == null){
+                isShow(false);
+            }else {
                 setMyCourseRecyclerData(userDataBean.getId());
             }
         }
