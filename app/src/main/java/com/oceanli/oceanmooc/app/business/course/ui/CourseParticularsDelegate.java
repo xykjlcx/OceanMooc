@@ -341,7 +341,7 @@ public class CourseParticularsDelegate extends OceanDelegate {
     private void initGSYVideoView() {/*增加title*/
         standardGSYVideoPlayer.getTitleTextView().setVisibility(View.VISIBLE);/*
         standardGSYVideoPlayer.getTitleTextView().setPadding(20, 60, 0, 0);/*设置旋转*/
-        orientationUtils = new OrientationUtils(_mActivity, standardGSYVideoPlayer); /* 设置全屏按键功能*/
+//        orientationUtils = new OrientationUtils(_mActivity, standardGSYVideoPlayer); /* 设置全屏按键功能*/
         standardGSYVideoPlayer.getFullscreenButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

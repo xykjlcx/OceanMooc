@@ -46,7 +46,7 @@ public class LoginDelegate extends OceanDelegate {
     @BindView(R.id.iv_login_head_img)
     ImageView headImg;
 
-    private static final Integer DEF_HEAD_IMG_URL = R.mipmap.ic_launcher;
+    private static final Integer DEF_HEAD_IMG_URL = R.drawable.omicon;
 
     @OnClick(R.id.iv_login_cancel)
     public void loginCancleOnClick(){

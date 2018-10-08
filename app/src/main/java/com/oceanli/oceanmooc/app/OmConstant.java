@@ -5,7 +5,7 @@ package com.oceanli.oceanmooc.app;
  */ /* 配置相关参数、常量...*/ public class OmConstant {
     public static final Integer SUCCESS_CODE = 0;
     public static final Integer ERROR_CODE = -1;
-    public static final String BASE_URL = "http://10.16.216.47:8088";
+    public static final String BASE_URL = "http://139.199.212.202:8088";
     public static final String REQUEST_URL_GET_BANNER = "/home/getBannerData";
     public static final String REQUEST_URL_GET_NOTICES = "/home/getNotice";
     public static final String REQUEST_URL_GET_CHOICENESS = "/home/getRecommendCourse";

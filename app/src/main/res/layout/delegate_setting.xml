@@ -45,7 +45,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="15dp"
                 android:layout_alignParentLeft="true"
-                android:src="@mipmap/setting"/>
+                android:src="@mipmap/modifyinfo"/>
 
             <TextView
                 android:id="@+id/tv_setting_info_one"
@@ -84,7 +84,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="15dp"
                 android:layout_alignParentLeft="true"
-                android:src="@mipmap/studying"/>
+                android:src="@mipmap/modifypwd"/>
 
             <TextView
                 android:id="@+id/tv_setting_info_two"
@@ -123,7 +123,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="15dp"
                 android:layout_alignParentLeft="true"
-                android:src="@mipmap/comment"/>
+                android:src="@mipmap/about1"/>
 
             <TextView
                 android:id="@+id/tv_setting_info_three"
@@ -162,7 +162,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="15dp"
                 android:layout_alignParentLeft="true"
-                android:src="@mipmap/mooctt"/>
+                android:src="@mipmap/version"/>
 
             <TextView
                 android:id="@+id/tv_setting_info_four"
