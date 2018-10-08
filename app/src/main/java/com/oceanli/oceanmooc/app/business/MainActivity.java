@@ -21,7 +21,7 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator;
 public class MainActivity extends ProxyActivity {
     @Override
     public OceanDelegate setRootDelegate() {
-        return MainDelegate.newInstance();
+        return LaunchDelegate.newInstance();
     }
 
     @Override

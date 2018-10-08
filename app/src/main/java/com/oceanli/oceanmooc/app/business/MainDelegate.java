@@ -61,10 +61,8 @@ public class MainDelegate extends OceanDelegate {
         initView(rootView);
     }
 
-
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onEnterAnimationEnd(Bundle savedInstanceState) {
         SupportFragment homeDelagate = findChildFragment(HomeDelagate.class);
         if (homeDelagate == null) {
             mFragments[HOME] = HomeDelagate.newInstance();
@@ -76,6 +74,22 @@ public class MainDelegate extends OceanDelegate {
             mFragments[COURSE] = findChildFragment(CourseDelegate.class);
             mFragments[USER] = findChildFragment(UserDelegate.class);
         }
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+//        SupportFragment homeDelagate = findChildFragment(HomeDelagate.class);
+//        if (homeDelagate == null) {
+//            mFragments[HOME] = HomeDelagate.newInstance();
+//            mFragments[COURSE] = CourseDelegate.newInstance();
+//            mFragments[USER] = UserDelegate.newInstance();
+//            loadMultipleRootFragment(R.id.layout_main_container, HOME, mFragments[HOME], mFragments[COURSE], mFragments[USER]);
+//        } else {/** 如果存在，直接拿引用 */
+//            mFragments[HOME] = homeDelagate;
+//            mFragments[COURSE] = findChildFragment(CourseDelegate.class);
+//            mFragments[USER] = findChildFragment(UserDelegate.class);
+//        }
     }
 
     public void initView(View rootView) {
