@@ -8,6 +8,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.oceanli.oceanmooc.app.R;
 import com.oceanli.oceanmooc.app.business.course.models.SectionCommentModel;
+import com.oceanli.oceanmooc.app.other.GlideCircleTransform;
 
 import java.util.List;
 
@@ -30,6 +31,8 @@ public class CourseSectionCommentRecyclerViewAdapter extends BaseQuickAdapter<Se
         Glide.with(mContext)
                 .load(item.getHeadImgUrl())
                 .centerCrop()
+                .dontAnimate()
+                .transform(new GlideCircleTransform(mContext))
                 .into((ImageView) helper.getView(R.id.iv_comment_head));
     }
 }

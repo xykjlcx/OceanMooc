@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.gyf.barlibrary.ImmersionBar;
 import com.oceanli.ocean.core.delegates.OceanDelegate;
 import com.oceanli.ocean.core.event.OceanMessageEvent;
 import com.oceanli.ocean.core.net.RestClient;
@@ -18,6 +19,7 @@ import com.oceanli.oceanmooc.app.OmConstant;
 import com.oceanli.oceanmooc.app.R;
 import com.oceanli.oceanmooc.app.business.MainDelegate;
 import com.oceanli.oceanmooc.app.business.user.models.NetUserModel;
+import com.oceanli.oceanmooc.app.other.GlideCircleTransform;
 import com.oceanli.oceanmooc.app.other.utils.OmUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
@@ -122,7 +124,7 @@ public class UserDelegate extends OceanDelegate {
     }
 
     public void initView(View rootView) {
-        mImmersionBar.setStatusBarView(_mActivity, view);
+        ImmersionBar.setStatusBarView(_mActivity, view);
         initRefresh();
     }
 
@@ -167,6 +169,7 @@ public class UserDelegate extends OceanDelegate {
                     .load(userDataBean.getHeadImg())
                     .centerCrop()
                     .dontAnimate()
+                    .transform(new GlideCircleTransform(_mActivity))
                     .into(headIv);
             signatureTv.setText(userDataBean.getSignature());
             userNameTv.setText(userDataBean.getAccount());
