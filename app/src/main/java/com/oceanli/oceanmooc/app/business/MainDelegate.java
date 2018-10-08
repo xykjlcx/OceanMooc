@@ -63,6 +63,10 @@ public class MainDelegate extends OceanDelegate {
 
     @Override
     public void onEnterAnimationEnd(Bundle savedInstanceState) {
+      init();
+    }
+
+    public void init(){
         SupportFragment homeDelagate = findChildFragment(HomeDelagate.class);
         if (homeDelagate == null) {
             mFragments[HOME] = HomeDelagate.newInstance();
@@ -73,6 +77,13 @@ public class MainDelegate extends OceanDelegate {
             mFragments[HOME] = homeDelagate;
             mFragments[COURSE] = findChildFragment(CourseDelegate.class);
             mFragments[USER] = findChildFragment(UserDelegate.class);
+        }
+    }
+
+    @Override
+    public void onMessageEvent(OceanMessageEvent event) {
+        if (event.getMsg().equals("inited")){
+            init();
         }
     }
 

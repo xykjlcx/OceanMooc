@@ -6,7 +6,7 @@ package com.oceanli.ocean.core.app;
  * Email  :  348686686@qq.com
  */
 public enum ConfigType {
-    API_HOST,                           // 全局url前缀
+    API_HOST,                           // &#x5168;&#x5c40;url&#x524d;&#x7f00;
     APPLICATION_CONTEXT,                // 全局context
     CONFIG_READY,                       // 是否配置完成
     ICON,                               // icon

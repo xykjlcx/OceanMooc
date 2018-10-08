@@ -8,6 +8,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.gyf.barlibrary.ImmersionBar;
 import com.oceanli.ocean.core.delegates.OceanDelegate;
 import com.oceanli.ocean.core.event.OceanMessageEvent;
 import com.oceanli.ocean.core.net.RestClient;
@@ -15,6 +17,7 @@ import com.oceanli.ocean.core.util.storage.OceanPreferences;
 import com.oceanli.oceanmooc.app.OmConstant;
 import com.oceanli.oceanmooc.app.R;
 import com.oceanli.oceanmooc.app.business.user.models.NetUserModel;
+import com.oceanli.oceanmooc.app.other.GlideCircleTransform;
 import com.oceanli.oceanmooc.app.other.utils.OmUtil;
 import com.orhanobut.logger.Logger;
 
@@ -40,6 +43,10 @@ public class LoginDelegate extends OceanDelegate {
     TextView forgetTv;
     @BindView(R.id.iv_login_cancel)
     ImageView cancleImg;
+    @BindView(R.id.iv_login_head_img)
+    ImageView headImg;
+
+    private static final Integer DEF_HEAD_IMG_URL = R.mipmap.ic_launcher;
 
     @OnClick(R.id.iv_login_cancel)
     public void loginCancleOnClick(){
@@ -104,8 +111,15 @@ public class LoginDelegate extends OceanDelegate {
 
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
-        mImmersionBar.setStatusBarView(_mActivity, rootView.findViewById(R.id.view_login_fill));
+        ImmersionBar.setStatusBarView(_mActivity, rootView.findViewById(R.id.view_login_fill));
         handleReceiverData();
+        // 加载默认图标
+        Glide.with(_mActivity)
+                .load(DEF_HEAD_IMG_URL)
+                .centerCrop()
+                .dontAnimate()
+                .transform(new GlideCircleTransform(_mActivity))
+                .into(headImg);
     }
 
     public void handleReceiverData(){

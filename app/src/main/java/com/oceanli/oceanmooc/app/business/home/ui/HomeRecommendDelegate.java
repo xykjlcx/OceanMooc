@@ -327,4 +327,56 @@ public class HomeRecommendDelegate extends OceanDelegate {
     }
 
 
+    /**
+     * 处理重影问题 。。。。。
+     * 然并卵
+     * @param hidden
+     */
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        // true 为不可见
+        // false 为可见
+        if (hidden){
+            if (!modelMarqueeView.isFlipping()){
+                Logger.e("marquee:" + "onHiddenChanged  startFlipping , hidden: " + hidden);
+                modelMarqueeView.startFlipping();
+            }
+        }else {
+            if (modelMarqueeView.isFlipping()){
+                Logger.e("marquee:" + "onHiddenChanged  stopFlipping , hidden: " + hidden);
+                modelMarqueeView.stopFlipping();
+            }
+        }
+    }
+
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        Logger.e("marquee:" + "onStart  startFlipping ");
+//        if (!modelMarqueeView.isFlipping()){
+//            Logger.e("marquee:" + "onStart  startFlipping ");
+//            modelMarqueeView.startFlipping();
+//        }
+//    }
+//
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        Logger.e("marquee:" + " onResume");
+//    }
+//
+//    @Override
+//    public void onPause() {
+//        super.onPause();
+//        Logger.e("marquee:" + " onPause");
+//    }
+//
+//    //
+//    @Override
+//    public void onStop() {
+//        super.onStop();
+//        Logger.e("marquee:" + "onStop  stopFlipping ");
+//
+//    }
 }

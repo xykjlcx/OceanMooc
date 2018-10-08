@@ -82,7 +82,6 @@ public class CourseParticularsDelegate extends OceanDelegate {
     NestedScrollView noStudyLayout;
     @BindView(R.id.tv_course_particulars_study_count)
     TextView studyCountTv;
-
     private boolean isCollected = false;
     private NetUserModel.DataBean userDataBean;
 
@@ -93,144 +92,109 @@ public class CourseParticularsDelegate extends OceanDelegate {
 
     @OnClick(R.id.iv_course_particulars_collect)
     public void collectonClick(View view) {
-        if (userDataBean != null){
-            requestAddCollect(userDataBean.getId(),receiveCourseData.getId());
-        }
+        if (userDataBean != null)
+            requestAddCollect(userDataBean.getId(), receiveCourseData.getId());
     }
 
-
     /**
-     * particulars和comment各存在一个DEF_SECTION_ID变量，初始值为-1
-     * 当接收到eventbus的章节点击事件后，更新该值
+     * particulars和comment各存在一个DEF_SECTION_ID变量，初始值为-1 当接收到eventbus的章节点击事件后，更新该值
      */
     public Integer DEF_SECTION_ID = -1;
 
-    public void requestIsCollected(int userId,int courseId){
-        RestClient.builder()
-                .url(OmConstant.BASE_URL + OmConstant.REQUEST_URL_POST_IS_COLLECT)
-                .params("userId",userId)
-                .params("courseId",courseId)
-                .success(response -> {
-                    try {
-                        JSONObject jsonObject = new JSONObject(response);
-                        if (jsonObject.getInt("code") == OmConstant.SUCCESS_CODE){
-                            isCollected = jsonObject.getBoolean("data");
-                            // 判断是否收藏后，点亮图标
-                            if (isCollected){
-                                collectImg.setImageResource(R.mipmap.shoucanged);
-                            }else {
-                                collectImg.setImageResource(R.mipmap.shoucang);
-                            }
-                        }else {
-                            // 判断失败
-                            OmUtil.toastError(_mActivity,jsonObject.getString("msg"));
-                            pop();
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+    public void requestIsCollected(int userId, int courseId) {
+        RestClient.builder().url(OmConstant.BASE_URL + OmConstant.REQUEST_URL_POST_IS_COLLECT)
+                .params("userId", userId).params("courseId", courseId).success(response -> {
+            try {
+                JSONObject jsonObject = new JSONObject(response);
+                if (jsonObject.getInt("code") == OmConstant.SUCCESS_CODE) {
+                    isCollected = jsonObject.getBoolean("data");/* 判断是否收藏后，点亮图标*/
+                    if (isCollected) {
+                        collectImg.setImageResource(R.mipmap.shoucanged);
+                    } else {
+                        collectImg.setImageResource(R.mipmap.shoucang);
                     }
-                })
-                .build()
-                .post();
-    }
+                } else {/* 判断失败*/
+                    OmUtil.toastError(_mActivity, jsonObject.getString("msg"));
+                    pop();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }).build().post();
+    }/* 添加课程收藏*/
 
-
-    // 添加课程收藏
-    public void requestAddCollect(int userId,int courseId){
-        RestClient.builder()
-                .url(OmConstant.BASE_URL + OmConstant.REQUEST_URL_POST_ADD_COLLECT_COURSE)
-                .loader(_mActivity)
-                .params("userId",userId)
-                .params("courseId",courseId)
-                .success(response -> {
-                    try {
-                        JSONObject jsonObject = new JSONObject(response);
-                        if (jsonObject.getInt("code") == OmConstant.SUCCESS_CODE){
-                            goodView.setImage(R.mipmap.shoucanged);
-                            goodView.show(collectImg);
-                            collectImg.setImageResource(R.mipmap.shoucanged);
-                            OmUtil.toastSuccess(_mActivity,jsonObject.getString("msg"));
-                        }else {
-//                            goodView.dismiss();
-//                            collectImg.setImageResource(R.mipmap.shoucang);
-                            OmUtil.toastError(_mActivity,jsonObject.getString("msg"));
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                })
-                .build()
-                .post();
+    public void requestAddCollect(int userId, int courseId) {
+        RestClient.builder().url(OmConstant.BASE_URL + OmConstant
+                .REQUEST_URL_POST_ADD_COLLECT_COURSE).loader(_mActivity).params("userId", userId)
+                .params("courseId", courseId).success(response -> {
+            try {
+                JSONObject jsonObject = new JSONObject(response);
+                if (jsonObject.getInt("code") == OmConstant.SUCCESS_CODE) {
+                    goodView.setImage(R.mipmap.shoucanged);
+                    goodView.show(collectImg);
+                    collectImg.setImageResource(R.mipmap.shoucanged);
+                    OmUtil.toastSuccess(_mActivity, jsonObject.getString("msg"));
+                } else {/*                            goodView.dismiss(); collectImg
+                .setImageResource(R.mipmap.shoucang);*/
+                    OmUtil.toastError(_mActivity, jsonObject.getString("msg"));
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }).build().post();
     }
 
     @OnClick(R.id.btn_particular_start_study)
     public void startStudyBtnOnClick(View view) {/* todo 网络请求接口，学习该课程*/
-        if (userDataBean != null
-                && receiveCourseData != null){
-            requestNetStudyCourse(userDataBean.getId(),receiveCourseData.getId());
+        if (userDataBean != null && receiveCourseData != null) {
+            requestNetStudyCourse(userDataBean.getId(), receiveCourseData.getId());
         }
     }
 
     /**
-     * 用户学习新课程
-     * @param userId
-     * @param courseId
+     * 用户学习新课程 @param userId @param courseId
      */
-    public void requestNetStudyCourse(int userId,int courseId){
-        RestClient.builder()
-                .url(OmConstant.BASE_URL + OmConstant.REQUEST_URL_POST_STUDY_COURSE)
-                .loader(_mActivity)
-                .params("userId",userId)
-                .params("courseId",courseId)
-                .params("sectionId",DEF_SECTION_ID)
-                .success(response -> {
-                    try {
-                        JSONObject jsonObject = new JSONObject(response);
-                        int code = jsonObject.getInt("code");
-                        if (code == OmConstant.SUCCESS_CODE){
-                            OmUtil.toastSuccess(_mActivity,"开始学习吧");
-                            // 更细学习该课程的人数
-                            requestStudyCount(courseId);
-                            showParticulars();
-                            // 发送event，让我的课程更新
-                            EventBus.getDefault().post(new OceanMessageEvent("studyNewCourse"));
-                        }else {
-                           // OmUtil.toastError(_mActivity,"休想学习");
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                })
-                .build()
-                .post();
+    public void requestNetStudyCourse(int userId, int courseId) {
+        RestClient.builder().url(OmConstant.BASE_URL + OmConstant.REQUEST_URL_POST_STUDY_COURSE)
+                .loader(_mActivity).params("userId", userId).params("courseId", courseId).params
+                ("sectionId", DEF_SECTION_ID).success(response -> {
+            try {
+                JSONObject jsonObject = new JSONObject(response);
+                int code = jsonObject.getInt("code");
+                if (code == OmConstant.SUCCESS_CODE) {
+                    OmUtil.toastSuccess(_mActivity, "开始学习吧");/* 更细学习该课程的人数*/
+                    requestStudyCount(courseId);
+                    showParticulars();/* 发送event，让我的课程更新*/
+                    EventBus.getDefault().post(new OceanMessageEvent("studyNewCourse"));
+                } else{
+                    /* OmUtil.toastError(_mActivity,"休想学习");*/
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }).build().post();
     }
 
     /**
-     * 获取该课程的学习人数
-     * @param courseId
+     * 获取该课程的学习人数 @param courseId
      */
-    public void requestStudyCount(int courseId){
-        RestClient.builder()
-                .url(OmConstant.BASE_URL + OmConstant.REQUEST_URL_POST_QUERY_STUDY_COUNT)
-                .params("courseId",courseId)
-                .success(response -> {
-                    try {
-                        JSONObject jsonObject = new JSONObject(response);
-                        if (jsonObject.getInt("code") == OmConstant.SUCCESS_CODE){
-                            int studyCount = jsonObject.getInt("data");
-                            studyCountTv.setText(studyCount + "人学过");
-                        }else {
-                            studyCountTv.setText(receiveCourseData.getCount() + "人学过");
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                })
-                .build()
-                .post();
+    public void requestStudyCount(int courseId) {
+        RestClient.builder().url(OmConstant.BASE_URL + OmConstant
+                .REQUEST_URL_POST_QUERY_STUDY_COUNT).params("courseId", courseId).success
+                (response -> {
+            try {
+                JSONObject jsonObject = new JSONObject(response);
+                if (jsonObject.getInt("code") == OmConstant.SUCCESS_CODE) {
+                    int studyCount = jsonObject.getInt("data");
+                    studyCountTv.setText(studyCount + "人学过");
+                } else studyCountTv.setText(receiveCourseData.getCount() + "人学过");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }).build().post();
     }
 
-    public void showParticulars(){
+    public void showParticulars() {
         magicIndicator.setVisibility(View.VISIBLE);
         mViewPager.setVisibility(View.VISIBLE);
         noStudyLayout.setVisibility(View.GONE);
@@ -267,17 +231,11 @@ public class CourseParticularsDelegate extends OceanDelegate {
     }
 
     @Override
-    public void onEnterAnimationEnd(Bundle savedInstanceState) {
-        /* 动画加载完成后，渲染ui*/
-        initData();
-        // 判断是否学习/收藏过该课程
-        if (userDataBean != null
-                && receiveCourseData != null) {
-            // 判断是否学习过该课程
-            requestIsStudiedCourse(userDataBean.getId(),receiveCourseData.getId());
-            // 判断是否收藏过该课程
-            requestIsCollected(userDataBean.getId(),receiveCourseData.getId());
-            // 获取学习人数
+    public void onEnterAnimationEnd(Bundle savedInstanceState) { /* 动画加载完成后，渲染ui*/
+        initData();/* 判断是否学习/收藏过该课程*/
+        if (userDataBean != null && receiveCourseData != null) {/* 判断是否学习过该课程*/
+            requestIsStudiedCourse(userDataBean.getId(), receiveCourseData.getId());/* 判断是否收藏过该课程*/
+            requestIsCollected(userDataBean.getId(), receiveCourseData.getId());/* 获取学习人数*/
             requestStudyCount(receiveCourseData.getId());
         }
     }
@@ -314,8 +272,8 @@ public class CourseParticularsDelegate extends OceanDelegate {
 
     public void initData() {/* 处理接收bundle接收的数据*/
         handleInitData();
-        if (userDataBean != null){
-            requestIsStudiedCourse(userDataBean.getId(),receiveCourseData.getId());
+        if (userDataBean != null) {
+            requestIsStudiedCourse(userDataBean.getId(), receiveCourseData.getId());
         }
         final SupportFragment[] mFragments = new SupportFragment[3];
         Bundle args = new Bundle();
@@ -381,9 +339,9 @@ public class CourseParticularsDelegate extends OceanDelegate {
     }
 
     private void initGSYVideoView() {/*增加title*/
-        standardGSYVideoPlayer.getTitleTextView().setVisibility(View.VISIBLE);
-        standardGSYVideoPlayer.getTitleTextView().setPadding(20, 60, 0, 0);/*设置旋转
-        orientationUtils = new OrientationUtils(_mActivity, standardGSYVideoPlayer); 设置全屏按键功能*/
+        standardGSYVideoPlayer.getTitleTextView().setVisibility(View.VISIBLE);/*
+        standardGSYVideoPlayer.getTitleTextView().setPadding(20, 60, 0, 0);/*设置旋转*/
+        orientationUtils = new OrientationUtils(_mActivity, standardGSYVideoPlayer); /* 设置全屏按键功能*/
         standardGSYVideoPlayer.getFullscreenButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -404,49 +362,34 @@ public class CourseParticularsDelegate extends OceanDelegate {
         standardGSYVideoPlayer.setUp(videoUrl, true, videoTitle);
     }
 
-    public void requestIsStudiedCourse(int userId,int courseId){
-        RestClient.builder()
-                .url(OmConstant.BASE_URL + OmConstant.REQUEST_URL_POST_IS_STUDIED)
-                .params("userId",userId)
-                .params("courseId",courseId)
-                .success(response -> {
-                    try {
-                        JSONObject jsonObject = new JSONObject(response);
-                        if (jsonObject.getInt("code") == OmConstant.SUCCESS_CODE){
-                            boolean isStudied = jsonObject.getBoolean("data");
-                            if (isStudied){
-                                showParticulars();
-                            }else {
-                                // 没学习过
-                                noStudyLayout.setVisibility(View.VISIBLE);
-                            }
-                        }else {
-                            // 查询是否学习该课程失败
-                            //OmUtil.toastError(_mActivity,jsonObject.getString("msg"));
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+    public void requestIsStudiedCourse(int userId, int courseId) {
+        RestClient.builder().url(OmConstant.BASE_URL + OmConstant.REQUEST_URL_POST_IS_STUDIED).params("userId", userId).params("courseId", courseId).success(response -> {
+            try {
+                JSONObject jsonObject = new JSONObject(response);
+                if (jsonObject.getInt("code") == OmConstant.SUCCESS_CODE) {
+                    boolean isStudied = jsonObject.getBoolean("data");
+                    if (isStudied) {
+                        showParticulars();
+                    } else {/* 没学习过*/
+                        noStudyLayout.setVisibility(View.VISIBLE);
                     }
-                })
-                .loader(_mActivity)
-                .build()
-                .post();
+                } else {/* 查询是否学习该课程失败 OmUtil.toastError(_mActivity,jsonObject.getString("msg"));*/}
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }).loader(_mActivity).build().post();
     }
 
     @Override
     public void onMessageEvent(OceanMessageEvent event) {
         super.onMessageEvent(event);
-        if (event.getMsg().equals("skipSection")){
-            // 接收章节被点击事件
-            SectionChildModel sectionChildModel = ((SectionChildModel)event.getData());
-            if (sectionChildModel != null
-                    && receiveCourseData != null){
+        if (event.getMsg().equals("skipSection")) {/* 接收章节被点击事件*/
+            SectionChildModel sectionChildModel = ((SectionChildModel) event.getData());
+            if (sectionChildModel != null && receiveCourseData != null) {
                 DEF_SECTION_ID = sectionChildModel.getId();
                 setVideoSource(sectionChildModel.getVideoUrl(), sectionChildModel.getSectionName(), receiveCourseData.getImgUrl());
-                if (userDataBean != null
-                        && receiveCourseData != null){
-                    // 更新章节后，重新更新服务器的学习记录
-                    requestNetStudyCourse(userDataBean.getId(),receiveCourseData.getId());
+                if (userDataBean != null && receiveCourseData != null) {/* 更新章节后，重新更新服务器的学习记录*/
+                    requestNetStudyCourse(userDataBean.getId(), receiveCourseData.getId());
                 }
             }
         }
@@ -468,7 +411,9 @@ public class CourseParticularsDelegate extends OceanDelegate {
     public void onDestroy() {
         super.onDestroy();
         GSYVideoManager.releaseAllVideos();
-        if (orientationUtils != null) orientationUtils.releaseListener();
+        if (orientationUtils != null) {
+            orientationUtils.releaseListener();
+        }
     }
 
     @Override
