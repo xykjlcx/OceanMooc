@@ -35,6 +35,8 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -170,6 +172,13 @@ public class HomeMyCourseDelagate extends OceanDelegate {
                     if (myCourseModel.getCode() == OmConstant.SUCCESS_CODE){
                         isShow(true);
                         List<MyCourseModel.DataBean> dataBeanList = myCourseModel.getData();
+
+                        // 得到我的课程数量，发送event通知个人中心变更我的学习课程数
+                        OceanMessageEvent event = new OceanMessageEvent();
+                        event.setMsg("updateMyCourse");
+                        event.setData(dataBeanList.size());
+                        EventBus.getDefault().post(event);
+
                         latelyCourseNameTv.setText(dataBeanList.get(0).getCourseVo().getCourseName());
                         latelyLasteTimeTv.setText("最后学习时间： " + dataBeanList.get(0).getLastStudyTime());
                         // 获取第一个课程(最近一次学习)

@@ -195,7 +195,7 @@ public class CourseParticularsDelegate extends OceanDelegate {
                             // 发送event，让我的课程更新
                             EventBus.getDefault().post(new OceanMessageEvent("studyNewCourse"));
                         }else {
-                            OmUtil.toastError(_mActivity,"休想学习");
+                           // OmUtil.toastError(_mActivity,"休想学习");
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -443,9 +443,9 @@ public class CourseParticularsDelegate extends OceanDelegate {
                     && receiveCourseData != null){
                 DEF_SECTION_ID = sectionChildModel.getId();
                 setVideoSource(sectionChildModel.getVideoUrl(), sectionChildModel.getSectionName(), receiveCourseData.getImgUrl());
-                // 更新章节后，重新更新服务器的学习记录
                 if (userDataBean != null
                         && receiveCourseData != null){
+                    // 更新章节后，重新更新服务器的学习记录
                     requestNetStudyCourse(userDataBean.getId(),receiveCourseData.getId());
                 }
             }

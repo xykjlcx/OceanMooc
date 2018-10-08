@@ -124,7 +124,7 @@
                             android:id="@+id/tv_user_fans_count"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="19"
+                            android:text="999"
                             android:layout_centerHorizontal="true"
                             android:textSize="18sp"/>
 
@@ -148,7 +148,7 @@
                             android:id="@+id/tv_user_attention_count"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="8"
+                            android:text="888"
                             android:layout_centerHorizontal="true"
                             android:textSize="18sp"/>
 

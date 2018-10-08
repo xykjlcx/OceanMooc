@@ -48,6 +48,8 @@ public class UserDelegate extends OceanDelegate {
     RelativeLayout skipCollect;
     @BindView(R.id.layout_user_skip_setting)
     RelativeLayout skipSetting;
+    @BindView(R.id.tv_user_study_course_count)
+    TextView userStudyCount;
 
     /**
      * 跳转我的收藏页
@@ -88,6 +90,10 @@ public class UserDelegate extends OceanDelegate {
         if (event.getMsg().equals("updateUserInfo")){
             userDataBean = OmUtil.getCacheUserInfo();
             getCacheUserInfoUpdateUI();
+        }else if (event.getMsg().equals("updateMyCourse")){
+            // 我的课程数据更新
+            int count = (int) event.getData();
+            userStudyCount.setText("" + count);
         }
     }
 
