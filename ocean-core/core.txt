@@ -1,0 +1,33 @@
+.
+├── build.gradle
+├── core.txt
+├── ocean-core.iml
+├── proguard-rules.pro
+└── src
+    └── main
+        ├── AndroidManifest.xml
+        ├── java
+        │   └── com
+        │       └── oceanli
+        │           └── ocean
+        │               └── core
+        │                   ├── activites
+        │                   ├── app
+        │                   ├── delegates
+        │                   ├── event
+        │                   ├── net
+        │                   ├── ui
+        │                   └── util
+        └── res
+            ├── drawable
+            │   ├── shaper_indicator_normal.xml
+            │   ├── shaper_indicator_selected.xml
+            │   └── shaper_launch_btn.xml
+            ├── layout
+            │   └── view_launch.xml
+            └── values
+                ├── ids.xml
+                ├── strings.xml
+                └── style.xml
+
+18 directories, 12 files
