@@ -2,6 +2,7 @@ package com.oceanli.oceanmooc.app.business.course.ui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -36,7 +37,7 @@ public class CourseSectionDelegate extends OceanDelegate {
     @BindView(R.id.recycler_course_section)
     RecyclerView mRecyclerView;
     @BindView(R.id.layout_course_section_empty)
-    RelativeLayout emptyLayout;
+    NestedScrollView emptyLayout;
 
     private CourseSectionExpandableAdapter mExpandableAdapter;
     private List<MultiItemEntity> mData;

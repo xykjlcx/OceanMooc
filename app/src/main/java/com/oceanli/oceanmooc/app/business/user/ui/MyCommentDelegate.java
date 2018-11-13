@@ -112,7 +112,7 @@ public class MyCommentDelegate extends OceanDelegate {
                             mData.add(dataBean);
                         });
                     }else {
-                        OmUtil.toastError(_mActivity,commentModel.getMsg());
+                        OmUtil.toastWarning(_mActivity,commentModel.getMsg());
                     }
                     mAdapter.notifyDataSetChanged();
                 })

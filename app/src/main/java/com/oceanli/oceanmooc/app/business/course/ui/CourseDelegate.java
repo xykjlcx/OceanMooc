@@ -192,7 +192,10 @@ public class CourseDelegate extends OceanDelegate {
                 }
                 if (dataCount < SIZE) IS_BOTTOM = true;
             }else {
-                OmUtil.toastError(_mActivity,"服务器开小差了...");
+                // 若分类下不存在课程，则重新刷新后 使用默认所有课程刷新UI
+                DEFAULT_CLASSIFY = 0;
+//                setCourseListData(true);
+                OmUtil.toastWarning(_mActivity,"该分类下没有课程");
             }
         }).build().post();
     }
