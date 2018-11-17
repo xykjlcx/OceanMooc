@@ -1,21 +1,18 @@
 # OceanMooc
 
-
 > 最好的植树时间是十年前，其次是现在
 
-
-#### 项目介绍
+## 项目介绍
 Ocean Mooc For Android项目为作者毕设项目集的Android客户端。  
 
-项目刚刚启动，计划于6月底完成基础库、及部分业务逻辑编写。
-
-#### 软件架构
+## 软件架构
 - `软件架构说明`
     - ocean-annotations 元注解库
     - ocean-compiler    编译时注解处理
     - ocean-core        公共核心/类库
     - ocean-mooc        业务Module(慕课)
 
+![image](http://oceanbucket.oss-cn-beijing.aliyuncs.com/3-4Android%E7%AB%AF%E6%9E%B6%E6%9E%84.png)
 
 - `开发环境`
     - JDK Version       (10.0.1)
@@ -58,77 +55,21 @@ Ocean Mooc For Android项目为作者毕设项目集的Android客户端。
         }
 
         ```
-    
-    
-- `Code实例`  
+        
+## 网络请求示例
 
-    框架全局入口: ocean-core Module--|Ocean
+![image](http://oceanbucket.oss-cn-beijing.aliyuncs.com/android-%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E7%A4%BA%E4%BE%8B.png)
     
-    ```
-    package com.oceanli.ocean.core.app;
-    
-    import android.content.Context;
-    
-    import java.util.HashMap;
-    import java.util.WeakHashMap;
-    
-    /**
-     * Created by ocean on 2018/6/19
-     * Author :  ocean
-     * Email  :  348686686@qq.com
-     */
-    public final class Ocean {
-    
-        public static Configurator init(Context context) {
-            getConfiguratorsMap().put(ConfigType.APPLICATION_CONTEXT.name(),context);
-            return Configurator.getInstance();
-        }
-    
-        private static Configurator getConfigurator() {
-            return Configurator.getInstance();
-        }
-    
-        private static HashMap<String,Object> getConfiguratorsMap() {
-            return getConfigurator().getOceanConfigs();
-        }
-    
-        public static Context getApplicationContext() {
-            return (Context) getConfiguratorsMap().get(ConfigType.APPLICATION_CONTEXT.name());
-        }
-    
-    }
+## 运行效果
 
-    ```
-    
-- `网络请求`
-    - ```
-        test_Btn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        RestClient.builder()
-                                .url("")
-                                .success(new ISuccess() {
-                                    @Override
-                                    public void onSuccess(String response) {
-                                        Toast.makeText(getContext(), "net success" + response, Toast.LENGTH_SHORT).show();
-                                        Log.e("ocean", "onSuccess: " + response);
-                                    }
-                                })
-                                .build()
-                                .get();
-                    }
-                });
+![image](http://oceanbucket.oss-cn-beijing.aliyuncs.com/app1.jpg)
+![image](http://oceanbucket.oss-cn-beijing.aliyuncs.com/app2.jpg)
+![image](http://oceanbucket.oss-cn-beijing.aliyuncs.com/app3.jpg)
+![image](http://oceanbucket.oss-cn-beijing.aliyuncs.com/app4.jpg)
+![image](http://oceanbucket.oss-cn-beijing.aliyuncs.com/app5.jpg)
+![image](http://oceanbucket.oss-cn-beijing.aliyuncs.com/app6.jpg)
 
-      ```
-#### 安装教程
-
-1. 项目完成后编写
-
-#### 使用说明
-
-1. 项目完成后编写
-
-#### 参与贡献
+## 参与贡献
 
 1. Fork 本项目
 2. 新建 Feat_xxx 分支
