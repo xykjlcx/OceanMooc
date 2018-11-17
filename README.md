@@ -75,3 +75,26 @@ Ocean Mooc For Android项目为作者毕设项目集的Android客户端。
 2. 新建 Feat_xxx 分支
 3. 提交代码
 4. 新建 Pull Request
+
+## 未来
+
+> 整个项目，从服务端、到Web端和Android端，包括作者整理、撰写论文，差不多一共用了一个半月。所以项目有很多不成熟的地方，代码写的也不够优雅，在2.0版本中，我们会解决这些问题，并新增一些功能。
+
+![image](http://oceanbucket.oss-cn-beijing.aliyuncs.com/%E9%A1%B9%E7%9B%AE%E8%AE%A1%E5%88%92%20%282%29.png)
+
+### 技术交流
+
+- QQ交流群***708261041***，加群后可以获得开发文档、毕设论文、疑问解答
+- 或者添加我的个人QQ：348686686，请注明来意
+
+### 商业授权
+
+- 本项目为开源项目，遵循MIT协议
+- 商用请联系作者授权。
+
+### 点滴支持，将是我不解的动力
+![image](https://raw.githubusercontent.com/xykjlcx/om-admin-vue/master/readme-img/pay-ali.jpg)
+
+---
+
+![image](https://raw.githubusercontent.com/xykjlcx/om-admin-vue/master/readme-img/pay-weixin.png)
